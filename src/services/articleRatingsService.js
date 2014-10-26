@@ -1,30 +1,28 @@
 ﻿(function (angular, module, undefined) {
     "use strict";
-    module.service("baasicArticleRatingsService", ["baasicApiHttp", "baasicArticleRatingsRouteService",
-        function (baasicApiHttp, baasicArticleRatingsRouteService) {
+    module.service("baasicArticleRatingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRatingsRouteService",
+        function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
-                find: function (params) {
-                    //TODO: Add article id to api params
-                    var apiParams = {
-                        page: params.pageNumber,
-                        rpp: params.pageSize,
-                        sort: params.orderBy ? params.orderBy + '|' + params.orderDirection : null,
-                        searchQuery: params.search
-                    };
-
-                    return baasicApiHttp.get(articleRatingsRouteService.find.expand(apiParams));
+				routeService: articleRatingsRouteService,
+				find: function (data) {
+                    return baasicApiHttp.get(articleRatingsRouteService.find.expand(baasicApiService.findParams(data)));
                 },
-                get: function (key) {
-                    return baasicApiHttp.get(articleRatingsRouteService.get.expand({ key: key }));
+				findByUser: function (data) {
+                    return baasicApiHttp.get(articleRatingsRouteService.findByUser.expand(baasicApiService.findParams(data)));
                 },
-                create: function (rating) {
-                    return baasicApiHttp.post(articleRatingsRouteService.create, rating);
+                get: function (data) {
+                    return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(data)));
                 },
-                update: function (rating) {
-                    return baasicApiHttp.put(rating.links('put').href, rating);
+                create: function (data) {
+                    return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
-                remove: function (rating) {
-                    return baasicApiHttp.delete(rating.links('delete').href);
+                update: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+                },
+                remove: function (data) {
+                    var params = baasicApiService.removeParams(data);
+                    return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 }
             };
         }]);

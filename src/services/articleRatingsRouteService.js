@@ -3,10 +3,11 @@
     module.service("baasicArticleRatingsRouteService", ["baasicUriTemplateService",
         function (uriTemplateService) {
             return {
-                find: uriTemplateService.parse("/articlerating/{?searchQuery,page,rpp,sort}"),
-                findByArticle: uriTemplateService.parse("/articlerating/article/{articleId}/{?searchQuery,page,rpp,sort}"),
-                get: uriTemplateService.parse("/articlerating/{id}"),
-                create: "/articlerating"
+                find: uriTemplateService.parse("/article-ratings/{?searchQuery,page,rpp,sort,embed,fields}"),
+				findByUser: uriTemplateService.parse("/article-ratings/{?username,page,rpp,sort,embed,fields}"),
+                get: uriTemplateService.parse("/article-ratings/{id}/{?embed,fields}"),
+                create: uriTemplateService.parse("/article-ratings"),
+				parse: uriTemplateService.parse
             };
         }]);
 }(angular, module));

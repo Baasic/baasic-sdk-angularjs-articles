@@ -1,7 +1,7 @@
 ﻿(function (angular, module, undefined) {
     "use strict";
-    module.service("baasicArticleService", ["baasicApiHttp", "baasicArticleRouteService",
-        function (baasicApiHttp, baasicArticleRouteService) {
+    module.service("baasicArticleService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRouteService",
+		function (baasicApiHttp, baasicApiService, baasicConstants, articleRouteService) {
             var statuses = {
                 none: 0,
                 published: 2,
@@ -10,7 +10,7 @@
             };
 
             function toSlug(str) {
-                if (_.isUndefined(str) || _.isNull(str) || str === "") {
+                if (angular.isUndefined(str) || str === null || str === "") {
                     return str;
                 }
                 str = str.toLowerCase();
@@ -21,106 +21,116 @@
 
             function updateSlug(resource) {
                 var newSlug = toSlug(resource.slug);
-                if (_.isUndefined(newSlug) || _.isNull(newSlug) || newSlug === "" ||
+                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === "" ||
                     resource.status === statuses.draft) {
                     newSlug = toSlug(resource.title);
                 }
 
-                if (!_.isUndefined(newSlug) || !_.isNull(newSlug) || newSlug !== "") {
+                if (!angular.isUndefined(newSlug) || !(newSlug === null) || newSlug !== "") {
                     if (!angular.equals(resource.slug, newSlug)) {
                         resource.slug = newSlug;
                     }
                 }
             }
 
-            function initTags(resource) {
-                if (_.isUndefined(resource)) return;
-
-                resource.tags = [];
-                _.each(resource.$tags, function (item) {
-                    resource.tags.push({
-                        name: item.text,
-                        slug: toSlug(item.text)
-                    });
-                });
-            }
-
             return {
+				routeService: articleRouteService,
                 statuses: statuses,
-                find: function (params) {
-                    function getStartDate() {
-                        if (!_.isUndefined(params.startDate) && !_.isNull(params.startDate)) {
-                            return params.startDate.toISOString();
+				updateSlug: updateSlug,
+				find: function (data) {
+					function getStartDate() {
+                        if (!angular.isUndefined(data.startDate) && !(data.startDate === null)) {
+                            return data.startDate.toISOString();
                         }
                         return undefined;
                     }
                     function getEndDate() {
-                        if (!_.isUndefined(params.endDate) && !_.isNull(params.endDate)) {
-                            return params.endDate.toISOString();
+                        if (!angular.isUndefined(data.endDate) && !(data.endDate === null)) {
+                            return data.endDate.toISOString();
                         }
                         return undefined;
                     }
 
-                    var apiParams = {
-                        page: params.pageNumber,
-                        rpp: params.pageSize,
-                        sort: params.orderBy ? params.orderBy + '|' + params.orderDirection : null,
-                        searchQuery: params.search,
-                        statuses: params.statuses,
-                        tags: params.tags,
-                        embed: "Author,Tags",
-                        startDate: getStartDate(),
-                        endDate: getEndDate(),
-                        fields: "id,title,slug,authorId,author,publishDate,tags,archiveDate,dateUpdated,status"
-                    };
-
-                    return baasicApiHttp.get(articleRouteService.find.expand(apiParams));
+					var apiData = baasicApiService.findParams(data);
+					apiData.startDate = getStartDate();
+                    apiData.endDate = getEndDate();
+                    return baasicApiHttp.get(articleRouteService.find.expand(apiData));
                 },
-                get: function (key) {
-                    var apiParams = {
-                        id: key,
-                        embed: "Tags",
-                        fields: undefined
-                    };
-                    return baasicApiHttp.get(articleRouteService.get.expand(apiParams));
+				get: function (data) {
+                    return baasicApiHttp.get(articleRouteService.get.expand(baasicApiService.getParams(data)));
                 },
-                create: function (resource) {
-                    updateSlug(resource);
-                    initTags(resource);
-                    return baasicApiHttp.post(articleRouteService.create, resource);
+				create: function (data) {
+					updateSlug(data);                    
+                    return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
-                update: function (resource) {
-                    if (_.isUndefined(resource.slug) || _.isNull(resource.slug) || resource.slug === "") {
-                        updateSlug(resource);
-                    }
-                    initTags(resource);
-                    return baasicApiHttp.put(resource.links('put').href, resource);
+                update: function (data) {
+					if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === "") {
+                        updateSlug(data);
+                    }                    
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
-                saveDraft: function (resource) {
-                    if (_.isUndefined(resource.id)) {
+				saveDraft: function (data) {
+                    if (angular.isUndefined(data.id)) {
                         //Create new draft
-                        return this.create(resource);
+                        return this.create(data);
                     } else {
                         //Update draft
-                        return this.update(resource);
+                        return this.update(data);
                     }
                 },
-                remove: function (resource) {
-                    return baasicApiHttp.delete(resource.links('delete').href);
+				remove: function (data) {
+                    var params = baasicApiService.removeParams(data);
+                    return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 },
-                archive: function (resource) {
-                    return baasicApiHttp.put(resource.links('archive').href);
+				archive: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
-                restore: function (resource) {
-                    return baasicApiHttp.put(resource.links('restore').href);
+				restore: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
                 },
-                publish: function (resource) {
-                    return baasicApiHttp.put(articleRouteService.publish.expand({ key: resource.id }));
+                publish: function (data) {
+                    return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(data)));
                 },
                 purge: function (data) {
                     return baasicApiHttp.delete(articleRouteService.purge.expand(data));
                 },
-                updateSlug: updateSlug
+                ratings: {
+					find: function (data) {
+						return baasicApiHttp.get(articleRouteService.ratings.find.expand(baasicApiService.findParams(data)));
+					},
+					findByUsername: function (data) {
+						return baasicApiHttp.get(articleRouteService.ratings.findByUsername.expand(baasicApiService.findParams(data)));
+					},
+					create: function (data) {
+						return baasicApiHttp.post(articleRouteService.ratings.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+					},
+					update: function (data) {
+						var params = baasicApiService.updateParams(data);
+						return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+					},
+					remove: function (data) {
+						var params = baasicApiService.removeParams(data);
+						return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
+					}
+				},
+				tags: {
+					find: function (data) {
+						return baasicApiHttp.get(articleRouteService.tags.find.expand(baasicApiService.findParams(data)));
+					},
+					get: function (data) {
+						return baasicApiHttp.get(articleRouteService.tags.get.expand(baasicApiService.getParams(data)));
+					},
+					create: function (data) {
+						return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+					},					
+					remove: function (data) {
+						var params = baasicApiService.removeParams(data);
+						return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
+					}
+				}
             };
         }]);
 }(angular, module));

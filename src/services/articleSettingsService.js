@@ -1,13 +1,15 @@
 ﻿(function (angular, module, undefined) {
     "use strict";
-    module.service("baasicArticleSettingsService", ["baasicApiHttp", "baasicArticleSettingsRouteService",
-        function (baasicApiHttp, baasicArticleSettingsRouteService) {
+    module.service("baasicArticleSettingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleSettingsRouteService",
+        function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
             return {
-                get: function () {
-                    return baasicApiHttp.get(articleSettingsRouteService.get.expand());
+				routeService: articleSettingsRouteService,
+                get: function (data) {
+					return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(data)));                    
                 },
-                update: function (settings) {
-                    return baasicApiHttp.put(settings.links('put').href, settings);
+                update: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);                    
                 }
             };
         }]);
