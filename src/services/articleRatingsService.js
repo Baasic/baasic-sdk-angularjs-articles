@@ -3,15 +3,17 @@
     module.service("baasicArticleRatingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRatingsRouteService",
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
-				routeService: articleRatingsRouteService,
-				find: function (data) {
-                    return baasicApiHttp.get(articleRatingsRouteService.find.expand(baasicApiService.findParams(data)));
+                routeService: articleRatingsRouteService,
+                find: function (options) {
+                    return baasicApiHttp.get(articleRatingsRouteService.find.expand(baasicApiService.findParams(options)));
                 },
-				findByUser: function (data) {
-                    return baasicApiHttp.get(articleRatingsRouteService.findByUser.expand(baasicApiService.findParams(data)));
+                findByUser: function (username, options) {
+                    var params = angular.extend({}, options);
+                    params.username = username;
+                    return baasicApiHttp.get(articleRatingsRouteService.findByUser.expand(baasicApiService.findParams(params)));
                 },
-                get: function (data) {
-                    return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(data)));
+                get: function (id, options) {
+                    return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                 create: function (data) {
                     return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);

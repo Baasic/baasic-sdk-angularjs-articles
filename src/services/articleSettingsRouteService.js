@@ -4,7 +4,7 @@
         function (uriTemplateService) {
             return {
                 get: uriTemplateService.parse("/article-settings/{?embed,fields}"),
-				parse: uriTemplateService.parse
-            }
+                parse: uriTemplateService.parse
+            };
         }]);
 }(angular, module));

@@ -6,7 +6,7 @@
                 find: uriTemplateService.parse("/article-tags/{?searchQuery,page,rpp,sort,embed,fields}"),
                 get: uriTemplateService.parse("/article-tags/{id}/{?embed,fields}"),
                 create: uriTemplateService.parse("/article-tags"),
-				parse: uriTemplateService.parse
+                parse: uriTemplateService.parse
             };
         }]);
 }(angular, module));

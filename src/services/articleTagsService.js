@@ -3,12 +3,12 @@
     module.service("baasicArticleTagsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleTagsRouteService",
         function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
             return {
-				routeService: articleTagsRouteService,
-                find: function (data) {
-                    return baasicApiHttp.get(articleTagsRouteService.find.expand(baasicApiService.findParams(data)));
+                routeService: articleTagsRouteService,
+                find: function (options) {
+                    return baasicApiHttp.get(articleTagsRouteService.find.expand(baasicApiService.findParams(options)));
                 },
-                get: function (data) {
-                    return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(data)));
+                get: function (id, options) {
+                    return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                 create: function (data) {
                     return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
