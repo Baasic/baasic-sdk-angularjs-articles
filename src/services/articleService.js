@@ -37,6 +37,7 @@
                 routeService: articleRouteService,
                 statuses: statuses,
                 updateSlug: updateSlug,
+				toSlug: toSlug,
                 find: function (options) {
                     function getStartDate() {
                         if (!angular.isUndefined(options.startDate) && !(options.startDate === null)) {
