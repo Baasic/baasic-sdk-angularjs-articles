@@ -21,8 +21,7 @@
 
             function updateSlug(resource) {
                 var newSlug = toSlug(resource.slug);
-                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === "" ||
-                        resource.status === statuses.draft) {
+                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === "") {
                     newSlug = toSlug(resource.title);
                 }
 
