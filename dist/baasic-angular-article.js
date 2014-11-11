@@ -162,6 +162,10 @@
                     var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
                 },
+                unpublish: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('unpublish').href);
+                },
                 publish: function (id, options) {
                     return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(id, options)));
                 },
@@ -222,6 +226,7 @@
             };
         }]);
     }(angular, module));
+
     (function (angular, module, undefined) {
         "use strict";
         module.service("baasicArticleSettingsRouteService", ["baasicUriTemplateService", function (uriTemplateService) {

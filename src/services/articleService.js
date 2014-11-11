@@ -37,7 +37,7 @@
                 routeService: articleRouteService,
                 statuses: statuses,
                 updateSlug: updateSlug,
-				toSlug: toSlug,
+                toSlug: toSlug,
                 find: function (options) {
                     function getStartDate() {
                         if (!angular.isUndefined(options.startDate) && !(options.startDate === null)) {
@@ -90,6 +90,10 @@
                 restore: function (data) {
                     var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
+                },
+                unpublish: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('unpublish').href);
                 },
                 publish: function (id, options) {
                     return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(id, options)));
