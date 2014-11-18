@@ -113,7 +113,7 @@
                         return baasicApiHttp.get(articleRouteService.ratings.findByUsername.expand(baasicApiService.findParams(params)));
                     },
                     create: function (data) {
-                        return baasicApiHttp.post(articleRouteService.ratings.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                        return baasicApiHttp.post(articleRouteService.ratings.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                     update: function (data) {
                         var params = baasicApiService.updateParams(data);

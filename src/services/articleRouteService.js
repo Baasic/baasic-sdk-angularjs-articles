@@ -10,9 +10,9 @@
                 create: uriTemplateService.parse("/articles"),
                 parse: uriTemplateService.parse,
                 ratings: {
-                    find: uriTemplateService.parse("/articles/{id}/ratings{?page,rpp,sort,embed,fields}"),
-                    findByUsername: uriTemplateService.parse("/articles/{id}/users/{username}/ratings/{?embed,fields}"),
-                    create: uriTemplateService.parse("/articles/{id}/ratings/"),
+                    find: uriTemplateService.parse("/articles/{articleId}/ratings{?page,rpp,sort,embed,fields}"),
+                    findByUsername: uriTemplateService.parse("/articles/{articleId}/users/{username}/ratings/{?embed,fields}"),
+                    create: uriTemplateService.parse("/articles/{articleId}/ratings/"),
                     parse: uriTemplateService.parse
                 },
                 tags: {
