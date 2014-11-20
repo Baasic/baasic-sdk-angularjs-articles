@@ -3,7 +3,7 @@
     module.service("baasicArticleSettingsRouteService", ["baasicUriTemplateService",
         function (uriTemplateService) {
             return {
-                get: uriTemplateService.parse("/article-settings/{?embed,fields}"),
+                get: uriTemplateService.parse("article-settings/{?embed,fields}"),
                 parse: uriTemplateService.parse
             };
         }]);
