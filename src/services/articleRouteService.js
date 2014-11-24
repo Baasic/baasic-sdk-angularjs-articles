@@ -20,6 +20,12 @@
                     get: uriTemplateService.parse("articles/{id}/tags/{tag}/{?embed,fields}"),
                     create: uriTemplateService.parse("articles/{id}/tags/{tag}/"),
                     parse: uriTemplateService.parse
+                },
+                permissions: {
+                    get: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
+                    update: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
+                    deleteByUser: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/users/{user}/"),
+                    deleteByRole: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/roles/{role}/")
                 }
             };
         }]);

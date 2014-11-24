@@ -150,6 +150,28 @@
                         var params = baasicApiService.removeParams(data);
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-tags-by-article').href);
                     }
+                },
+                permissions: {
+                    get: function (options) {
+                        var params = angular.extend({}, options);
+                        return baasicApiHttp.get(articleRouteService.permissions.get.expand(params));
+                    },
+                    update: function (options) {
+                        var params = angular.extend({}, options);
+                        return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
+                    },
+                    removeByUser: function (action, user, data) {
+                        var params = baasicApiService.removeParams(data);
+                        params.user = user;
+                        params.accessAction = action;
+                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByUser.expand(params));
+                    },
+                    removeByRole: function (action, role, data) {
+                        var params = baasicApiService.removeParams(data);
+                        params.role = role;
+                        params.accessAction = action;
+                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByRole.expand(params));
+                    }
                 }
             };
         }]);
