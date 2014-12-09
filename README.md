@@ -1,149 +1,138 @@
-# Baasic AngularJS Core Client Library
+# Baasic Articles AngularJS SDK
 
-The Baasic AngularJS core library provides integration access to the Baasic Service [REST API](https://api.baasic.com). Library will provide 
+Baasic AngularJS Articles library provides access to article resource Baasic Service [REST API](https://api.baasic.com).
 
 ## Dependencies
 
-Baasic AngularJS Core library has the following dependencies 
+Baasic AngularJS Articles library has the following dependencies:
 
-* [AngularJS](http://www.angularjs.org/)(>= 1.2.16)
-* [HAL Parser](https://github.com/jasonaden/angular-hal)
-* [URI Template](https://github.com/fxa/uritemplate-js)
+* [Baasic Core AngularJS SDK](https://github.com/Baasic/baasic-sdk-sdk-angularjs-core)
 
 ## Usage
 
-This section will describe how to add the Baasic AngularJS core library to your project. If you learn best by example please move forward to the [Demo Section](#demo)
+This section will describe how to add the Baasic AngularJS Articles library to your project. If you prefer learning by example please skip to [Demo Section](#demo).
 
-### Add the Library to Your Project
+### Adding the Library to your Project
 
-It is recommended to server the library from the CDN (Content Delivery Network) but note that this isn't requred. Please add the following lines of code after loading the AngularJS. 
+Please add the _Baasic Articles_ include after the _Baasic Angular Core_ include:
 
-    <script src='//cdn.net/js/hal-parser.js'></script>
-    <script src='//cdn.net/js/uritemplate-min.js'></script>
-	<script src='//cdn.net/js/baasic-angular-1.0.0.min.js'></script>
+```html
+<script src='//cdn.net/js/baasic-angular-1.0.0.min.js'></script>
+<script src='//cdn.net/js/baasic-angular-article-1.0.0.min.js'></script>
+```
 
-### Initialize
-
-To use the library you need to add the Baasic (_baasic.baasicApi_) dependency to your AngularJS module. This will allow you to use library services described in the [Modules Section](#baasic-modules).
-
-	 angular.module('my-module', ["baasic.baasicApi"])		
-
-### Application Configuration
-
-Baasic AngularJS library allows you to use multiple Baasic applications in your AngularJS modules. To initialize Baasic application you need to add the following code to you module configuration.
-
-		module.config(["baasicAppProvider",
-			function (baasicAppProvider) {
-				var app = baasicAppProvider.create("my-app-identifier", {
-                    apiRootUrl: "api.baasic.com",
-                    apiVersion: "v1"
-                });
-			}]);
+The recommended way of serving the library is through a [CDN](http://en.wikipedia.org/wiki/Content_delivery_network) but note that this is not a requirement. If you prefer adding library files directly to your project instead, please modify the includes accordingly.
 
 
-**Note:** _To obtain Baasic Application Identifier please create your application on the [Baasic Registration](https://dashboard.baasic.com/register/) page._
+### Initialization
 
-## Baasic Modules
+To be able to use the library you will need to add the Baasic (_baasic.article_) dependency to your AngularJS module. This will allow you to use library services described in [Modules Section](#baasic-modules).
 
-Baasic back-end has many built-in modules that can be used with Baasic AngularJS library. Below you can find detailed information about every core module supported by library. 
+```javascript
+angular.module('my-module', ["baasic.api", "baasic.article"])
+```
 
-### Baasic Module Architecture
+## Articles Module
 
-To get better understanding of Baasic AngularJS services here are the details about main architecture that all library services conform to. 
+Baasic AngularJS Articles services and their functions can be found bellow. For further details please check the [API documentation](#tba)
 
-* Core Services
-	* __baasicApp__ service is used to manage the Baasic application instances. There can be multiple AngularJS application instances communicating with difference Baasic applications. 
+##### articleService
 
-		*  create an application 
+Baasic Articles Service provides an easy way to consume Baasic Articles REST routes.
 
-				module.controller("MyCtrl", ["baasicApp",
-					function MyCtrl(baasicApp) {
-						var app = baasicApp.create("my-app-identifier", {
-		                    apiRootUrl: "api.baasic.com",
-		                    apiVersion: "production"
-	                	});
-					}]);   
+* `get` - Gets a single article
+* `find` - Finds articles by given criteria
+* `create` - Creates a new article
+* `update` - Updates an article
+* `remove` - Deletes an article
+* `saveDraft` - Saves an article with "draft" status
+* `archive` - Sets the status of an article from "published" to "archive"
+* `restore` - Sets the status of an article from "archive" to "published"
+* `unpublish` - Sets the status of an article from "published" to "draft"
+* `publish` - Sets the status of an article from "draft" to "published"
+* `purge` - Deletes all articles
+* `statuses` - Returns an object containing all article statuses: `{ none: 0, published: 2, draft: 1, archive: 4 }`
+* `updateSlug` - Updates slug of an article
+* `toSlug` - ??? (TODO)
+* `ratings.*`
+ * `find` - Finds ratings of an article
+ * `findByUsername` - Finds rating of an article by _userName_
+ * `create` - Creates a new rating for an article
+ * `update` - Updates a rating of an article
+ * `remove` - Removes a rating from an article
+ * `removeAll` - Removes all ratings from an article
+* `tags.*`
+ * `get` - Gets an article tag
+ * `find` - Finds article tags by given criteria
+ * `create` - Creates a new tag for an article
+ * `remove` - Removes a tag from an article
+ * `removeAll` - Removes all tags from an article
+* `permissions.*`
+ * `get` - Gets an article permission
+ * `update` - Updates an article permission
+ * `removeByUser` - ??? (TODO)
+ * `removeByRole` - ??? (TODO)
+* `routeService` - Provides direct access to `articleRouteService`
 
-		* get default application 
+Here are a few examples on how to use the `articleService`:
 
-				module.controller("MyCtrl", ["baasicApp",
-					function MyCtrl(baasicApp) {
-						var app = baasicApp.get();
-					}]);   
+```javascript
+var id = "73a22b5d-e5ef-44f2-9c81-a3fb01063f86";
+baasicArticlesService.get(id)
+.success(function(data) {
+    // data variable contains a single article object that match the id
+    });
+```
 
-    	* application object has the following methods
+```javascript
+var options = { searchQuery: "myQuery", page: 4, rpp: 3 };
+baasicArticlesService.find(options)
+.success(function(data) {
+    // data variable contains a collection of article objects that match the filtering parameters
+    });
+```
 
-				var apiKey = app.get_apiKey();
-				var apiURI = app.get_apiUrl();
-				var accessToken = app.get_accessToken();
-				app.update_accessToken(accessToken);
-				var currentUser = app.get_user();
-				app.set_user(userDetails, accessToken);
-				var currentLanguage = app.get_currentLanguage();
-				var defaultLanguage = app.get_defaultLanguage();
-	    	
-    
-	* **baasicApiHttp**
-	* **baasicApiService**
-	* **baasicConstants**
-* Route Services
-	* every service has route service used to wrap REST service URL discovery 
-	* route service will parse the REST service URL and prepare the URL for expansion 
-	* route services contain following routes
-		* _find_ - used to fetch collection of resources that can be filtered, sorted and paged
-		* _get_ - used to fetch single resource
-		* _create_ - used to create new resources
-	* _find_ route has the following parameters
-		* _searchQuery_ - used to build simple filters or complex queries
-		* _page_ - used to define the current page
-		* _rpp_ - used to define the number of resources per page
-		* _sort_ - used to define sorting expression applied on the returned resources. Sorting expression has the following format _"fieldName|asc", "field1Name|asc,field2Name|desc"_
-		* _embed_ - used to embed additional resources 
-		* _fields_ - used to define the list of fields returned by the service  
-	* _get_ route has the following parameters
-		* _embed_ - used to embed additional resources 
-		* _fields_ - used to define the list of fields returned by the service
-	* _create_ route has the no parameters in most cases and it's used to create a new resource
-	* _parse_ is an utility method used to parse custom URIs. _Note: parse will not return a route_	 
+For functions such as `update` and `remove` that don't use `articleRouteService` for obtaining route templates, routes can be obtained from article (HAL enabled) objects like this:
 
-* Module Services
-	* Baasic module services are built on top of the AngularJS services 
-	* module services depend upon the route services as they are used for REST service URL discovery (Note: every service exposes route service with the _routeService_ property)
-	* every service has the _find_, _get_, _create_, _update_ and _remove_ functions used to communicate with the Baasic back-end
-	* all services accept the data object as function parameter 
-* Options - Params
-* HAL links
-* Extending existing modules with dynamic props
+```javascript
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('delete').href;
+// i.e. if the articleObject had the following id: "73a22b5d-e5ef-44f2-9c81-a3fb01063f86"
+// the uri would yield "/articles/73a22b5d-e5ef-44f2-9c81-a3fb01063f86"
+```
 
-### Application Settings 
+##### articleRouteService
 
-### Membership
+Baasic Articles Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `articleService` uses `articleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. `articleRouteService` by convention uses the same function names as `articleService`.
 
-* Login Service
-* Password Recovery Service
-* Authorization Service
-* User Service
-* Role Service
+Here is a list of all the URI templates that can be obtained by the `articleRouteService`:
 
-### Key Value Module
+* `get`, `find`, `create`, `publish`, `purge`
+* `ratings.*` - `find`, `findByUsername`, `create`
+* `tags.*` - `get`, `find`, `create`
+* `permissions.*` - `get`, `update`, `removeByUser`, `removeByRole`
+* `parse` - Provides direct access to the `uriTemplateService`
 
-### Value Set Module
+URI templates can be expanded manually like this:
 
-### Dynamic Resources Module
-
-### General Services, Directives etc.
-
-* recaptchaService
-* recaptchaDirective 
-
-## Quick Start Guide
-
-## Demo
+```javascript
+var params = { searchQuery: "myQuery", page: 4, rpp: 3 };
+var uri = articleRouteService.find.expand(params);
+// uri will yield "/articles/?searchQuery=myQuery&page=4&rpp=3"
+```
 
 ## Build Process
 
 1. Install [NodeJs](http://nodejs.org/download/)
-2. Open Shell/Command Prompt in the Baasic AngularJS folder 
-3. Run __npm install__
-4. Install gulp globally: __npm install -g gulp__ 
-5. Run __gulp__
+2. Open Shell/Command Prompt in the Baasic AngularJS folder
+3. Run `npm install`
+4. Install gulp globally: `npm install -g gulp`
+5. Run `gulp`
+
+## Contributing
+
+* [Pull requests are always welcome](https://github.com/Baasic/baasic-sdk-sdk-angularjs-core#pull-requests-are-always-welcome)
+* Please [report](https://github.com/Baasic/baasic-sdk-sdk-angularjs-core#issue-reporting) any issues you might  have found
+* Help us write the documentation
+* Create interesting apps using SDK
+* Looking for something else to do? Get in touch..
