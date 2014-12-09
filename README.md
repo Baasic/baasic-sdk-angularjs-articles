@@ -101,23 +101,71 @@ var uri = params["model"].links('delete').href;
 // the uri would yield "/articles/73a22b5d-e5ef-44f2-9c81-a3fb01063f86"
 ```
 
-##### articleRouteService
+##### articleRatingsService
 
-Baasic Articles Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. `articleService` uses `articleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. `articleRouteService` by convention uses the same function names as `articleService`.
+Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST routes. `articleRatingsService` functions are not bound to a particular article and is meant to be used
 
-Here is a list of all the URI templates that can be obtained by the `articleRouteService`:
+* `get` - Gets a single article rating
+* `find` - Finds article ratings by given criteria
+* `findByUser` - Finds article ratings by _user_
+* `create` - Creates a new article rating
+* `update` - Updates an article rating
+* `remove` - Deletes an article rating
+* `routeService` - Provides direct access to `articleRatingsRouteService`
 
-* `get`, `find`, `create`, `publish`, `purge`
-* `ratings.*` - `find`, `findByUsername`, `create`
-* `tags.*` - `get`, `find`, `create`
-* `permissions.*` - `get`, `update`, `removeByUser`, `removeByRole`
-* `parse` - Provides direct access to the `uriTemplateService`
+`articleRatingsService` is used in the same way as the `articleService`.
+
+##### articleTagsService
+
+Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST routes. `articleTagsService` functions are not bound to a particular article and is meant to be used
+
+* `get` - Gets a single article tag
+* `find` - Finds article tags by given criteria
+* `create` - Creates a new tag rating
+* `update` - Updates an tag rating
+* `remove` - Deletes an tag rating
+* `routeService` - Provides direct access to `articleTagsRouteService`
+
+`articleTagsService` is used in the same way as the `articleService`.
+
+##### articleSettingsService
+
+Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST routes. `articleSettingsService` functions are not bound to a particular article and is meant to be used
+
+* `get` - Gets article settings
+* `update` - Updates article settings
+* `routeService` - Provides direct access to `articleSettingsService`
+
+`articleSettingsService` is used in the same way as the `articleService`.
+
+##### Route Services
+
+Baasic Articles Route Services (`articleRouteService`, `articleRatingsRouteService`, `articleTagsRouteService`, `articleSettingsRouteService`) provide Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `articleService` uses `articleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
+
+* __articleRouteService__
+ * `get`, `find`, `create`, `publish`, `purge`
+ * `ratings.*` - `find`, `findByUsername`, `create`
+ * `tags.*` - `get`, `find`, `create`
+ * `permissions.*` - `get`, `update`, `removeByUser`, `removeByRole`
+ * `parse` - Provides direct access to the `uriTemplateService`
+
+* __articleRatingsRouteService__
+ * `get`, `find`, `findByUser`, `create`
+ * `parse` - Provides direct access to the `uriTemplateService`
+
+* __articleTagsRouteService__
+ * `get`, `find`, `create`
+ * `parse` - Provides direct access to the `uriTemplateService`
+
+* __articleSettingsRouteService__
+ * `get`
+ * `parse` - Provides direct access to the `uriTemplateService`
 
 URI templates can be expanded manually like this:
 
 ```javascript
 var params = { searchQuery: "myQuery", page: 4, rpp: 3 };
-var uri = articleRouteService.find.expand(params);
+var uri = baasicArticleRouteService.find.expand(params);
 // uri will yield "/articles/?searchQuery=myQuery&page=4&rpp=3"
 ```
 
