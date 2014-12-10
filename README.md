@@ -103,7 +103,7 @@ var uri = params["model"].links('delete').href;
 
 ##### articleRatingsService
 
-Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST routes. `articleRatingsService` functions are not bound to a particular article and is meant to be used
+Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST routes. `articleRatingsService` functions are not bound to particular article items but are meant to be used on ratings resources directly.
 
 * `get` - Gets a single article rating
 * `find` - Finds article ratings by given criteria
@@ -117,7 +117,7 @@ Baasic Article Ratings Service provides an easy way to consume Baasic Article Ra
 
 ##### articleTagsService
 
-Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST routes. `articleTagsService` functions are not bound to a particular article and is meant to be used
+Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST routes. `articleTagsService` functions are not bound to particular article items but are meant to be used on tag resources directly.
 
 * `get` - Gets a single article tag
 * `find` - Finds article tags by given criteria
@@ -130,7 +130,7 @@ Baasic Article Tags Service provides an easy way to consume Baasic Article Tags 
 
 ##### articleSettingsService
 
-Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST routes. `articleSettingsService` functions are not bound to a particular article and is meant to be used
+Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST routes. `articleSettingsService` functions are not bound to particular article items but are meant to be used on settings resources directly.
 
 * `get` - Gets article settings
 * `update` - Updates article settings
