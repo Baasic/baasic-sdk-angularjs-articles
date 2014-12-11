@@ -79,16 +79,16 @@ Here are a few examples on how to use the `articleService`:
 ```javascript
 var id = "73a22b5d-e5ef-44f2-9c81-a3fb01063f86";
 baasicArticlesService.get(id)
-.success(function(data) {
-    // data variable contains a single article object that match the id
+    .success(function(data) {
+        // data variable contains a single article object that match the id
     });
 ```
 
 ```javascript
 var options = { searchQuery: "myQuery", page: 4, rpp: 3 };
 baasicArticlesService.find(options)
-.success(function(data) {
-    // data variable contains a collection of article objects that match the filtering parameters
+    .success(function(data) {
+        // data variable contains a collection of article objects that match the filtering parameters
     });
 ```
 
