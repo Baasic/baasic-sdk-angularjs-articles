@@ -1,23 +1,25 @@
-(function (angular, undefined) {
-    var module = angular.module("baasic.article", ["baasic.api"]);
+(function (angular, undefined) { /* exported module */
 
-    module.config(["$provide", function config($provide) {}]);
+    var module = angular.module('baasic.article', ['baasic.api']);
+
+    /* globals module */
 
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleRatingsRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+        'use strict';
+        module.service('baasicArticleRatingsRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
-                find: uriTemplateService.parse("article-ratings/{?searchQuery,page,rpp,sort,embed,fields}"),
-                findByUser: uriTemplateService.parse("article-ratings/{?username,page,rpp,sort,embed,fields}"),
-                get: uriTemplateService.parse("article-ratings/{id}/{?embed,fields}"),
-                create: uriTemplateService.parse("article-ratings"),
+                find: uriTemplateService.parse('article-ratings/{?searchQuery,page,rpp,sort,embed,fields}'),
+                findByUser: uriTemplateService.parse('article-ratings/{?username,page,rpp,sort,embed,fields}'),
+                get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
+                create: uriTemplateService.parse('article-ratings'),
                 parse: uriTemplateService.parse
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleRatingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRatingsRouteService", function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
+        'use strict';
+        module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
                 routeService: articleRatingsRouteService,
                 find: function (options) {
@@ -44,42 +46,45 @@
                 }
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+        'use strict';
+        module.service('baasicArticleRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
-                find: uriTemplateService.parse("articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}"),
-                get: uriTemplateService.parse("articles/{id}/{?embed,fields}"),
-                publish: uriTemplateService.parse("articles/{id}/publish/"),
-                purge: uriTemplateService.parse("articles/purge/"),
-                create: uriTemplateService.parse("articles"),
+                find: uriTemplateService.parse('articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}'),
+                get: uriTemplateService.parse('articles/{id}/{?embed,fields}'),
+                publish: uriTemplateService.parse('articles/{id}/publish/'),
+                purge: uriTemplateService.parse('articles/purge/'),
+                create: uriTemplateService.parse('articles'),
                 parse: uriTemplateService.parse,
                 ratings: {
-                    find: uriTemplateService.parse("articles/{articleId}/ratings{?page,rpp,sort,embed,fields}"),
-                    findByUsername: uriTemplateService.parse("articles/{articleId}/users/{username}/ratings/{?embed,fields}"),
-                    create: uriTemplateService.parse("articles/{articleId}/ratings/"),
+                    find: uriTemplateService.parse('articles/{articleId}/ratings{?page,rpp,sort,embed,fields}'),
+                    findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
+                    create: uriTemplateService.parse('articles/{articleId}/ratings/'),
                     parse: uriTemplateService.parse
                 },
                 tags: {
-                    find: uriTemplateService.parse("articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}"),
-                    get: uriTemplateService.parse("articles/{id}/tags/{tag}/{?embed,fields}"),
-                    create: uriTemplateService.parse("articles/{id}/tags/{tag}/"),
+                    find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
+                    get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
+                    create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     parse: uriTemplateService.parse
                 },
                 permissions: {
-                    get: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
-                    update: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
-                    deleteByUser: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/users/{user}/"),
-                    deleteByRole: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/roles/{role}/")
+                    get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
+                    deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }
             };
         }]);
     }(angular, module));
 
+    /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRouteService", function (baasicApiHttp, baasicApiService, baasicConstants, articleRouteService) {
+        'use strict';
+        module.service('baasicArticleService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleRouteService) {
             var statuses = {
                 none: 0,
                 published: 2,
@@ -88,7 +93,7 @@
             };
 
             function toSlug(str) {
-                if (angular.isUndefined(str) || str === null || str === "") {
+                if (angular.isUndefined(str) || str === null || str === '') {
                     return str;
                 }
                 str = str.toLowerCase();
@@ -99,11 +104,11 @@
 
             function updateSlug(resource) {
                 var newSlug = toSlug(resource.slug);
-                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === "") {
+                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === '') {
                     newSlug = toSlug(resource.title);
                 }
 
-                if (!angular.isUndefined(newSlug) || !(newSlug === null) || newSlug !== "") {
+                if (!angular.isUndefined(newSlug) || newSlug !== null || newSlug !== '') {
                     if (!angular.equals(resource.slug, newSlug)) {
                         resource.slug = newSlug;
                     }
@@ -117,14 +122,14 @@
                 toSlug: toSlug,
                 find: function (options) {
                     function getStartDate() {
-                        if (!angular.isUndefined(options.startDate) && !(options.startDate === null)) {
+                        if (!angular.isUndefined(options.startDate) && options.startDate !== null) {
                             return options.startDate.toISOString();
                         }
                         return undefined;
                     }
 
                     function getEndDate() {
-                        if (!angular.isUndefined(options.endDate) && !(options.endDate === null)) {
+                        if (!angular.isUndefined(options.endDate) && options.endDate !== null) {
                             return options.endDate.toISOString();
                         }
                         return undefined;
@@ -143,7 +148,7 @@
                     return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 update: function (data) {
-                    if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === "") {
+                    if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === '') {
                         updateSlug(data);
                     }
                     var params = baasicApiService.updateParams(data);
@@ -256,18 +261,21 @@
         }]);
     }(angular, module));
 
+    /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleSettingsRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+        'use strict';
+        module.service('baasicArticleSettingsRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
-                get: uriTemplateService.parse("article-settings/{?embed,fields}"),
+                get: uriTemplateService.parse('article-settings/{?embed,fields}'),
                 parse: uriTemplateService.parse
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleSettingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleSettingsRouteService", function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
+        'use strict';
+        module.service('baasicArticleSettingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleSettingsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
             return {
                 routeService: articleSettingsRouteService,
                 get: function (options) {
@@ -279,21 +287,23 @@
                 }
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleTagsRouteService", ["baasicUriTemplateService", function (uriTemplateService) {
+        'use strict';
+        module.service('baasicArticleTagsRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
-                find: uriTemplateService.parse("article-tags/{?searchQuery,page,rpp,sort,embed,fields}"),
-                get: uriTemplateService.parse("article-tags/{id}/{?embed,fields}"),
-                create: uriTemplateService.parse("article-tags"),
+                find: uriTemplateService.parse('article-tags/{?searchQuery,page,rpp,sort,embed,fields}'),
+                get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
+                create: uriTemplateService.parse('article-tags'),
                 parse: uriTemplateService.parse
             };
         }]);
-    }(angular, module));
+    }(angular, module)); /* globals module */
+
     (function (angular, module, undefined) {
-        "use strict";
-        module.service("baasicArticleTagsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleTagsRouteService", function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
+        'use strict';
+        module.service('baasicArticleTagsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleTagsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
             return {
                 routeService: articleTagsRouteService,
                 find: function (options) {

@@ -1,6 +1,8 @@
-﻿(function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicArticleService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRouteService",
+﻿/* globals module */
+
+(function (angular, module, undefined) {
+    'use strict';
+    module.service('baasicArticleService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRouteService) {
             var statuses = {
                 none: 0,
@@ -10,7 +12,7 @@
             };
 
             function toSlug(str) {
-                if (angular.isUndefined(str) || str === null || str === "") {
+                if (angular.isUndefined(str) || str === null || str === '') {
                     return str;
                 }
                 str = str.toLowerCase();
@@ -21,11 +23,11 @@
 
             function updateSlug(resource) {
                 var newSlug = toSlug(resource.slug);
-                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === "") {
+                if (angular.isUndefined(newSlug) || newSlug === null || newSlug === '') {
                     newSlug = toSlug(resource.title);
                 }
 
-                if (!angular.isUndefined(newSlug) || !(newSlug === null) || newSlug !== "") {
+                if (!angular.isUndefined(newSlug) || newSlug !== null || newSlug !== '') {
                     if (!angular.equals(resource.slug, newSlug)) {
                         resource.slug = newSlug;
                     }
@@ -39,13 +41,13 @@
                 toSlug: toSlug,
                 find: function (options) {
                     function getStartDate() {
-                        if (!angular.isUndefined(options.startDate) && !(options.startDate === null)) {
+                        if (!angular.isUndefined(options.startDate) && options.startDate !== null) {
                             return options.startDate.toISOString();
                         }
                         return undefined;
                     }
                     function getEndDate() {
-                        if (!angular.isUndefined(options.endDate) && !(options.endDate === null)) {
+                        if (!angular.isUndefined(options.endDate) && options.endDate !== null) {
                             return options.endDate.toISOString();
                         }
                         return undefined;
@@ -64,7 +66,7 @@
                     return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 update: function (data) {
-                    if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === "") {
+                    if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === '') {
                         updateSlug(data);
                     }
                     var params = baasicApiService.updateParams(data);

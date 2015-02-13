@@ -1,6 +1,6 @@
 {
   "name": "baasic-angular-article",
-  "version": "0.1.29",
+  "version": "0.2.0",
   "description": "Baasic AngularJS SDK article modules and services.",
   "keywords": [
     "angularjs",
@@ -28,6 +28,6 @@
   "devDependencies": {
   },
   "dependencies": {
-	"baasic-angular-core": "http://gitserver/monosoftware/baasic-sdk-angularjs-core.git#~0.1.27"
+	"baasic-angular-core": "http://gitserver/monosoftware/baasic-sdk-angularjs-core.git#~0.2.0"
   }
 }
