@@ -1,4 +1,5 @@
-﻿/**
+﻿/* globals module */
+/**
  * @module baasicArticleRouteService
 **/
 
@@ -9,8 +10,8 @@
  * @author Mono-Software
 */
 (function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicArticleRouteService", ["baasicUriTemplateService",
+    'use strict';
+    module.service('baasicArticleRouteService', ['baasicUriTemplateService',
         function (uriTemplateService) {
             return {
                 /**
@@ -27,32 +28,32 @@
                 * @method        
                 * @example baasicArticleRouteService.find.expand({searchQuery: "searchTerm"});               
                 **/  			
-                find: uriTemplateService.parse("articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}"),
+                find: uriTemplateService.parse('articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}'),
                 /**
                 * Parses get article route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
                 * @example baasicArticleRouteService.get.expand({id: "uniqueID"});               
                 **/   				
-                get: uriTemplateService.parse("articles/{id}/{?embed,fields}"),
+                get: uriTemplateService.parse('articles/{id}/{?embed,fields}'),
                 /**
                 * Parses publish article route which must be expanded with the Id of the previously created resource in the system.
                 * @method        
                 * @example baasicArticleRouteService.publish.expand({id: "uniqueID"});               
                 **/ 				
-                publish: uriTemplateService.parse("articles/{id}/publish/"),
+                publish: uriTemplateService.parse('articles/{id}/publish/'),
                 /**
                 * Parses purge article route, this URI template doesn't expose any additional properties.
                 * @method        
                 * @example baasicArticleRouteService.purge.expand({id: "uniqueID"});               
                 **/ 				
-                purge: uriTemplateService.parse("articles/purge/"),
+                purge: uriTemplateService.parse('articles/purge/'),
                 /**
                 * Parses create article route, this URI template doesn't expose any additional properties.
                 * @method        
                 * @example baasicArticleRouteService.create.expand({id: "uniqueID"});               
                 **/ 				
-                create: uriTemplateService.parse("articles"),
+                create: uriTemplateService.parse('articles'),
                 /**
                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                 * @method
@@ -70,7 +71,7 @@
 					* @method ratings.find       
 					* @example baasicArticleRatingsRouteService.ratings.find.expand({articleId`: "uniqueID"});               
 					**/ 				
-                    find: uriTemplateService.parse("articles/{articleId}/ratings{?page,rpp,sort,embed,fields}"),
+                    find: uriTemplateService.parse('articles/{articleId}/ratings{?page,rpp,sort,embed,fields}'),
 					/**
 					* Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
 					* - `articleId` - Id of the article.
@@ -82,13 +83,13 @@
 					* @method ratings.findByUsername       
 					* @example baasicArticleRatingsRouteService.ratings.findByUsername.expand({articleId: "uniqueID", username: "username"});               
 					**/ 					
-                    findByUsername: uriTemplateService.parse("articles/{articleId}/users/{username}/ratings/{?embed,fields}"),
+                    findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
 					/**
 					* Parses create article rating route, this URI template should be expanded with the Id of the article.
 					* @method ratings.create       
 					* @example baasicArticleRatingsRouteService.ratings.create.expand({articleId: "uniqueID"});              
 					**/  					
-                    create: uriTemplateService.parse("articles/{articleId}/ratings/"),
+                    create: uriTemplateService.parse('articles/{articleId}/ratings/'),
                     /**
                     * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                     * @method ratings.parse
@@ -108,7 +109,7 @@
 					* @method tags.find       
 					* @example baasicArticleRatingsRouteService.tags.find.expand({id: "uniqueID", searchQuery: "searchTerm"});               
 					**/ 					
-                    find: uriTemplateService.parse("articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}"),
+                    find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
 					/**
 					* Parses get article tags route which can be expanded with additional options. Supported items are: 
 					* - `id` - Id of the article.					
@@ -117,13 +118,13 @@
 					* @method tags.get       
 					* @example baasicArticleRatingsRouteService.tags.find.expand({id: "uniqueID", tag: "keyword"});               
 					**/ 					
-                    get: uriTemplateService.parse("articles/{id}/tags/{tag}/{?embed,fields}"),
+                    get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
 					/**
 					* Parses create article tag route, this URI template should be expanded with the Id of the article.
 					* @method tags.create       
 					* @example baasicArticleRatingsRouteService.tags.create.expand({id: "uniqueID"});              
 					**/  					
-                    create: uriTemplateService.parse("articles/{id}/tags/{tag}/"),
+                    create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
                     * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                     * @method tags.parse
@@ -137,13 +138,13 @@
 					* @method permissions.get       
 					* @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
 					**/ 				
-                    get: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
+                    get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
 					/**
 					* Parses update article permissions route, this URI template should be expanded with the Id of the article.					
 					* @method permissions.update       
 					* @example baasicArticleRatingsRouteService.permissions.update.expand({id: "articleId"});               
 					**/ 					
-                    update: uriTemplateService.parse("articles/{id}/permissions/{?fields}"),
+                    update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
 					/**
 					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
@@ -152,7 +153,7 @@
 					* @method permissions.deleteByUser       
 					* @example baasicArticleRatingsRouteService.permissions.deleteByUser.expand({id: "articleId", accessAction: "read", user: "username"});               
 					**/ 					
-                    deleteByUser: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/users/{user}/"),
+                    deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
 					/**
 					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
@@ -161,7 +162,7 @@
 					* @method permissions.deleteByRole       
 					* @example baasicArticleRatingsRouteService.permissions.deleteByRole.expand({id: "articleId", accessAction: "read", role: "roleName"});               
 					**/ 					
-                    deleteByRole: uriTemplateService.parse("articles/{id}/permissions/actions/{accessAction}/roles/{role}/")
+                    deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }
             };
         }]);

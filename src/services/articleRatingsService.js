@@ -1,4 +1,5 @@
-﻿/**
+﻿/* globals module */
+/**
  * @module baasicArticleRatingsService
 **/
 
@@ -9,8 +10,8 @@
  * @author Mono-Software
 */
 (function (angular, module, undefined) {
-    "use strict";
-    module.service("baasicArticleRatingsService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRatingsRouteService",
+    'use strict';
+    module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
                 routeService: articleRatingsRouteService,
