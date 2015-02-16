@@ -1,4 +1,14 @@
-﻿(function (angular, module, undefined) {
+﻿/**
+ * @module baasicArticleService
+**/
+
+/** 
+ * @overview Article service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
+(function (angular, module, undefined) {
     "use strict";
     module.service("baasicArticleService", ["baasicApiHttp", "baasicApiService", "baasicConstants", "baasicArticleRouteService",
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRouteService) {
@@ -34,7 +44,17 @@
 
             return {
                 routeService: articleRouteService,
+                /**
+                * Contains a refrerence to valid list of article statuses. Valid article statuses are: none, published, draft and archive.
+                * @method        
+                * @example baasicArticleService.statuses.archive;
+                **/ 				
                 statuses: statuses,
+                /**
+                * Contains a refrerence to valid list of article statuses. Valid article statuses are: none, published, draft and archive.
+                * @method        
+                * @example baasicArticleService.statuses.archive;
+                **/ 				
                 updateSlug: updateSlug,
                 toSlug: toSlug,
                 find: function (options) {
