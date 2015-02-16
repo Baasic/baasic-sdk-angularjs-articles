@@ -69,7 +69,7 @@ baasicArticleRatingsService.get("uniqueID")
 .error(function (response, status, headers, config) {
   // perform error handling here
 });
-                 **/ 				
+                **/ 				
                 get: function (id, options) {
                     return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
@@ -88,7 +88,7 @@ baasicArticleRatingsService.create({
 .error(function (response, status, headers, config) {
   // perform error handling here
 });
-                 **/ 				
+                **/ 				
                 create: function (data) {
                     return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
@@ -110,10 +110,10 @@ baasicArticleRatingsService.update(existingResource)
                     var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
-                 /**
-                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the resource is permanently removed from the system.
-                 * @method        
-                 * @example 
+                /**
+                * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                * @method        
+                * @example 
 // Existing resource is a resource previously fetched using get action.				 
 baasicArticleRatingsService.remove(existingResource)
 .success(function (data) {

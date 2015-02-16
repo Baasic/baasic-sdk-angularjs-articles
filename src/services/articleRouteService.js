@@ -148,7 +148,7 @@
 					/**
 					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
-					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified resource.
+					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
 					* - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
 					* @method permissions.deleteByUser       
 					* @example baasicArticleRatingsRouteService.permissions.deleteByUser.expand({id: "articleId", accessAction: "read", user: "username"});               
@@ -157,7 +157,7 @@
 					/**
 					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
-					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified resource.
+					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
 					* - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
 					* @method permissions.deleteByRole       
 					* @example baasicArticleRatingsRouteService.permissions.deleteByRole.expand({id: "articleId", accessAction: "read", role: "roleName"});               

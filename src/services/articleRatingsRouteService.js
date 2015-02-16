@@ -50,10 +50,10 @@
                 **/  					
                 create: uriTemplateService.parse('article-ratings'),
                 /**
-                * Parses change password route, URI template should be expanded with the Username of the user resource whose password should be updated.
-                * @method        
-                * @example baasicUserRouteService.changePassword.expand({userName: "userName"});              
-                **/ 				
+                * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                * @method
+                * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                **/				
                 parse: uriTemplateService.parse
             };
         }]);
