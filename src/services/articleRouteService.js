@@ -51,7 +51,7 @@
                 /**
                 * Parses create article route, this URI template doesn't expose any additional properties.
                 * @method        
-                * @example baasicArticleRouteService.create.expand({id: "uniqueID"});               
+                * @example baasicArticleRouteService.create.expand({});               
                 **/ 				
                 create: uriTemplateService.parse('articles'),
                 /**

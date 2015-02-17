@@ -80,7 +80,7 @@ baasicArticleService.find({
 .error(function (response, status, headers, config) {
   // perform error handling here
 });    
-                 **/  				
+                **/  				
                 find: function (options) {
                     function getStartDate() {
                         if (!angular.isUndefined(options.startDate) && options.startDate !== null) {
@@ -111,7 +111,7 @@ baasicArticleService.get("uniqueID")
 .error(function (response, status, headers, config) {
   // perform error handling here
 });
-                 **/ 				
+                **/ 				
                 get: function (id, options) {
                     return baasicApiHttp.get(articleRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
@@ -499,7 +499,6 @@ baasicArticleService.permissions.get({id: "uniqueId"})
                     * @method permissions.update      
                     * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.tag = "updated tag";
 baasicArticleService.permissions.update(existingResource)
 .success(function (data) {
   // perform success action here

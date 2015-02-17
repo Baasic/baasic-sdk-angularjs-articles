@@ -268,7 +268,7 @@
                 /**
                  * Parses create article route, this URI template doesn't expose any additional properties.
                  * @method        
-                 * @example baasicArticleRouteService.create.expand({id: "uniqueID"});               
+                 * @example baasicArticleRouteService.create.expand({});               
                  **/
                 create: uriTemplateService.parse('articles'),
                 /**
@@ -886,7 +886,6 @@
                      * @method permissions.update      
                      * @example 
                      // Existing resource is a resource previously fetched using get action.
-                     existingResource.tag = "updated tag";
                      baasicArticleService.permissions.update(existingResource)
                      .success(function (data) {
                      // perform success action here

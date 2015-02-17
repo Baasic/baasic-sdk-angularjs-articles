@@ -34,7 +34,7 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('docs', function() {
-  docgen.generateBaasicDocs('src', 'wiki', 'Baasic Articles Navigation', ['config.js']);
+  docgen.generateBaasicDocs('src', 'wiki', 'Baasic Articles Navigation', ['config.js', 'services\\module.initialize.js']);
 });
 
 gulp.task('default', ['jshint', 'docs', 'scripts']);
