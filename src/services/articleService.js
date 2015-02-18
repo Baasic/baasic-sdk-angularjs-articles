@@ -62,14 +62,10 @@
                     return baasicApiHttp.get(articleRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                 create: function (data) {
-                    updateSlug(data);
-                    return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+					return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 update: function (data) {
-                    if (angular.isUndefined(data.slug) || (data.slug === null) || data.slug === '') {
-                        updateSlug(data);
-                    }
-                    var params = baasicApiService.updateParams(data);
+					var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 saveDraft: function (data) {
@@ -132,12 +128,12 @@
                 },
                 tags: {
                     find: function (articleId, options) {
-                        var params = angular.extend({}, options);
+                        var params = angular.copy(options);
                         params.articleId = articleId;
                         return baasicApiHttp.get(articleRouteService.tags.find.expand(baasicApiService.findParams(params)));
                     },
                     get: function (articleId, id, options) {
-                        var params = angular.extend({}, options);
+                        var params = angular.copy(options);
                         params.articleId = articleId;
                         return baasicApiHttp.get(articleRouteService.tags.get.expand(baasicApiService.getParams(id, params)));
                     },
@@ -155,11 +151,11 @@
                 },
                 permissions: {
                     get: function (options) {
-                        var params = angular.extend({}, options);
+                        var params = angular.copy(options);
                         return baasicApiHttp.get(articleRouteService.permissions.get.expand(params));
                     },
                     update: function (options) {
-                        var params = angular.extend({}, options);
+                        var params = angular.copy(options);
                         return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
                     },
                     removeByUser: function (action, user, data) {
