@@ -73,7 +73,7 @@
                  **/
                 get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
                 /**
-                 * Parses create article rating route, this URI template does not expose any additional options.
+                 * Parses create article rating route; this URI template does not expose any additional options.
                  * @method        
                  * @example baasicArticleRatingsRouteService.create.expand({});              
                  **/
@@ -198,7 +198,7 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system.
                  * @method        
                  * @example 
                  // Existing resource is a resource previously fetched using get action.
@@ -247,14 +247,14 @@
                  **/
                 find: uriTemplateService.parse('articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}'),
                 /**
-                 * Parses get article route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
+                 * Parses get article route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
                  * @example baasicArticleRouteService.get.expand({id: "uniqueID"});               
                  **/
                 get: uriTemplateService.parse('articles/{id}/{?embed,fields}'),
                 /**
-                 * Parses publish article route which must be expanded with the Id of the previously created resource in the system.
+                 * Parses publish article route which must be expanded with the Id of the previously created article resource in the system.
                  * @method        
                  * @example baasicArticleRouteService.publish.expand({id: "uniqueID"});               
                  **/
@@ -266,7 +266,7 @@
                  **/
                 purge: uriTemplateService.parse('articles/purge/'),
                 /**
-                 * Parses create article route, this URI template doesn't expose any additional properties.
+                 * Parses create article route; this URI template doesn't expose any additional properties.
                  * @method        
                  * @example baasicArticleRouteService.create.expand({});               
                  **/
@@ -302,7 +302,7 @@
                      **/
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
                     /**
-                     * Parses create article rating route, this URI template should be expanded with the Id of the article.
+                     * Parses create article rating route; this URI template should be expanded with the Id of the article.
                      * @method ratings.create       
                      * @example baasicArticleRatingsRouteService.ratings.create.expand({articleId: "uniqueID"});              
                      **/
@@ -337,7 +337,7 @@
                      **/
                     get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
                     /**
-                     * Parses create article tag route, this URI template should be expanded with the Id of the article.
+                     * Parses create article tag route; this URI template should be expanded with the Id of the article.
                      * @method tags.create       
                      * @example baasicArticleRatingsRouteService.tags.create.expand({id: "uniqueID"});              
                      **/
@@ -351,13 +351,13 @@
                 },
                 permissions: {
                     /**
-                     * Parses get article permissions route, this URI template should be expanded with the Id of the article.					
+                     * Parses get article permissions route; this URI template should be expanded with the Id of the article.					
                      * @method permissions.get       
                      * @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
                      **/
                     get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
                     /**
-                     * Parses update article permissions route, this URI template should be expanded with the Id of the article.					
+                     * Parses update article permissions route; this URI template should be expanded with the Id of the article.					
                      * @method permissions.update       
                      * @example baasicArticleRatingsRouteService.permissions.update.expand({id: "articleId"});               
                      **/
@@ -563,7 +563,7 @@
                     return this.update(data);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system.
                  * @method        
                  * @example 
                  // Existing resource is a resource previously fetched using get action.
@@ -597,7 +597,7 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
                 /**
-                 * Returns a promise that is resolved once the restore article action has been performed. This action will restore a previously archived article.
+                 * Returns a promise that is resolved once the restore article action has been performed. This action will restore a previously archived article resource.
                  * @method        
                  * @example 
                  // Existing resource is a resource previously fetched using get action.
@@ -734,7 +734,7 @@
                         return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                     * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system.
                      * @method ratings.remove       
                      * @example 
                      // Existing resource is a resource previously fetched using get action.
@@ -751,7 +751,7 @@
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                     * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the resources are permanently removed from the system for a specified article resource.
+                     * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource.
                      * @method ratings.removeAll
                      * @example 
                      // Existing resource is a resource previously fetched using get action.
@@ -826,7 +826,7 @@
                         return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                     * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system.
                      * @method tags.remove       
                      * @example 
                      // Existing resource is a resource previously fetched using get action.
@@ -843,7 +843,7 @@
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                     * Returns a promise that is resolved once the removeAll article tag action has been performed. If the action is successfully completed the resources are permanently removed from the system for a specified article resource.
+                     * Returns a promise that is resolved once the removeAll article tag action has been performed. If the action is successfully completed the article tag resources are permanently removed from the system for a specified article resource.
                      * @method tags.removeAll
                      * @example 
                      // Existing resource is a resource previously fetched using get action.
@@ -951,7 +951,7 @@
         module.service('baasicArticleSettingsRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
             return {
                 /**
-                 * Parses get article settings route, this URI template doesn't expose any additional properties.				
+                 * Parses get article settings route; this URI template doesn't expose any additional properties.				
                  * @method
                  * @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
                  **/
@@ -1050,7 +1050,7 @@
                  **/
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
                 /**
-                 * Parses create article tag route, this URI template doesn't expose any additional properties.
+                 * Parses create article tag route; this URI template doesn't expose any additional properties.
                  * @method      
                  * @example baasicArticleTagsRouteService.create.expand({});              
                  **/
@@ -1154,7 +1154,7 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system.
                  * @method        
                  * @example 
                  // Existing resource is a resource previously fetched using get action.
