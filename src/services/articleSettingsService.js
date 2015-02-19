@@ -1,5 +1,14 @@
 ﻿/* globals module */
+/**
+ * @module baasicArticleSettingsService
+**/
 
+/** 
+ * @overview Article settings service.
+ * @copyright (c) 2015 Mono-Software
+ * @license MIT
+ * @author Mono-Software
+*/
 (function (angular, module, undefined) {
     'use strict';
     module.service('baasicArticleSettingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleSettingsRouteService',
