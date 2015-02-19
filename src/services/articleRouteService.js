@@ -30,14 +30,14 @@
                 **/  			
                 find: uriTemplateService.parse('articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}'),
                 /**
-                * Parses get article route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
+                * Parses get article route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
                 * @example baasicArticleRouteService.get.expand({id: "uniqueID"});               
                 **/   				
                 get: uriTemplateService.parse('articles/{id}/{?embed,fields}'),
                 /**
-                * Parses publish article route which must be expanded with the Id of the previously created resource in the system.
+                * Parses publish article route which must be expanded with the Id of the previously created article resource in the system.
                 * @method        
                 * @example baasicArticleRouteService.publish.expand({id: "uniqueID"});               
                 **/ 				
@@ -49,7 +49,7 @@
                 **/ 				
                 purge: uriTemplateService.parse('articles/purge/'),
                 /**
-                * Parses create article route, this URI template doesn't expose any additional properties.
+                * Parses create article route; this URI template doesn't expose any additional properties.
                 * @method        
                 * @example baasicArticleRouteService.create.expand({});               
                 **/ 				
@@ -85,7 +85,7 @@
 					**/ 					
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
 					/**
-					* Parses create article rating route, this URI template should be expanded with the Id of the article.
+					* Parses create article rating route; this URI template should be expanded with the Id of the article.
 					* @method ratings.create       
 					* @example baasicArticleRatingsRouteService.ratings.create.expand({articleId: "uniqueID"});              
 					**/  					
@@ -120,7 +120,7 @@
 					**/ 					
                     get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
 					/**
-					* Parses create article tag route, this URI template should be expanded with the Id of the article.
+					* Parses create article tag route; this URI template should be expanded with the Id of the article.
 					* @method tags.create       
 					* @example baasicArticleRatingsRouteService.tags.create.expand({id: "uniqueID"});              
 					**/  					
@@ -134,13 +134,13 @@
                 },
                 permissions: {
 					/**
-					* Parses get article permissions route, this URI template should be expanded with the Id of the article.					
+					* Parses get article permissions route; this URI template should be expanded with the Id of the article.					
 					* @method permissions.get       
 					* @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
 					**/ 				
                     get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
 					/**
-					* Parses update article permissions route, this URI template should be expanded with the Id of the article.					
+					* Parses update article permissions route; this URI template should be expanded with the Id of the article.					
 					* @method permissions.update       
 					* @example baasicArticleRatingsRouteService.permissions.update.expand({id: "articleId"});               
 					**/ 					

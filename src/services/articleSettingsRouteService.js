@@ -15,7 +15,7 @@
         function (uriTemplateService) {
             return {
 				/**
-				* Parses get article settings route, this URI template doesn't expose any additional properties.				
+				* Parses get article settings route; this URI template doesn't expose any additional properties.				
 				* @method
 				* @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
 				**/ 				

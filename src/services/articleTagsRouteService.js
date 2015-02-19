@@ -34,7 +34,7 @@
 				**/ 					
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
 				/**
-				* Parses create article tag route, this URI template doesn't expose any additional properties.
+				* Parses create article tag route; this URI template doesn't expose any additional properties.
 				* @method      
 				* @example baasicArticleTagsRouteService.create.expand({});              
 				**/  					

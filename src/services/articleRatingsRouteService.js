@@ -44,7 +44,7 @@
                 **/   				
                 get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
                 /**
-                * Parses create article rating route, this URI template does not expose any additional options.
+                * Parses create article rating route; this URI template does not expose any additional options.
                 * @method        
                 * @example baasicArticleRatingsRouteService.create.expand({});              
                 **/  					

@@ -176,7 +176,7 @@ baasicArticleService.saveDraft(article)
                     return this.update(data);
                 },
                  /**
-                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system.
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -210,7 +210,7 @@ baasicArticleService.archive(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the restore article action has been performed. This action will restore a previously archived article.
+                 * Returns a promise that is resolved once the restore article action has been performed. This action will restore a previously archived article resource.
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -347,7 +347,7 @@ baasicArticleRatingsService.update(existingResource)
                         return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                    * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                    * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system.
                     * @method ratings.remove       
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -364,7 +364,7 @@ baasicArticleRatingsService.remove(existingResource)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the resources are permanently removed from the system for a specified article resource.
+                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource.
                     * @method ratings.removeAll
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -439,7 +439,7 @@ baasicArticleService.tags.create({
                         return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                      /**
-                     * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the resource is permanently removed from the system.
+                     * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system.
                      * @method tags.remove       
                      * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -456,7 +456,7 @@ baasicArticleService.tags.remove(existingResource)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article tag action has been performed. If the action is successfully completed the resources are permanently removed from the system for a specified article resource.
+                    * Returns a promise that is resolved once the removeAll article tag action has been performed. If the action is successfully completed the article tag resources are permanently removed from the system for a specified article resource.
                     * @method tags.removeAll
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
