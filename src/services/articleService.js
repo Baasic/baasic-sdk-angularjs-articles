@@ -334,7 +334,7 @@ baasicArticleService.ratings.create({
                     * @example 
 // Existing resource is a resource previously fetched using get action.
 existingResource.rating = 4;
-baasicArticleRatingsService.update(existingResource)
+baasicArticleService.update(existingResource)
 .success(function (data) {
   // perform success action here
 })
@@ -351,7 +351,7 @@ baasicArticleRatingsService.update(existingResource)
                     * @method ratings.remove       
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
-baasicArticleRatingsService.remove(existingResource)
+baasicArticleService.remove(existingResource)
 .success(function (data) {
   // perform success action here
 })
@@ -368,7 +368,7 @@ baasicArticleRatingsService.remove(existingResource)
                     * @method ratings.removeAll
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
-baasicArticleRatingsService.remove(existingResource)
+baasicArticleService.remove(existingResource)
 .success(function (data) {
   // perform success action here
 })

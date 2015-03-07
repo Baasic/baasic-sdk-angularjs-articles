@@ -19,7 +19,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings resource.
                  * @method        
                  * @example 
-baasicArticleRatingsService.get()
+baasicArticleSettingsService.get()
 .success(function (data) {
   // perform success action here
 })
@@ -36,7 +36,7 @@ baasicArticleRatingsService.get()
                  * @example 
 // Existing resource is a resource previously fetched using get action.
 existingResource.allowArchive = true;
-baasicArticleRatingsService.update(existingResource)
+baasicArticleSettingsService.update(existingResource)
 .success(function (data) {
   // perform success action here
 })

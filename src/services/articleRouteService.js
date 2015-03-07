@@ -57,7 +57,7 @@
                 /**
                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                 * @method
-                * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                * @example baasicArticleRouteService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                 **/				
                 parse: uriTemplateService.parse,
                 ratings: {
@@ -69,7 +69,7 @@
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method ratings.find       
-					* @example baasicArticleRatingsRouteService.ratings.find.expand({articleId`: "uniqueID"});               
+					* @example baasicArticleRouteService.ratings.find.expand({articleId`: "uniqueID"});               
 					**/ 				
                     find: uriTemplateService.parse('articles/{articleId}/ratings{?page,rpp,sort,embed,fields}'),
 					/**
@@ -81,19 +81,19 @@
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method ratings.findByUsername       
-					* @example baasicArticleRatingsRouteService.ratings.findByUsername.expand({articleId: "uniqueID", username: "username"});               
+					* @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: "uniqueID", username: "username"});               
 					**/ 					
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
 					/**
 					* Parses create article rating route; this URI template should be expanded with the Id of the article.
 					* @method ratings.create       
-					* @example baasicArticleRatingsRouteService.ratings.create.expand({articleId: "uniqueID"});              
+					* @example baasicArticleRouteService.ratings.create.expand({articleId: "uniqueID"});              
 					**/  					
                     create: uriTemplateService.parse('articles/{articleId}/ratings/'),
                     /**
                     * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                     * @method ratings.parse
-                    * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                    * @example baasicArticleRouteService.ratings.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                     **/					
                     parse: uriTemplateService.parse
                 },
@@ -107,7 +107,7 @@
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method tags.find       
-					* @example baasicArticleRatingsRouteService.tags.find.expand({id: "uniqueID", searchQuery: "searchTerm"});               
+					* @example baasicArticleRouteService.tags.find.expand({id: "uniqueID", searchQuery: "searchTerm"});               
 					**/ 					
                     find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
 					/**
@@ -116,19 +116,19 @@
 					* - `tag` - Article slug which uniquely identifies article tag resource that needs to be retrieved.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method tags.get       
-					* @example baasicArticleRatingsRouteService.tags.find.expand({id: "uniqueID", tag: "keyword"});               
+					* @example baasicArticleRouteService.tags.find.expand({id: "uniqueID", tag: "keyword"});               
 					**/ 					
                     get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
 					/**
 					* Parses create article tag route; this URI template should be expanded with the Id of the article.
 					* @method tags.create       
-					* @example baasicArticleRatingsRouteService.tags.create.expand({id: "uniqueID"});              
+					* @example baasicArticleRouteService.tags.create.expand({id: "uniqueID"});              
 					**/  					
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
                     * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
                     * @method tags.parse
-                    * @example uriTemplateService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
+                    * @example baasicArticleRouteService.tags.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                     **/										
                     parse: uriTemplateService.parse
                 },
@@ -136,13 +136,13 @@
 					/**
 					* Parses get article permissions route; this URI template should be expanded with the Id of the article.					
 					* @method permissions.get       
-					* @example baasicArticleRatingsRouteService.permissions.get.expand({id: "articleId"});               
+					* @example baasicArticleRouteService.permissions.get.expand({id: "articleId"});               
 					**/ 				
                     get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
 					/**
 					* Parses update article permissions route; this URI template should be expanded with the Id of the article.					
 					* @method permissions.update       
-					* @example baasicArticleRatingsRouteService.permissions.update.expand({id: "articleId"});               
+					* @example baasicArticleRouteService.permissions.update.expand({id: "articleId"});               
 					**/ 					
                     update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
 					/**
@@ -151,7 +151,7 @@
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
 					* - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
 					* @method permissions.deleteByUser       
-					* @example baasicArticleRatingsRouteService.permissions.deleteByUser.expand({id: "articleId", accessAction: "read", user: "username"});               
+					* @example baasicArticleRouteService.permissions.deleteByUser.expand({id: "articleId", accessAction: "read", user: "username"});               
 					**/ 					
                     deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
 					/**
@@ -160,7 +160,7 @@
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
 					* - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
 					* @method permissions.deleteByRole       
-					* @example baasicArticleRatingsRouteService.permissions.deleteByRole.expand({id: "articleId", accessAction: "read", role: "roleName"});               
+					* @example baasicArticleRouteService.permissions.deleteByRole.expand({id: "articleId", accessAction: "read", role: "roleName"});               
 					**/ 					
                     deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }
