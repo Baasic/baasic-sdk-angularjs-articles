@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleTagsService
-**/
-
-/** 
- * @overview Article tags service.
+ * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions are not bound to particular article items but are meant to be used on tag resources directly.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

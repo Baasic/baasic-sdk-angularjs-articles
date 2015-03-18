@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRatingsService
-**/
-
-/** 
- * @overview Article ratings service.
+ * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on ratings resources directly.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

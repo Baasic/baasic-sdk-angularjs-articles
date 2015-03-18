@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleSettingsService
-**/
-
-/** 
- * @overview Article settings service.
+ * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on settings resources directly.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

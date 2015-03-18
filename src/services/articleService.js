@@ -1,10 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleService
-**/
-
-/** 
- * @overview Article service.
+ * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API.
  * @copyright (c) 2015 Mono-Software
  * @license MIT
  * @author Mono-Software

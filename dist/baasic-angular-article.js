@@ -1,13 +1,9 @@
 (function (angular, undefined) { /* exported module */
     /** 
-     * @overview The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism.
+     * @description The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism.  An angular module is a container for the different parts of your app - services, directives etc. In order to use `baasic.article` module functionality it must be added as a dependency to your app.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
-     */
-
-    /**
-     * An angular module is a container for the different parts of your app - services, directives etc. In order to use baasic.article module functionality it must be added as a dependency to your app.
      * @module baasic.article
      * @example
      (function (Main) {
@@ -31,10 +27,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsRouteService
-     **/
-
-    /** 
-     * @overview Article ratings route service.
+     * @description Baasic Article Ratings Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleRatingsRouteService` uses `baasicArticleRatingsRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -89,10 +82,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicArticleRatingsService
-     **/
-
-    /** 
-     * @overview Article ratings service.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on ratings resources directly.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -219,10 +209,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicArticleRouteService
-     **/
-
-    /** 
-     * @overview Article ratings route service.
+     * @description Baasic Article Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleRouteService` uses `baasicArticleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services. 
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -388,10 +375,7 @@
     /* globals module */
     /**
      * @module baasicArticleService
-     **/
-
-    /** 
-     * @overview Article service.
+     * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -938,10 +922,7 @@
     /* globals module */
     /**
      * @module baasicArticleSettingsRouteService
-     **/
-
-    /** 
-     * @overview Article settings route service.
+     * @description Baasic Article Settings Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -967,10 +948,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicArticleSettingsService
-     **/
-
-    /** 
-     * @overview Article settings service.
+     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on settings resources directly.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -1018,10 +996,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicArticleTagsRouteService
-     **/
-
-    /** 
-     * @overview Article tags route service.
+     * @description Baasic Article Tags Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleTagsRouteService` uses `baasicArticleTagsRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
@@ -1066,10 +1041,7 @@
     }(angular, module)); /* globals module */
     /**
      * @module baasicArticleTagsService
-     **/
-
-    /** 
-     * @overview Article tags service.
+     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions are not bound to particular article items but are meant to be used on tag resources directly.
      * @copyright (c) 2015 Mono-Software
      * @license MIT
      * @author Mono-Software
