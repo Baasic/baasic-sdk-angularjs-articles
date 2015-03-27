@@ -52,7 +52,7 @@
                 **/ 				
                 create: uriTemplateService.parse('articles'),
                 /**
-                * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                 * @method
                 * @example baasicArticleRouteService.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                 **/				
@@ -88,7 +88,7 @@
 					**/  					
                     create: uriTemplateService.parse('articles/{articleId}/ratings/'),
                     /**
-                    * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                    * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                     * @method ratings.parse
                     * @example baasicArticleRouteService.ratings.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                     **/					
@@ -123,7 +123,7 @@
 					**/  					
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
-                    * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [github](https://github.com/Baasic/uritemplate-js) page.
+                    * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                     * @method tags.parse
                     * @example baasicArticleRouteService.tags.parse("route/{?embed,fields,options}").expand({embed: "embeddedResource"});
                     **/										
