@@ -2,9 +2,9 @@
 /**
  * @module baasicArticleSettingsService
  * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on settings resources directly.
- * @copyright (c) 2015 Mono-Software
+ * @copyright (c) 2015 Mono
  * @license MIT
- * @author Mono-Software
+ * @author Mono
 */
 (function (angular, module, undefined) {
     'use strict';
