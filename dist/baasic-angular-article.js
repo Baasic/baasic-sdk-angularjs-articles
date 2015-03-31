@@ -1091,7 +1091,7 @@
                  * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This function doesn't use `baasicArticleSettingsRouteService` for obtaining route templates, however `update` route can be obtained from article setting (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleSettingObject);
-                 var uri = params["model"].links('update').href;
+                 var uri = params["model"].links('put').href;
                  ```
                  * @method        
                  * @example 
@@ -1234,7 +1234,7 @@
                  * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `update` route can be obtained from article tag (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleTagObject);
-                 var uri = params["model"].links('update').href;
+                 var uri = params["model"].links('put').href;
                  ```
                  * @method        
                  * @example 
