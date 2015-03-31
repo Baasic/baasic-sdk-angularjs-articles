@@ -95,6 +95,11 @@
             }
 
             return {
+                /**
+                * Provides direct access to `baasicArticleRouteService`.
+                * @method        
+                * @example baasicArticleRouteService.routeService.get.expand(expandObject);
+                **/  			
                 routeService: articleRouteService,
                 /**
                 * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ published: 2, draft: 1, archive: 4 }`
@@ -103,26 +108,26 @@
                 **/ 				
                 statuses: statuses,
                 /**
-                * Parses article object and generates a valid slug.
+                * Parses article object and updates slug of an article.
                 * @method        
                 * @example baasicArticleService.updateslug(article);
                 **/ 				
                 updateSlug: updateSlug,
                 /**
-                * Generates and returns a valid slug string.
+                * Generates and returns a valid slug url string.
                 * @method        
                 * @example baasicArticleService.toSlug("<slug>");
                 **/ 				
                 toSlug: toSlug,
                  /**
-                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article resources.
+                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article resources matching the given criteria.
                  * @method        
                  * @example 
 baasicArticleService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "publishDate",
-  orderDirection : "desc",
+  orderBy : "<publishDate>",
+  orderDirection : "<desc>",
   search : "<search-phrase>"
 })
 .success(function (collection) {
@@ -152,7 +157,7 @@ baasicArticleService.find({
                     return baasicApiHttp.get(articleRouteService.find.expand(params));
                 },
                  /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the article resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns a single article resource.
                  * @method        
                  * @example 
 baasicArticleService.get("<article-id>")
@@ -167,7 +172,7 @@ baasicArticleService.get("<article-id>")
                     return baasicApiHttp.get(articleRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the create article action has been performed.
+                 * Returns a promise that is resolved once the create article action has been performed, this action creates a new article resource.
                  * @method        
                  * @example 
 baasicArticleService.create({
@@ -189,7 +194,11 @@ baasicArticleService.create({
 					return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article action has been performed.
+                 * Returns a promise that is resolved once the update article action has been performed, this action updates an article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `update` route can be obtained from article (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('put').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
@@ -207,7 +216,7 @@ baasicArticleService.update(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the saveDraft article action has been performed. The action will determine whether the draft should be created or updated.
+                 * Returns a promise that is resolved once the saveDraft article action has been performed. This action saves an article with "draft" status. If an article does not exist it will create a new article resource otherwise it will update an existing article resource.
                  * @method        
                  * @example 
 baasicArticleService.saveDraft(article)
@@ -227,7 +236,11 @@ baasicArticleService.saveDraft(article)
                     return this.update(data);
                 },
                  /**
-                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system.
+                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('delete').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -244,7 +257,11 @@ baasicArticleService.remove(existingResource)
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the archive article action has been performed.
+                 * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `archive` route can be obtained from article (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('archive').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -261,7 +278,11 @@ baasicArticleService.archive(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the restore article action has been performed. This action will restore a previously archived article resource.
+                 * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `restore` route can be obtained from article (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('restore').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -278,7 +299,11 @@ baasicArticleService.restore(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the unpublish article action has been performed.
+                 * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `unpublish` route can be obtained from article (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleObject);
+var uri = params["model"].links('unpublish').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -295,7 +320,7 @@ baasicArticleService.unpublish(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('unpublish').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the publish article action has been performed.
+                 * Returns a promise that is resolved once the publish article action has been performed. This action sets the status of an article from "draft" to "published".
                  * @method        
                  * @example 	 
 baasicArticleService.publish("<article-id>")
@@ -313,7 +338,7 @@ baasicArticleService.publish("<article-id>")
                  * Returns a promise that is resolved once the purge articles action has been performed. This action will delete all article resources from the system.
                  * @method        
                  * @example 	 
-baasicArticleService.publish("<article-id>")
+baasicArticleService.purge("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -326,7 +351,7 @@ baasicArticleService.publish("<article-id>")
                 },
                 ratings: {
                     /**
-                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources.
+                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article which match the given criteria.
                     * @method ratings.find    
                     * @example 
 baasicArticleService.ratings.find("<article-id>")
@@ -343,7 +368,7 @@ baasicArticleService.ratings.find("<article-id>")
                         return baasicApiHttp.get(articleRouteService.ratings.find.expand(baasicApiService.findParams(params)));
                     },
                     /**
-                    * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources.
+                    * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources filtered by username for a specified article.
                     * @method ratings.findByUsername    
                     * @example 
 baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
@@ -361,7 +386,7 @@ baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
                         return baasicApiHttp.get(articleRouteService.ratings.findByUsername.expand(baasicApiService.findParams(params)));
                     },
                     /**
-                    * Returns a promise that is resolved once the create article rating action has been performed.
+                    * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new rating for an article.
                     * @method  ratings.create      
                     * @example 
 baasicArticleService.ratings.create({
@@ -380,7 +405,7 @@ baasicArticleService.ratings.create({
                         return baasicApiHttp.post(articleRouteService.ratings.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                     /**
-                    * Returns a promise that is resolved once the update article rating action has been performed.
+                    * Returns a promise that is resolved once the update article rating action has been performed, this action updates a rating of an article.
                     * @method ratings.update       
                     * @example 
 // Existing resource is a resource previously fetched using get action.
@@ -398,7 +423,11 @@ baasicArticleService.update(existingResource)
                         return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                    * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system.
+                    * Returns a promise that is resolved once the remove article rating action has been performed. This action removes a rating from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleRatingObject);
+var uri = params["model"].links('delete').href;
+```
                     * @method ratings.remove       
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -415,7 +444,11 @@ baasicArticleService.remove(existingResource)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource.
+                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleRatingObject);
+var uri = params["model"].links('delete-ratings-by-article').href;
+```
                     * @method ratings.removeAll
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -434,7 +467,7 @@ baasicArticleService.remove(existingResource)
                 },
                 tags: {
                     /**
-                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources.
+                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                     * @method tags.find    
                     * @example 
 baasicArticleService.tags.find("<article-id>")
@@ -451,7 +484,7 @@ baasicArticleService.tags.find("<article-id>")
                         return baasicApiHttp.get(articleRouteService.tags.find.expand(baasicApiService.findParams(params)));
                     },
                     /**
-                    * Returns a promise that is resolved once the get action has been performed. Success response returns the article tag resource.
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                     * @method tags.get       
                     * @example 
 baasicArticleRatingsService.get("<article-id")
@@ -468,7 +501,7 @@ baasicArticleRatingsService.get("<article-id")
                         return baasicApiHttp.get(articleRouteService.tags.get.expand(baasicApiService.getParams(id, params)));
                     },
                     /**
-                    * Returns a promise that is resolved once the create article rating action has been performed.
+                    * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new tag for an article.
                     * @method  tags.create      
                     * @example 
 baasicArticleService.tags.create({
@@ -490,7 +523,11 @@ baasicArticleService.tags.create({
                         return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                      /**
-                     * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system.
+                     * Returns a promise that is resolved once the remove article tag action has been performed. This action removes a tag from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleTagObject);
+var uri = params["model"].links('delete').href;
+```
                      * @method tags.remove       
                      * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -507,7 +544,11 @@ baasicArticleService.tags.remove(existingResource)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article tag action has been performed. If the action is successfully completed the article tag resources are permanently removed from the system for a specified article resource.
+                    * Returns a promise that is resolved once the removeAll article tag action has been performed. This action removes all tags from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleTagObject);
+var uri = params["model"].links('delete-tags-by-article').href;
+```
                     * @method tags.removeAll
                     * @example 
 // Existing resource is a resource previously fetched using get action.				 
@@ -542,7 +583,7 @@ baasicArticleService.permissions.get({id: "<article-id>"})
                         return baasicApiHttp.get(articleRouteService.permissions.get.expand(params));
                     },
                     /**
-                    * Returns a promise that is resolved once the update permissions action has been performed.
+                    * Returns a promise that is resolved once the update permissions action has been performed, this action updates an article permission.
                     * @method permissions.update      
                     * @example 
 // Existing resource is a resource previously fetched using get action.

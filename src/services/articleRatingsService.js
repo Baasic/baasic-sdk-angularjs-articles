@@ -11,16 +11,21 @@
     module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
+                /**
+                * Provides direct access to `baasicArticleRatingsRouteService`.
+                * @method        
+                * @example baasicArticleRatingsRouteService.routeService.get.expand(expandObject);
+                **/  
                 routeService: articleRatingsRouteService,
                  /**
-                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources.
+                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources matching the given criteria.
                  * @method        
                  * @example 
 baasicArticleRatingsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "article.title",
-  orderDirection : "desc",
+  orderBy : "<article.title>",
+  orderDirection : "<desc>",
   search : "<search-phrase>"
 })
 .success(function (collection) {
@@ -34,14 +39,14 @@ baasicArticleRatingsService.find({
                     return baasicApiHttp.get(articleRatingsRouteService.find.expand(baasicApiService.findParams(options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the findByUser action has been performed. Success response returns a list of article rating resources.
+                 * Returns a promise that is resolved once the findByUser action has been performed. Success response returns a list of article rating resources filtered by username.
                  * @method        
                  * @example 
 baasicArticleRatingsService.find("<username>", {
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "article.title",
-  orderDirection : "desc"
+  orderBy : "<article.title>",
+  orderDirection : "<desc>"
 })
 .success(function (collection) {
   // perform success action here
@@ -56,7 +61,7 @@ baasicArticleRatingsService.find("<username>", {
                     return baasicApiHttp.get(articleRatingsRouteService.findByUser.expand(baasicApiService.findParams(params)));
                 },
                  /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the article rating resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article rating resource.
                  * @method        
                  * @example 
 baasicArticleRatingsService.get("<article-id>")
@@ -71,7 +76,7 @@ baasicArticleRatingsService.get("<article-id>")
                     return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the create article rating action has been performed.
+                 * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new article rating.
                  * @method        
                  * @example 
 baasicArticleRatingsService.create({
@@ -90,7 +95,11 @@ baasicArticleRatingsService.create({
                     return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article rating action has been performed.
+                 * Returns a promise that is resolved once the update article rating action has been performed, this action updates an article rating. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `update` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleRatingObject);
+var uri = params["model"].links('put').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
@@ -108,7 +117,11 @@ baasicArticleRatingsService.update(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system.
+                * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleRatingObject);
+var uri = params["model"].links('delete').href;
+```
                 * @method        
                 * @example 
 // Existing resource is a resource previously fetched using get action.				 

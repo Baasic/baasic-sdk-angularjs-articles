@@ -11,6 +11,11 @@
     module.service('baasicArticleSettingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleSettingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
             return {
+                /**
+                * Provides direct access to `baasicArticleSettingsRouteService`.
+                * @method        
+                * @example baasicArticleSettingsRouteService.routeService.get.expand(expandObject);
+                **/  			
                 routeService: articleSettingsRouteService,
                  /**
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings resource.
@@ -28,7 +33,11 @@ baasicArticleSettingsService.get()
                     return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the update article settings action has been performed.
+                 * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This function doesn't use `baasicArticleSettingsRouteService` for obtaining route templates, however `update` route can be obtained from article setting (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleSettingObject);
+var uri = params["model"].links('update').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.

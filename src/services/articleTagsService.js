@@ -12,16 +12,21 @@
     module.service('baasicArticleTagsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleTagsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
             return {
+                /**
+                * Provides direct access to `baasicArticleTagsRouteService`.
+                * @method        
+                * @example baasicArticleTagsRouteService.routeService.get.expand(expandObject);
+                **/  				
                 routeService: articleTagsRouteService,
                  /**
-                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources.
+                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                  * @method        
                  * @example 
 baasicArticleTagsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "tag",
-  orderDirection : "desc",
+  orderBy : "<tag>",
+  orderDirection : "<desc>",
   search : "<search-phrase>"
 })
 .success(function (collection) {
@@ -35,7 +40,7 @@ baasicArticleTagsService.find({
                     return baasicApiHttp.get(articleTagsRouteService.find.expand(baasicApiService.findParams(options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the article tag resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                  * @method        
                  * @example 
 baasicArticleTagsService.get("<article-id>")
@@ -50,7 +55,7 @@ baasicArticleTagsService.get("<article-id>")
                     return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the create article tag action has been performed.
+                 * Returns a promise that is resolved once the create article tag action has been performed, this action creates a new tag.
                  * @method        
                  * @example 
 baasicArticleTagsService.create({
@@ -69,7 +74,11 @@ baasicArticleTagsService.create({
                     return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article tag action has been performed.
+                 * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `update` route can be obtained from article tag (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleTagObject);
+var uri = params["model"].links('update').href;
+```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
@@ -87,7 +96,11 @@ baasicArticleTagsService.update(existingResource)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system.
+                * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `remove` route can be obtained from article tag (HAL enabled) objects like this:
+```
+var params = baasicApiService.removeParams(articleTagObject);
+var uri = params["model"].links('delete').href;
+```
                 * @method        
                 * @example 
 // Existing resource is a resource previously fetched using get action.				 
