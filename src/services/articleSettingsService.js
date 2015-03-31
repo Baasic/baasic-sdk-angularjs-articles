@@ -14,7 +14,7 @@
                 /**
                 * Provides direct access to `baasicArticleSettingsRouteService`.
                 * @method        
-                * @example baasicArticleSettingsRouteService.routeService.get.expand(expandObject);
+                * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
                 **/  			
                 routeService: articleSettingsRouteService,
                  /**

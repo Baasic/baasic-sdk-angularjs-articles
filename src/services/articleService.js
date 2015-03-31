@@ -98,7 +98,7 @@
                 /**
                 * Provides direct access to `baasicArticleRouteService`.
                 * @method        
-                * @example baasicArticleRouteService.routeService.get.expand(expandObject);
+                * @example baasicArticleService.routeService.get.expand(expandObject);
                 **/  			
                 routeService: articleRouteService,
                 /**

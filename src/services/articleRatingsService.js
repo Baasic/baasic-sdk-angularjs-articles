@@ -14,7 +14,7 @@
                 /**
                 * Provides direct access to `baasicArticleRatingsRouteService`.
                 * @method        
-                * @example baasicArticleRatingsRouteService.routeService.get.expand(expandObject);
+                * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
                 **/  
                 routeService: articleRatingsRouteService,
                  /**

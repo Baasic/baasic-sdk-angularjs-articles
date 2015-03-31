@@ -15,7 +15,7 @@
                 /**
                 * Provides direct access to `baasicArticleTagsRouteService`.
                 * @method        
-                * @example baasicArticleTagsRouteService.routeService.get.expand(expandObject);
+                * @example baasicArticleTagsService.routeService.get.expand(expandObject);
                 **/  				
                 routeService: articleTagsRouteService,
                  /**

@@ -94,7 +94,7 @@
                 /**
                  * Provides direct access to `baasicArticleRatingsRouteService`.
                  * @method        
-                 * @example baasicArticleRatingsRouteService.routeService.get.expand(expandObject);
+                 * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
                  **/
                 routeService: articleRatingsRouteService,
                 /**
@@ -485,7 +485,7 @@
                 /**
                  * Provides direct access to `baasicArticleRouteService`.
                  * @method        
-                 * @example baasicArticleRouteService.routeService.get.expand(expandObject);
+                 * @example baasicArticleService.routeService.get.expand(expandObject);
                  **/
                 routeService: articleRouteService,
                 /**
@@ -1069,7 +1069,7 @@
                 /**
                  * Provides direct access to `baasicArticleSettingsRouteService`.
                  * @method        
-                 * @example baasicArticleSettingsRouteService.routeService.get.expand(expandObject);
+                 * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
                  **/
                 routeService: articleSettingsRouteService,
                 /**
@@ -1172,7 +1172,7 @@
                 /**
                  * Provides direct access to `baasicArticleTagsRouteService`.
                  * @method        
-                 * @example baasicArticleTagsRouteService.routeService.get.expand(expandObject);
+                 * @example baasicArticleTagsService.routeService.get.expand(expandObject);
                  **/
                 routeService: articleTagsRouteService,
                 /**
