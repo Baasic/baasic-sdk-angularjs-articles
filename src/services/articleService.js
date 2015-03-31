@@ -97,7 +97,7 @@
             return {
                 routeService: articleRouteService,
                 /**
-                * Contains a refrerence to valid list of article statuses. Valid article statuses are: none, published, draft and archive.
+                * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ published: 2, draft: 1, archive: 4 }`
                 * @method        
                 * @example baasicArticleService.statuses.archive;
                 **/ 				
@@ -111,7 +111,7 @@
                 /**
                 * Generates and returns a valid slug string.
                 * @method        
-                * @example baasicArticleService.toSlug("articleSlug");
+                * @example baasicArticleService.toSlug("<slug>");
                 **/ 				
                 toSlug: toSlug,
                  /**
@@ -123,7 +123,7 @@ baasicArticleService.find({
   pageSize : 10,
   orderBy : "publishDate",
   orderDirection : "desc",
-  search : "searchTerm"
+  search : "<search-phrase>"
 })
 .success(function (collection) {
   // perform success action here
@@ -155,7 +155,7 @@ baasicArticleService.find({
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article resource.
                  * @method        
                  * @example 
-baasicArticleService.get("uniqueID")
+baasicArticleService.get("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -172,11 +172,11 @@ baasicArticleService.get("uniqueID")
                  * @example 
 baasicArticleService.create({
   publishDate : new Date(),
-  title : 'Lorem ipsum',
-  content : 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque nec quam magna. Maecenas non quam eget dui accumsan aliquam.'
+  title : '<title>',
+  content : '<content>'
   slug : '',
   status : baasicArticleService.statuses.draft;
-  $tags : ["lorem", "ipsum"]
+  $tags : ["<tag1>", "<tag2>"]
 })
 .success(function (data) {
   // perform success action here
@@ -193,7 +193,7 @@ baasicArticleService.create({
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.title = 'Lorem ipsum dolor sit amet';
+existingResource.title = '<title>';
 baasicArticleService.update(existingResource)
 .success(function (data) {
   // perform success action here
@@ -298,7 +298,7 @@ baasicArticleService.unpublish(existingResource)
                  * Returns a promise that is resolved once the publish article action has been performed.
                  * @method        
                  * @example 	 
-baasicArticleService.publish("uniqueID")
+baasicArticleService.publish("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -313,7 +313,7 @@ baasicArticleService.publish("uniqueID")
                  * Returns a promise that is resolved once the purge articles action has been performed. This action will delete all article resources from the system.
                  * @method        
                  * @example 	 
-baasicArticleService.publish("uniqueID")
+baasicArticleService.publish("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -329,7 +329,7 @@ baasicArticleService.publish("uniqueID")
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources.
                     * @method ratings.find    
                     * @example 
-baasicArticleService.ratings.find("uniqueID")
+baasicArticleService.ratings.find("<article-id>")
 .success(function (collection) {
   // perform success action here
 })
@@ -346,7 +346,7 @@ baasicArticleService.ratings.find("uniqueID")
                     * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources.
                     * @method ratings.findByUsername    
                     * @example 
-baasicArticleService.ratings.findByUsername("uniqueID", "userName")
+baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
 .success(function (collection) {
   // perform success action here
 })
@@ -365,9 +365,9 @@ baasicArticleService.ratings.findByUsername("uniqueID", "userName")
                     * @method  ratings.create      
                     * @example 
 baasicArticleService.ratings.create({
-  articleId : "articleId",
+  articleId : "<article-id>",
   rating : 5,
-  userId : "userId"
+  userId : "<user-id>"
 })
 .success(function (data) {
   // perform success action here
@@ -437,7 +437,7 @@ baasicArticleService.remove(existingResource)
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources.
                     * @method tags.find    
                     * @example 
-baasicArticleService.tags.find("uniqueID")
+baasicArticleService.tags.find("<article-id>")
 .success(function (collection) {
   // perform success action here
 })
@@ -454,7 +454,7 @@ baasicArticleService.tags.find("uniqueID")
                     * Returns a promise that is resolved once the get action has been performed. Success response returns the article tag resource.
                     * @method tags.get       
                     * @example 
-baasicArticleRatingsService.get("uniqueID")
+baasicArticleRatingsService.get("<article-id")
 .success(function (data) {
   // perform success action here
 })
@@ -472,11 +472,11 @@ baasicArticleRatingsService.get("uniqueID")
                     * @method  tags.create      
                     * @example 
 baasicArticleService.tags.create({
-  articleId : "uniqueId",
+  articleId : "<article-id>",
   tag : {
-    slug : "slug",
+    slug : "<slug>",
     sortOrder : 1,
-    tag : "tag"
+    tag : "<tag>"
   }
 })
 .success(function (data) {
@@ -529,7 +529,7 @@ baasicArticleService.tags.removeAll(existingResource)
                     * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article permissions.
                     * @method permissions.get       
                     * @example 
-baasicArticleService.permissions.get({id: "uniqueId"})
+baasicArticleService.permissions.get({id: "<article-id>"})
 .success(function (data) {
   // perform success action here
 })
@@ -562,7 +562,7 @@ baasicArticleService.permissions.update(existingResource)
                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes all ACL assigned to the specified user and article resource.
                     * @method permissions.update      
                     * @example 
-baasicArticleService.permissions.removeByUser("read", "userName")
+baasicArticleService.permissions.removeByUser("<access-action>", "<username>")
 .success(function (data) {
   // perform success action here
 })
@@ -580,7 +580,7 @@ baasicArticleService.permissions.removeByUser("read", "userName")
                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes all ACL assigned to the specified role and article resource.
                     * @method permissions.update      
                     * @example 
-baasicArticleService.permissions.removeByRole("read", "role name")
+baasicArticleService.permissions.removeByRole("<access-action>", "<role-name>")
 .success(function (data) {
   // perform success action here
 })

@@ -21,7 +21,7 @@ baasicArticleRatingsService.find({
   pageSize : 10,
   orderBy : "article.title",
   orderDirection : "desc",
-  search : "searchTerm"
+  search : "<search-phrase>"
 })
 .success(function (collection) {
   // perform success action here
@@ -37,7 +37,7 @@ baasicArticleRatingsService.find({
                  * Returns a promise that is resolved once the findByUser action has been performed. Success response returns a list of article rating resources.
                  * @method        
                  * @example 
-baasicArticleRatingsService.find("userName", {
+baasicArticleRatingsService.find("<username>", {
   pageNumber : 1,
   pageSize : 10,
   orderBy : "article.title",
@@ -59,7 +59,7 @@ baasicArticleRatingsService.find("userName", {
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article rating resource.
                  * @method        
                  * @example 
-baasicArticleRatingsService.get("uniqueID")
+baasicArticleRatingsService.get("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -75,9 +75,9 @@ baasicArticleRatingsService.get("uniqueID")
                  * @method        
                  * @example 
 baasicArticleRatingsService.create({
-  articleId : "articleId",
+  articleId : "<article-id>",
   rating : 5,
-  userId : "userId"
+  userId : "<user-id>"
 })
 .success(function (data) {
   // perform success action here

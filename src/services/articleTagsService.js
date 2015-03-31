@@ -22,7 +22,7 @@ baasicArticleTagsService.find({
   pageSize : 10,
   orderBy : "tag",
   orderDirection : "desc",
-  search : "searchTerm"
+  search : "<search-phrase>"
 })
 .success(function (collection) {
   // perform success action here
@@ -38,7 +38,7 @@ baasicArticleTagsService.find({
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article tag resource.
                  * @method        
                  * @example 
-baasicArticleTagsService.get("uniqueID")
+baasicArticleTagsService.get("<article-id>")
 .success(function (data) {
   // perform success action here
 })
@@ -54,9 +54,9 @@ baasicArticleTagsService.get("uniqueID")
                  * @method        
                  * @example 
 baasicArticleTagsService.create({
-  slug : "slug",
+  slug : "<slug>",
   sortOrder : 5,
-  tag : "tag"
+  tag : "<tag>"
 })
 .success(function (data) {
   // perform success action here
@@ -73,7 +73,7 @@ baasicArticleTagsService.create({
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.tag = "updated tag";
+existingResource.tag = "<new-tag>";
 baasicArticleTagsService.update(existingResource)
 .success(function (data) {
   // perform success action here
