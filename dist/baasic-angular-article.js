@@ -7,18 +7,18 @@
      * @module baasic.article
      * @example
      (function (Main) {
-     "use strict";
+     'use strict';
      var dependencies = [
-     "baasic.api",
-     "baasic.membership",
-     "baasic.security",
-     "baasic.appSettings",
-     "baasic.article",
-     "baasic.dynamicResource",
-     "baasic.keyValue",
-     "baasic.valueSet"
+     'baasic.api',
+     'baasic.membership',
+     'baasic.security',
+     'baasic.appSettings',
+     'baasic.article',
+     'baasic.dynamicResource',
+     'baasic.keyValue',
+     'baasic.valueSet'
      ];
-     Main.module = angular.module("myApp.Main", dependencies);
+     Main.module = angular.module('myApp.Main', dependencies);
      }
      (MyApp.Modules.Main = {})); 
      */
@@ -44,7 +44,7 @@
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicArticleRatingsRouteService.find.expand({searchQuery: "<search-phrase>"});               
+                 * @example baasicArticleRatingsRouteService.find.expand({searchQuery: '<search-phrase>'});               
                  **/
                 find: uriTemplateService.parse('article-ratings/{?searchQuery,page,rpp,sort,embed,fields}'),
                 /**
@@ -55,14 +55,14 @@
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicArticleRatingsRouteService.find.expand({username: "<username>"});               
+                 * @example baasicArticleRatingsRouteService.find.expand({username: '<username>'});               
                  **/
                 findByUser: uriTemplateService.parse('article-ratings/{?username,page,rpp,sort,embed,fields}'),
                 /**
                  * Parses get article rating route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicArticleRatingsRouteService.get.expand({id: "<article-id>"});               
+                 * @example baasicArticleRatingsRouteService.get.expand({id: '<article-id>'});               
                  **/
                 get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
                 /**
@@ -74,7 +74,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicArticleRatingsRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicArticleRatingsRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse
             };
@@ -104,9 +104,9 @@
                  baasicArticleRatingsService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "<article-title>",
-                 orderDirection : "<asc|desc>",
-                 search : "<search-phrase>"
+                 orderBy : '<article-title>',
+                 orderDirection : '<asc|desc>',
+                 search : '<search-phrase>'
                  })
                  .success(function (collection) {
                  // perform success action here
@@ -122,11 +122,11 @@
                  * Returns a promise that is resolved once the findByUser action has been performed. Success response returns a list of article rating resources filtered by username.
                  * @method        
                  * @example 
-                 baasicArticleRatingsService.find("<username>", {
+                 baasicArticleRatingsService.find('<username>', {
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "<article-title>",
-                 orderDirection : "<asc|desc>"
+                 orderBy : '<article-title>',
+                 orderDirection : '<asc|desc>'
                  })
                  .success(function (collection) {
                  // perform success action here
@@ -144,7 +144,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article rating resource.
                  * @method        
                  * @example 
-                 baasicArticleRatingsService.get("<article-id>")
+                 baasicArticleRatingsService.get('<article-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -160,9 +160,9 @@
                  * @method        
                  * @example 
                  baasicArticleRatingsService.create({
-                 articleId : "<article-id>",
+                 articleId : '<article-id>',
                  rating : 5,
-                 userId : "<user-id>"
+                 userId : '<user-id>'
                  })
                  .success(function (data) {
                  // perform success action here
@@ -178,7 +178,7 @@
                  * Returns a promise that is resolved once the update article rating action has been performed, this action updates an article rating. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `update` route can be obtained from article rating (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleRating);
-                 var uri = params["model"].links('put').href;
+                 var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
@@ -200,7 +200,7 @@
                  * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleRating);
-                 var uri = params["model"].links('delete').href;
+                 var uri = params['model'].links('delete').href;
                  ```
                  * @method        
                  * @example 
@@ -243,20 +243,20 @@
                  * - `statuses` - Comma separated list of article statuses that specify where search should be done (Allowed statuses: Published, Draft and Archived).
                  * -  `tags` - A value used to restrict the search to article resources with these tags. Multiple tags should be comma separated.        				
                  * @method        
-                 * @example baasicArticleRouteService.find.expand({searchQuery: "<search-phrase>"});               
+                 * @example baasicArticleRouteService.find.expand({searchQuery: '<search-phrase>'});               
                  **/
                 find: uriTemplateService.parse('articles/{?searchQuery,page,rpp,sort,embed,fields,statuses,tags,startDate,endDate}'),
                 /**
                  * Parses get article route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicArticleRouteService.get.expand({id: "<article-id>"});               
+                 * @example baasicArticleRouteService.get.expand({id: '<article-id>'});               
                  **/
                 get: uriTemplateService.parse('articles/{id}/{?embed,fields}'),
                 /**
                  * Parses publish article route which must be expanded with the Id of the previously created article resource in the system.
                  * @method        
-                 * @example baasicArticleRouteService.publish.expand({id: "<article-id>"});               
+                 * @example baasicArticleRouteService.publish.expand({id: '<article-id>'});               
                  **/
                 publish: uriTemplateService.parse('articles/{id}/publish/'),
                 /**
@@ -274,7 +274,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicArticleRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicArticleRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse,
                 ratings: {
@@ -286,7 +286,7 @@
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method ratings.find       
-                     * @example baasicArticleRouteService.ratings.find.expand({articleId`: "<article-id>"});               
+                     * @example baasicArticleRouteService.ratings.find.expand({articleId`: '<article-id>'});               
                      **/
                     find: uriTemplateService.parse('articles/{articleId}/ratings{?page,rpp,sort,embed,fields}'),
                     /**
@@ -298,19 +298,19 @@
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method ratings.findByUsername       
-                     * @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: "<article-id>", username: "<username>"});
+                     * @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: '<article-id>', username: '<username>'});
                      **/
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
                     /**
                      * Parses create article rating route; this URI template should be expanded with the Id of the article.
                      * @method ratings.create       
-                     * @example baasicArticleRouteService.ratings.create.expand({articleId: "<article-id>"});
+                     * @example baasicArticleRouteService.ratings.create.expand({articleId: '<article-id>'});
                      **/
                     create: uriTemplateService.parse('articles/{articleId}/ratings/'),
                     /**
                      * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                      * @method ratings.parse
-                     * @example baasicArticleRouteService.ratings.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                     * @example baasicArticleRouteService.ratings.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                      **/
                     parse: uriTemplateService.parse
                 },
@@ -324,7 +324,7 @@
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method tags.find       
-                     * @example baasicArticleRouteService.tags.find.expand({id: "<article-id>", searchQuery: "<search-phrase>"});
+                     * @example baasicArticleRouteService.tags.find.expand({id: '<article-id>', searchQuery: '<search-phrase>'});
                      **/
                     find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
                     /**
@@ -333,19 +333,19 @@
                      * - `tag` - Article slug which uniquely identifies article tag resource that needs to be retrieved.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method tags.get       
-                     * @example baasicArticleRouteService.tags.find.expand({id: "<article-id>", tag: "<tag>"});
+                     * @example baasicArticleRouteService.tags.find.expand({id: '<article-id>', tag: '<tag>'});
                      **/
                     get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
                     /**
                      * Parses create article tag route; this URI template should be expanded with the tag and Id of the article.
                      * @method tags.create       
-                     * @example baasicArticleRouteService.tags.create.expand({id: "<article-id>", tag: "<tag>"});
+                     * @example baasicArticleRouteService.tags.create.expand({id: '<article-id>', tag: '<tag>'});
                      **/
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
                      * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                      * @method tags.parse
-                     * @example baasicArticleRouteService.tags.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                     * @example baasicArticleRouteService.tags.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                      **/
                     parse: uriTemplateService.parse
                 },
@@ -353,13 +353,13 @@
                     /**
                      * Parses get article permissions route; this URI template should be expanded with the Id of the article.					
                      * @method permissions.get       
-                     * @example baasicArticleRouteService.permissions.get.expand({id: "<article-id>"});
+                     * @example baasicArticleRouteService.permissions.get.expand({id: '<article-id>'});
                      **/
                     get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
                     /**
                      * Parses update article permissions route; this URI template should be expanded with the Id of the article.					
                      * @method permissions.update       
-                     * @example baasicArticleRouteService.permissions.update.expand({id: "<article-id>"});
+                     * @example baasicArticleRouteService.permissions.update.expand({id: '<article-id>'});
                      **/
                     update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
                     /**
@@ -368,7 +368,7 @@
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
                      * - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
                      * @method permissions.deleteByUser       
-                     * @example baasicArticleRouteService.permissions.deleteByUser.expand({id: "<article-id>", accessAction: "<access-action>", user: "<username>"});
+                     * @example baasicArticleRouteService.permissions.deleteByUser.expand({id: '<article-id>', accessAction: '<access-action>', user: '<username>'});
                      **/
                     deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
                     /**
@@ -377,7 +377,7 @@
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
                      * - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
                      * @method permissions.deleteByRole       
-                     * @example baasicArticleRouteService.permissions.deleteByRole.expand({id: "<article-id>", accessAction: "<access-action>", role: "<role-name>"});
+                     * @example baasicArticleRouteService.permissions.deleteByRole.expand({id: '<article-id>', accessAction: '<access-action>', role: '<role-name>'});
                      **/
                     deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }
@@ -503,7 +503,7 @@
                 /**
                  * Generates and returns a valid slug url string.
                  * @method        
-                 * @example baasicArticleService.toSlug("<slug>");
+                 * @example baasicArticleService.toSlug('<slug>');
                  **/
                 toSlug: toSlug,
                 /**
@@ -513,9 +513,9 @@
                  baasicArticleService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "<publishDate>",
-                 orderDirection : "<asc|desc>",
-                 search : "<search-phrase>"
+                 orderBy : '<publishDate>',
+                 orderDirection : '<asc|desc>',
+                 search : '<search-phrase>'
                  })
                  .success(function (collection) {
                  // perform success action here
@@ -548,7 +548,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns a single article resource.
                  * @method        
                  * @example 
-                 baasicArticleService.get("<article-id>")
+                 baasicArticleService.get('<article-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -569,7 +569,7 @@
                  content : '<content>'
                  slug : '',
                  status : baasicArticleService.statuses.draft;
-                 $tags : ["<tag1>", "<tag2>"]
+                 $tags : ['<tag1>', '<tag2>']
                  })
                  .success(function (data) {
                  // perform success action here
@@ -585,7 +585,7 @@
                  * Returns a promise that is resolved once the update article action has been performed, this action updates an article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `update` route can be obtained from article (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(article);
-                 var uri = params["model"].links('put').href;
+                 var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
@@ -626,7 +626,7 @@
                  * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(article);
-                 var uri = params["model"].links('delete').href;
+                 var uri = params['model'].links('delete').href;
                  ```
                  * @method        
                  * @example 		 
@@ -646,7 +646,7 @@
                  * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `archive` route can be obtained from article (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(article);
-                 var uri = params["model"].links('archive').href;
+                 var uri = params['model'].links('archive').href;
                  ```
                  * @method        
                  * @example 				 
@@ -666,7 +666,7 @@
                  * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `restore` route can be obtained from article (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(article);
-                 var uri = params["model"].links('restore').href;
+                 var uri = params['model'].links('restore').href;
                  ```
                  * @method        
                  * @example 			 
@@ -686,7 +686,7 @@
                  * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `unpublish` route can be obtained from article (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(article);
-                 var uri = params["model"].links('unpublish').href;
+                 var uri = params['model'].links('unpublish').href;
                  ```
                  * @method        
                  * @example 			 
@@ -706,7 +706,7 @@
                  * Returns a promise that is resolved once the publish article action has been performed. This action sets the status of an article from "draft" to "published".
                  * @method        
                  * @example 	 
-                 baasicArticleService.publish("<article-id>")
+                 baasicArticleService.publish('<article-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -737,7 +737,7 @@
                      * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article which match the given criteria.
                      * @method ratings.find    
                      * @example 
-                     baasicArticleService.ratings.find("<article-id>")
+                     baasicArticleService.ratings.find('<article-id>')
                      .success(function (collection) {
                      // perform success action here
                      })
@@ -754,7 +754,7 @@
                      * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources filtered by username for a specified article.
                      * @method ratings.findByUsername    
                      * @example 
-                     baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
+                     baasicArticleService.ratings.findByUsername('<article-id>', '<username>')
                      .success(function (collection) {
                      // perform success action here
                      })
@@ -773,9 +773,9 @@
                      * @method  ratings.create      
                      * @example 
                      baasicArticleService.ratings.create({
-                     articleId : "<article-id>",
+                     articleId : '<article-id>',
                      rating : 5,
-                     userId : "<user-id>"
+                     userId : '<user-id>'
                      })
                      .success(function (data) {
                      // perform success action here
@@ -808,7 +808,7 @@
                      * Returns a promise that is resolved once the remove article rating action has been performed. This action removes a rating from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
                      ```
                      var params = baasicApiService.removeParams(articleRating);
-                     var uri = params["model"].links('delete').href;
+                     var uri = params['model'].links('delete').href;
                      ```
                      * @method ratings.remove       
                      * @example 		 
@@ -828,7 +828,7 @@
                      * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article rating (HAL enabled) objects like this:
                      ```
                      var params = baasicApiService.removeParams(articleRating);
-                     var uri = params["model"].links('delete-ratings-by-article').href;
+                     var uri = params['model'].links('delete-ratings-by-article').href;
                      ```
                      * @method ratings.removeAll
                      * @example 		 
@@ -850,7 +850,7 @@
                      * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                      * @method tags.find    
                      * @example 
-                     baasicArticleService.tags.find("<article-id>")
+                     baasicArticleService.tags.find('<article-id>')
                      .success(function (collection) {
                      // perform success action here
                      })
@@ -867,7 +867,7 @@
                      * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                      * @method tags.get       
                      * @example 
-                     baasicArticleRatingsService.get("<article-id>", "<tag>")
+                     baasicArticleRatingsService.get('<article-id>', '<tag>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -885,11 +885,11 @@
                      * @method  tags.create      
                      * @example 
                      baasicArticleService.tags.create({
-                     articleId : "<article-id>",
+                     articleId : '<article-id>',
                      tag : {
-                     slug : "<slug>",
+                     slug : '<slug>',
                      sortOrder : 1,
-                     tag : "<tag>"
+                     tag : '<tag>'
                      }
                      })
                      .success(function (data) {
@@ -906,8 +906,7 @@
                      * Returns a promise that is resolved once the remove article tag action has been performed. This action removes a tag from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
                      ```
                      var params = baasicApiService.removeParams(articleTag);
-                     var uri = params["model"].links('delete').href;
-                     var uri = params["model"].links('delete').href;
+                     var uri = params['model'].links('delete').href;
                      ```
                      * @method tags.remove       
                      * @example 		 
@@ -927,7 +926,7 @@
                      * Returns a promise that is resolved once the removeAll article tag action has been performed. This action removes all tags from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article tag (HAL enabled) objects like this:
                      ```
                      var params = baasicApiService.removeParams(articleTag);
-                     var uri = params["model"].links('delete-tags-by-article').href;
+                     var uri = params['model'].links('delete-tags-by-article').href;
                      ```
                      * @method tags.removeAll
                      * @example 			 
@@ -949,7 +948,7 @@
                      * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article permissions.
                      * @method permissions.get       
                      * @example 
-                     baasicArticleService.permissions.get({id: "<article-id>"})
+                     baasicArticleService.permissions.get({id: '<article-id>'})
                      .success(function (data) {
                      // perform success action here
                      })
@@ -965,11 +964,11 @@
                      * Returns a promise that is resolved once the update permissions action has been performed, this action updates an article permission.
                      * @method permissions.update      
                      * @example 
-                     var options = {id : "<article-id>"};
+                     var options = {id : '<article-id>'};
                      var permissionObj =  {
-                     actionId: "<action-id">,
-                     roleId: "<roleId>",
-                     userId: "<userId>"
+                     actionId: '<action-id'>,
+                     roleId: '<roleId>',
+                     userId: '<userId>'
                      };
                      options[baasicConstants.modelPropertyName] = permissionObj;
                      baasicArticleService.permissions.update(options)
@@ -988,7 +987,7 @@
                      * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes all ACL assigned to the specified user and article resource.
                      * @method permissions.update      
                      * @example 
-                     baasicArticleService.permissions.removeByUser("<article-id>", "<access-action>", "<username>")
+                     baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1007,7 +1006,7 @@
                      * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes all ACL assigned to the specified role and article resource.
                      * @method permissions.update      
                      * @example 
-                     baasicArticleService.permissions.removeByRole("<article-id>", "<access-action>", "<role-name>")
+                     baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1042,13 +1041,13 @@
                 /**
                  * Parses get article settings route; this URI template doesn't expose any additional properties.				
                  * @method
-                 * @example baasicArticleSettingsRouteService.permissions.get.expand({id: "<article-id>"});               
+                 * @example baasicArticleSettingsRouteService.permissions.get.expand({id: '<article-id>'});               
                  **/
                 get: uriTemplateService.parse('article-settings/{?embed,fields}'),
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicArticleSettingsRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicArticleSettingsRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse
             };
@@ -1090,7 +1089,7 @@
                  * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This function doesn't use `baasicArticleSettingsRouteService` for obtaining route templates, however `update` route can be obtained from article setting (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleSettings);
-                 var uri = params["model"].links('put').href;
+                 var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
@@ -1131,14 +1130,14 @@
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method      
-                 * @example baasicArticleTagsRouteService.find.expand({searchQuery: "<search-phrase>"});               
+                 * @example baasicArticleTagsRouteService.find.expand({searchQuery: '<search-phrase>'});               
                  **/
                 find: uriTemplateService.parse('article-tags/{?searchQuery,page,rpp,sort,embed,fields}'),
                 /**
                  * Parses get article tag route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method      
-                 * @example baasicArticleTagsRouteService.find.expand({id: "<article-id>"});               
+                 * @example baasicArticleTagsRouteService.find.expand({id: '<article-id>'});               
                  **/
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
                 /**
@@ -1150,7 +1149,7 @@
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
-                 * @example baasicArticleTagsRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                 * @example baasicArticleTagsRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                  **/
                 parse: uriTemplateService.parse
             };
@@ -1181,9 +1180,9 @@
                  baasicArticleTagsService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : "<tag>",
-                 orderDirection : "<asc|desc>",
-                 search : "<search-phrase>"
+                 orderBy : '<tag>',
+                 orderDirection : '<asc|desc>',
+                 search : '<search-phrase>'
                  })
                  .success(function (collection) {
                  // perform success action here
@@ -1199,7 +1198,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                  * @method        
                  * @example 
-                 baasicArticleTagsService.get("<article-id>")
+                 baasicArticleTagsService.get('<article-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -1215,9 +1214,9 @@
                  * @method        
                  * @example 
                  baasicArticleTagsService.create({
-                 slug : "<slug>",
+                 slug : '<slug>',
                  sortOrder : 5,
-                 tag : "<tag>"
+                 tag : '<tag>'
                  })
                  .success(function (data) {
                  // perform success action here
@@ -1233,12 +1232,12 @@
                  * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `update` route can be obtained from article tag (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleTag);
-                 var uri = params["model"].links('put').href;
+                 var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
                  // Existing resource is a resource previously fetched using get action.
-                 articleTag.tag = "<new-tag>";
+                 articleTag.tag = '<new-tag>';
                  baasicArticleTagsService.update(articleTag)
                  .success(function (data) {
                  // perform success action here
@@ -1255,7 +1254,7 @@
                  * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `remove` route can be obtained from article tag (HAL enabled) objects like this:
                  ```
                  var params = baasicApiService.removeParams(articleTag);
-                 var uri = params["model"].links('delete').href;
+                 var uri = params['model'].links('delete').href;
                  ```
                  * @method        
                  * @example 

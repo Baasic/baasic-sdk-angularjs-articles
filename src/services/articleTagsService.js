@@ -25,9 +25,9 @@
 baasicArticleTagsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "<tag>",
-  orderDirection : "<asc|desc>",
-  search : "<search-phrase>"
+  orderBy : '<tag>',
+  orderDirection : '<asc|desc>',
+  search : '<search-phrase>'
 })
 .success(function (collection) {
   // perform success action here
@@ -43,7 +43,7 @@ baasicArticleTagsService.find({
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                  * @method        
                  * @example 
-baasicArticleTagsService.get("<article-id>")
+baasicArticleTagsService.get('<article-id>')
 .success(function (data) {
   // perform success action here
 })
@@ -59,9 +59,9 @@ baasicArticleTagsService.get("<article-id>")
                  * @method        
                  * @example 
 baasicArticleTagsService.create({
-  slug : "<slug>",
+  slug : '<slug>',
   sortOrder : 5,
-  tag : "<tag>"
+  tag : '<tag>'
 })
 .success(function (data) {
   // perform success action here
@@ -77,12 +77,12 @@ baasicArticleTagsService.create({
                  * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `update` route can be obtained from article tag (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleTag);
-var uri = params["model"].links('put').href;
+var uri = params['model'].links('put').href;
 ```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-articleTag.tag = "<new-tag>";
+articleTag.tag = '<new-tag>';
 baasicArticleTagsService.update(articleTag)
 .success(function (data) {
   // perform success action here
@@ -99,7 +99,7 @@ baasicArticleTagsService.update(articleTag)
                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `remove` route can be obtained from article tag (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleTag);
-var uri = params["model"].links('delete').href;
+var uri = params['model'].links('delete').href;
 ```
                 * @method        
                 * @example 

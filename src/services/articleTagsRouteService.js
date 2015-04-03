@@ -20,14 +20,14 @@
 				* - `sort` - A string used to set the role property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
 				* @method      
-				* @example baasicArticleTagsRouteService.find.expand({searchQuery: "<search-phrase>"});               
+				* @example baasicArticleTagsRouteService.find.expand({searchQuery: '<search-phrase>'});               
 				**/ 				
                 find: uriTemplateService.parse('article-tags/{?searchQuery,page,rpp,sort,embed,fields}'),
 				/**
                 * Parses get article tag route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
 				* @method      
-				* @example baasicArticleTagsRouteService.find.expand({id: "<article-id>"});               
+				* @example baasicArticleTagsRouteService.find.expand({id: '<article-id>'});               
 				**/ 					
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
 				/**
@@ -39,7 +39,7 @@
 				/**
 				* Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
 				* @method
-				* @example baasicArticleTagsRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+				* @example baasicArticleTagsRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
 				**/							
                 parse: uriTemplateService.parse
             };

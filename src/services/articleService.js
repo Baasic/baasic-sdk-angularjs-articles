@@ -116,7 +116,7 @@
                 /**
                 * Generates and returns a valid slug url string.
                 * @method        
-                * @example baasicArticleService.toSlug("<slug>");
+                * @example baasicArticleService.toSlug('<slug>');
                 **/ 				
                 toSlug: toSlug,
                  /**
@@ -126,9 +126,9 @@
 baasicArticleService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "<publishDate>",
-  orderDirection : "<asc|desc>",
-  search : "<search-phrase>"
+  orderBy : '<publishDate>',
+  orderDirection : '<asc|desc>',
+  search : '<search-phrase>'
 })
 .success(function (collection) {
   // perform success action here
@@ -160,7 +160,7 @@ baasicArticleService.find({
                  * Returns a promise that is resolved once the get action has been performed. Success response returns a single article resource.
                  * @method        
                  * @example 
-baasicArticleService.get("<article-id>")
+baasicArticleService.get('<article-id>')
 .success(function (data) {
   // perform success action here
 })
@@ -181,7 +181,7 @@ baasicArticleService.create({
   content : '<content>'
   slug : '',
   status : baasicArticleService.statuses.draft;
-  $tags : ["<tag1>", "<tag2>"]
+  $tags : ['<tag1>', '<tag2>']
 })
 .success(function (data) {
   // perform success action here
@@ -197,7 +197,7 @@ baasicArticleService.create({
                  * Returns a promise that is resolved once the update article action has been performed, this action updates an article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `update` route can be obtained from article (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(article);
-var uri = params["model"].links('put').href;
+var uri = params['model'].links('put').href;
 ```
                  * @method        
                  * @example 
@@ -238,7 +238,7 @@ baasicArticleService.saveDraft(article)
                  * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(article);
-var uri = params["model"].links('delete').href;
+var uri = params['model'].links('delete').href;
 ```
                  * @method        
                  * @example 		 
@@ -258,7 +258,7 @@ baasicArticleService.remove(article)
                  * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `archive` route can be obtained from article (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(article);
-var uri = params["model"].links('archive').href;
+var uri = params['model'].links('archive').href;
 ```
                  * @method        
                  * @example 				 
@@ -278,7 +278,7 @@ baasicArticleService.archive(article)
                  * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `restore` route can be obtained from article (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(article);
-var uri = params["model"].links('restore').href;
+var uri = params['model'].links('restore').href;
 ```
                  * @method        
                  * @example 			 
@@ -298,7 +298,7 @@ baasicArticleService.restore(article)
                  * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `unpublish` route can be obtained from article (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(article);
-var uri = params["model"].links('unpublish').href;
+var uri = params['model'].links('unpublish').href;
 ```
                  * @method        
                  * @example 			 
@@ -318,7 +318,7 @@ baasicArticleService.unpublish(article)
                  * Returns a promise that is resolved once the publish article action has been performed. This action sets the status of an article from "draft" to "published".
                  * @method        
                  * @example 	 
-baasicArticleService.publish("<article-id>")
+baasicArticleService.publish('<article-id>')
 .success(function (data) {
   // perform success action here
 })
@@ -349,7 +349,7 @@ baasicArticleService.purge({})
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article which match the given criteria.
                     * @method ratings.find    
                     * @example 
-baasicArticleService.ratings.find("<article-id>")
+baasicArticleService.ratings.find('<article-id>')
 .success(function (collection) {
   // perform success action here
 })
@@ -366,7 +366,7 @@ baasicArticleService.ratings.find("<article-id>")
                     * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources filtered by username for a specified article.
                     * @method ratings.findByUsername    
                     * @example 
-baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
+baasicArticleService.ratings.findByUsername('<article-id>', '<username>')
 .success(function (collection) {
   // perform success action here
 })
@@ -385,9 +385,9 @@ baasicArticleService.ratings.findByUsername("<article-id>", "<username>")
                     * @method  ratings.create      
                     * @example 
 baasicArticleService.ratings.create({
-  articleId : "<article-id>",
+  articleId : '<article-id>',
   rating : 5,
-  userId : "<user-id>"
+  userId : '<user-id>'
 })
 .success(function (data) {
   // perform success action here
@@ -420,7 +420,7 @@ baasicArticleService.update(article)
                     * Returns a promise that is resolved once the remove article rating action has been performed. This action removes a rating from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleRating);
-var uri = params["model"].links('delete').href;
+var uri = params['model'].links('delete').href;
 ```
                     * @method ratings.remove       
                     * @example 		 
@@ -440,7 +440,7 @@ baasicArticleService.remove(articleRating)
                     * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article rating (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleRating);
-var uri = params["model"].links('delete-ratings-by-article').href;
+var uri = params['model'].links('delete-ratings-by-article').href;
 ```
                     * @method ratings.removeAll
                     * @example 		 
@@ -462,7 +462,7 @@ baasicArticleService.remove(articleRating)
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                     * @method tags.find    
                     * @example 
-baasicArticleService.tags.find("<article-id>")
+baasicArticleService.tags.find('<article-id>')
 .success(function (collection) {
   // perform success action here
 })
@@ -479,7 +479,7 @@ baasicArticleService.tags.find("<article-id>")
                     * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                     * @method tags.get       
                     * @example 
-baasicArticleRatingsService.get("<article-id>", "<tag>")
+baasicArticleRatingsService.get('<article-id>', '<tag>')
 .success(function (data) {
   // perform success action here
 })
@@ -497,11 +497,11 @@ baasicArticleRatingsService.get("<article-id>", "<tag>")
                     * @method  tags.create      
                     * @example 
 baasicArticleService.tags.create({
-  articleId : "<article-id>",
+  articleId : '<article-id>',
   tag : {
-    slug : "<slug>",
+    slug : '<slug>',
     sortOrder : 1,
-    tag : "<tag>"
+    tag : '<tag>'
   }
 })
 .success(function (data) {
@@ -518,8 +518,7 @@ baasicArticleService.tags.create({
                      * Returns a promise that is resolved once the remove article tag action has been performed. This action removes a tag from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleTag);
-var uri = params["model"].links('delete').href;
-var uri = params["model"].links('delete').href;
+var uri = params['model'].links('delete').href;
 ```
                      * @method tags.remove       
                      * @example 		 
@@ -539,7 +538,7 @@ baasicArticleService.tags.remove(articleTag)
                     * Returns a promise that is resolved once the removeAll article tag action has been performed. This action removes all tags from an article if successfully completed. This function doesn't use `baasicArticleRouteService` for obtaining route templates, however `removeAll` route can be obtained from article tag (HAL enabled) objects like this:
 ```
 var params = baasicApiService.removeParams(articleTag);
-var uri = params["model"].links('delete-tags-by-article').href;
+var uri = params['model'].links('delete-tags-by-article').href;
 ```
                     * @method tags.removeAll
                     * @example 			 
@@ -561,7 +560,7 @@ baasicArticleService.tags.removeAll(articleTag)
                     * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article permissions.
                     * @method permissions.get       
                     * @example 
-baasicArticleService.permissions.get({id: "<article-id>"})
+baasicArticleService.permissions.get({id: '<article-id>'})
 .success(function (data) {
   // perform success action here
 })
@@ -577,11 +576,11 @@ baasicArticleService.permissions.get({id: "<article-id>"})
                     * Returns a promise that is resolved once the update permissions action has been performed, this action updates an article permission.
                     * @method permissions.update      
                     * @example 
-var options = {id : "<article-id>"};
+var options = {id : '<article-id>'};
 var permissionObj =  {
- actionId: "<action-id">,
- roleId: "<roleId>",
- userId: "<userId>"
+ actionId: '<action-id'>,
+ roleId: '<roleId>',
+ userId: '<userId>'
 };
 options[baasicConstants.modelPropertyName] = permissionObj;
 baasicArticleService.permissions.update(options)
@@ -600,7 +599,7 @@ baasicArticleService.permissions.update(options)
                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes all ACL assigned to the specified user and article resource.
                     * @method permissions.update      
                     * @example 
-baasicArticleService.permissions.removeByUser("<article-id>", "<access-action>", "<username>")
+baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
 .success(function (data) {
   // perform success action here
 })
@@ -619,7 +618,7 @@ baasicArticleService.permissions.removeByUser("<article-id>", "<access-action>",
                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes all ACL assigned to the specified role and article resource.
                     * @method permissions.update      
                     * @example 
-baasicArticleService.permissions.removeByRole("<article-id>", "<access-action>", "<role-name>")
+baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')
 .success(function (data) {
   // perform success action here
 })

@@ -19,7 +19,7 @@
                 * - `sort` - A string used to set the role property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
-                * @example baasicArticleRatingsRouteService.find.expand({searchQuery: "<search-phrase>"});               
+                * @example baasicArticleRatingsRouteService.find.expand({searchQuery: '<search-phrase>'});               
                 **/   			
                 find: uriTemplateService.parse('article-ratings/{?searchQuery,page,rpp,sort,embed,fields}'),
                 /**
@@ -30,14 +30,14 @@
                 * - `sort` - A string used to set the role property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
-                * @example baasicArticleRatingsRouteService.find.expand({username: "<username>"});               
+                * @example baasicArticleRatingsRouteService.find.expand({username: '<username>'});               
                 **/ 				
                 findByUser: uriTemplateService.parse('article-ratings/{?username,page,rpp,sort,embed,fields}'),
                 /**
                 * Parses get article rating route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
-                * @example baasicArticleRatingsRouteService.get.expand({id: "<article-id>"});               
+                * @example baasicArticleRatingsRouteService.get.expand({id: '<article-id>'});               
                 **/   				
                 get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
                 /**
@@ -49,7 +49,7 @@
                 /**
                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                 * @method
-                * @example baasicArticleRatingsRouteService.parse("route/{?embed,fields,options}").expand({embed: "<embedded-resource>"});
+                * @example baasicArticleRatingsRouteService.parse('route/{?embed,fields,options}').expand({embed: '<embedded-resource>'});
                 **/				
                 parse: uriTemplateService.parse
             };
