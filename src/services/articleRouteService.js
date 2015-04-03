@@ -11,7 +11,7 @@
                 /**
                 * Parses find article route which can be expanded with additional options. Supported items are: 
                 * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                 * - `rpp` - A value used to limit the size of result set per page.
                 * - `sort` - A string used to set the role property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -58,7 +58,7 @@
 					/**
 					* Parses find article rating route which can be expanded with additional options. Supported items are: 
 					* - `articleId` - Id of the article.
-					* - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+					* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
 					* - `rpp` - A value used to limit the size of result set per page.
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -70,7 +70,7 @@
 					* Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
 					* - `articleId` - Id of the article.
 					* - `username` - A value that uniquely identifies a user which has created an article rating.
-					* - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+					* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
 					* - `rpp` - A value used to limit the size of result set per page.
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -96,7 +96,7 @@
 					* Parses find article tags route which can be expanded with additional options. Supported items are: 
 					* - `id` - Id of the article.
 					* - `searchQuery` - A string referencing resource properties using the phrase or query search.
-					* - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+					* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
 					* - `rpp` - A value used to limit the size of result set per page.
 					* - `sort` - A string used to set the role property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
