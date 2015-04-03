@@ -24,8 +24,8 @@
 baasicArticleRatingsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "<article.title>",
-  orderDirection : "<desc>",
+  orderBy : "<article-title>",
+  orderDirection : "<asc|desc>",
   search : "<search-phrase>"
 })
 .success(function (collection) {
@@ -45,8 +45,8 @@ baasicArticleRatingsService.find({
 baasicArticleRatingsService.find("<username>", {
   pageNumber : 1,
   pageSize : 10,
-  orderBy : "<article.title>",
-  orderDirection : "<desc>"
+  orderBy : "<article-title>",
+  orderDirection : "<asc|desc>"
 })
 .success(function (collection) {
   // perform success action here
@@ -97,14 +97,14 @@ baasicArticleRatingsService.create({
                  /**
                  * Returns a promise that is resolved once the update article rating action has been performed, this action updates an article rating. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `update` route can be obtained from article rating (HAL enabled) objects like this:
 ```
-var params = baasicApiService.removeParams(articleRatingObject);
+var params = baasicApiService.removeParams(articleRating);
 var uri = params["model"].links('put').href;
 ```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.rating = 4;
-baasicArticleRatingsService.update(existingResource)
+articleRating.rating = 4;
+baasicArticleRatingsService.update(articleRating)
 .success(function (data) {
   // perform success action here
 })
@@ -119,13 +119,13 @@ baasicArticleRatingsService.update(existingResource)
                 /**
                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system. This function doesn't use `baasicArticleRatingsRouteService` for obtaining route templates, however `remove` route can be obtained from article rating (HAL enabled) objects like this:
 ```
-var params = baasicApiService.removeParams(articleRatingObject);
+var params = baasicApiService.removeParams(articleRating);
 var uri = params["model"].links('delete').href;
 ```
                 * @method        
                 * @example 
 // Existing resource is a resource previously fetched using get action.				 
-baasicArticleRatingsService.remove(existingResource)
+baasicArticleRatingsService.remove(articleRating)
 .success(function (data) {
   // perform success action here
 })

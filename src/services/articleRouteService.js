@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRouteService
- * @description Baasic Article Route Service provides Baasic route templates which can then be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleRouteService` uses `baasicArticleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services. 
+ * @description Baasic Article Route Service provides Baasic route templates which can be expanded to Baasic REST URI's through the [URI Template](https://github.com/Baasic/uritemplate-js) by providing it with an object that contains URI parameters. For example `baasicArticleRouteService` uses `baasicArticleRouteService` to obtain a part of needed routes while the other part is obtained through HAL. Route services by convention use the same function names as their corresponding services. 
  * @copyright (c) 2015 Mono
  * @license MIT
  * @author Mono
@@ -42,7 +42,7 @@
                 /**
                 * Parses purge article route, this URI template doesn't expose any additional properties.
                 * @method        
-                * @example baasicArticleRouteService.purge.expand({id: "<article-id>"});               
+                * @example baasicArticleRouteService.purge.expand({});               
                 **/ 				
                 purge: uriTemplateService.parse('articles/purge/'),
                 /**
@@ -117,9 +117,9 @@
 					**/ 					
                     get: uriTemplateService.parse('articles/{id}/tags/{tag}/{?embed,fields}'),
 					/**
-					* Parses create article tag route; this URI template should be expanded with the Id of the article.
+					* Parses create article tag route; this URI template should be expanded with the tag and Id of the article.
 					* @method tags.create       
-					* @example baasicArticleRouteService.tags.create.expand({id: "<article-id>"});
+					* @example baasicArticleRouteService.tags.create.expand({id: "<article-id>", tag: "<tag>"});
 					**/  					
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**

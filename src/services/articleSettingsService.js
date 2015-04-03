@@ -35,14 +35,14 @@ baasicArticleSettingsService.get()
                  /**
                  * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This function doesn't use `baasicArticleSettingsRouteService` for obtaining route templates, however `update` route can be obtained from article setting (HAL enabled) objects like this:
 ```
-var params = baasicApiService.removeParams(articleSettingObject);
+var params = baasicApiService.removeParams(articleSettings);
 var uri = params["model"].links('put').href;
 ```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.allowArchive = true;
-baasicArticleSettingsService.update(existingResource)
+articleSettings.allowArchive = true;
+baasicArticleSettingsService.update(articleSettings)
 .success(function (data) {
   // perform success action here
 })

@@ -26,7 +26,7 @@ baasicArticleTagsService.find({
   pageNumber : 1,
   pageSize : 10,
   orderBy : "<tag>",
-  orderDirection : "<desc>",
+  orderDirection : "<asc|desc>",
   search : "<search-phrase>"
 })
 .success(function (collection) {
@@ -76,14 +76,14 @@ baasicArticleTagsService.create({
                  /**
                  * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `update` route can be obtained from article tag (HAL enabled) objects like this:
 ```
-var params = baasicApiService.removeParams(articleTagObject);
+var params = baasicApiService.removeParams(articleTag);
 var uri = params["model"].links('put').href;
 ```
                  * @method        
                  * @example 
 // Existing resource is a resource previously fetched using get action.
-existingResource.tag = "<new-tag>";
-baasicArticleTagsService.update(existingResource)
+articleTag.tag = "<new-tag>";
+baasicArticleTagsService.update(articleTag)
 .success(function (data) {
   // perform success action here
 })
@@ -98,13 +98,13 @@ baasicArticleTagsService.update(existingResource)
                 /**
                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This function doesn't use `baasicArticleTagsRouteService` for obtaining route templates, however `remove` route can be obtained from article tag (HAL enabled) objects like this:
 ```
-var params = baasicApiService.removeParams(articleTagObject);
+var params = baasicApiService.removeParams(articleTag);
 var uri = params["model"].links('delete').href;
 ```
                 * @method        
                 * @example 
 // Existing resource is a resource previously fetched using get action.				 
-baasicArticleTagsService.remove(existingResource)
+baasicArticleTagsService.remove(articleTag)
 .success(function (data) {
   // perform success action here
 })
