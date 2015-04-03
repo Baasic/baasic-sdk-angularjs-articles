@@ -33,7 +33,7 @@ baasicArticleSettingsService.get()
                     return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This function doesn't use `baasicArticleSettingsRouteService` for obtaining route templates, however `update` route can be obtained from article setting (HAL enabled) objects like this:
+                 * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleSettingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects::
 ```
 var params = baasicApiService.removeParams(articleSettings);
 var uri = params['model'].links('put').href;
