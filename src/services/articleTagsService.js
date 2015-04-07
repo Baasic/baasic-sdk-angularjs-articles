@@ -52,7 +52,7 @@ baasicArticleTagsService.get('<article-id>')
                     return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the create article tag action has been performed, this action creates a new tag.
+                 * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag.
                  * @method        
                  * @example 
 baasicArticleTagsService.create({
@@ -71,14 +71,14 @@ baasicArticleTagsService.create({
                     return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleTagsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article tag action has been performed; this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleTag);
 var uri = params['model'].links('put').href;
 ```
                  * @method        
                  * @example 
-// Existing resource is a resource previously fetched using get action.
+// articleTag is a resource previously fetched using get action.
 articleTag.tag = '<new-tag>';
 baasicArticleTagsService.update(articleTag)
 .success(function (data) {
@@ -93,14 +93,14 @@ baasicArticleTagsService.update(articleTag)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleTagsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed, the article tag resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleTag);
 var uri = params['model'].links('delete').href;
 ```
                 * @method        
                 * @example 
-// Existing resource is a resource previously fetched using get action.				 
+// articleTag is a resource previously fetched using get action.				 
 baasicArticleTagsService.remove(articleTag)
 .success(function (data) {
   // perform success action here
@@ -122,6 +122,6 @@ baasicArticleTagsService.remove(articleTag)
  * @author Mono
  * @overview 
  ***Notes:**
- - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+ - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
  - All end-point objects are transformed by the associated route service.
 */

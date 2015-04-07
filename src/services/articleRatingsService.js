@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRatingsService
- * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on ratings resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+ * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on rating resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -92,14 +92,14 @@ baasicArticleRatingsService.create({
                     return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article rating action has been performed, this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleRatingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article rating action has been performed; this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleRating);
 var uri = params['model'].links('put').href;
 ```
                  * @method        
                  * @example 
-// Existing resource is a resource previously fetched using get action.
+// articleRating is a resource previously fetched using get action.
 articleRating.rating = 4;
 baasicArticleRatingsService.update(articleRating)
 .success(function (data) {
@@ -114,14 +114,14 @@ baasicArticleRatingsService.update(articleRating)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleRatingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed, the article rating resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleRating);
 var uri = params['model'].links('delete').href;
 ```
                 * @method        
                 * @example 
-// Existing resource is a resource previously fetched using get action.				 
+// articleRating is a resource previously fetched using get action.				 
 baasicArticleRatingsService.remove(articleRating)
 .success(function (data) {
   // perform success action here
@@ -143,6 +143,6 @@ baasicArticleRatingsService.remove(articleRating)
  * @author Mono
  * @overview 
  ***Notes:**
- - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+ - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
  - All end-point objects are transformed by the associated route service.
 */

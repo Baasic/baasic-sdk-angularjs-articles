@@ -27,7 +27,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsRouteService
-     * @description Baasic Article Ratings Route Service  provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain a needed routes while some routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Ratings Route Service  provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -36,7 +36,7 @@
                 /**
                  * Parses find article rating route which can be expanded with additional options. Supported items are: 
                  * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -47,7 +47,7 @@
                 /**
                  * Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
                  * - `username` - A value that uniquely identifies a user which has created an article rating.
-                 * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -83,14 +83,14 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
      - All end-point objects are transformed by the associated route service.
      */
     /* globals module */
     /**
      * @module baasicArticleRatingsService
-     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on ratings resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on rating resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -180,14 +180,14 @@
                     return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the update article rating action has been performed, this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleRatingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article rating action has been performed; this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(articleRating);
                  var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
-                 // Existing resource is a resource previously fetched using get action.
+                 // articleRating is a resource previously fetched using get action.
                  articleRating.rating = 4;
                  baasicArticleRatingsService.update(articleRating)
                  .success(function (data) {
@@ -202,14 +202,14 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed the article rating resource is permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleRatingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the remove article rating action has been performed. If the action is successfully completed, the article rating resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(articleRating);
                  var uri = params['model'].links('delete').href;
                  ```
                  * @method        
                  * @example 
-                 // Existing resource is a resource previously fetched using get action.
+                 // articleRating is a resource previously fetched using get action.
                  baasicArticleRatingsService.remove(articleRating)
                  .success(function (data) {
                  // perform success action here
@@ -231,14 +231,14 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - All end-point objects are transformed by the associated route service.
      */
 
     /* globals module */
     /**
      * @module baasicArticleRouteService
-     * @description Baasic Article Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Route Service to obtain a needed routes while some routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -247,7 +247,7 @@
                 /**
                  * Parses find article route which can be expanded with additional options. Supported items are: 
                  * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -294,7 +294,7 @@
                     /**
                      * Parses find article rating route which can be expanded with additional options. Supported items are: 
                      * - `articleId` - Id of the article.
-                     * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -306,7 +306,7 @@
                      * Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
                      * - `articleId` - Id of the article.
                      * - `username` - A value that uniquely identifies a user which has created an article rating.
-                     * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -332,7 +332,7 @@
                      * Parses find article tags route which can be expanded with additional options. Supported items are: 
                      * - `id` - Id of the article.
                      * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                     * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
                      * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -403,7 +403,7 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
      - All end-point objects are transformed by the associated route service.
      */
@@ -601,13 +601,14 @@
                     return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the update article action has been performed, this action updates an article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article action has been performed; this action updates an article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(article);
                  var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
+                 // article is a resource previously fetched using get action.
                  article.title = '<title>';
                  baasicArticleService.update(article)
                  .success(function (data) {
@@ -625,6 +626,7 @@
                  * Returns a promise that is resolved once the saveDraft article action has been performed. This action saves an article with "draft" status. If an article does not exist it will create a new article resource otherwise it will update an existing article resource.
                  * @method        
                  * @example 
+                 // article is a resource previously fetched using get action.
                  baasicArticleService.saveDraft(article)
                  .success(function (data) {
                  // perform success action here
@@ -642,13 +644,14 @@
                     return this.update(data);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed the article resource is permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed, the article resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(article);
                  var uri = params['model'].links('delete').href;
                  ```
                  * @method        
-                 * @example 		 
+                 * @example 
+                 // article is a resource previously fetched using get action.
                  baasicArticleService.remove(article)
                  .success(function (data) {
                  // perform success action here
@@ -662,13 +665,14 @@
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 },
                 /**
-                 * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(article);
                  var uri = params['model'].links('archive').href;
                  ```
                  * @method        
-                 * @example 				 
+                 * @example 	
+                 // article is a resource previously fetched using get action.
                  baasicArticleService.archive(article)
                  .success(function (data) {
                  // perform success action here
@@ -682,13 +686,14 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
                 /**
-                 * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(article);
                  var uri = params['model'].links('restore').href;
                  ```
                  * @method        
-                 * @example 			 
+                 * @example 	
+                 // article is a resource previously fetched using get action.
                  baasicArticleService.restore(article)
                  .success(function (data) {
                  // perform success action here
@@ -702,13 +707,14 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
                 },
                 /**
-                 * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(article);
                  var uri = params['model'].links('unpublish').href;
                  ```
                  * @method        
-                 * @example 			 
+                 * @example 	
+                 // article is a resource previously fetched using get action.
                  baasicArticleService.unpublish(article)
                  .success(function (data) {
                  // perform success action here
@@ -753,7 +759,7 @@
                 },
                 ratings: {
                     /**
-                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article which match the given criteria.
+                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article.
                      * @method ratings.find    
                      * @example 
                      baasicArticleService.ratings.find('<article-id>')
@@ -770,7 +776,7 @@
                         return baasicApiHttp.get(articleRouteService.ratings.find.expand(baasicApiService.findParams(params)));
                     },
                     /**
-                     * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources filtered by username for a specified article.
+                     * Returns a promise that is resolved once the findByUsername action has been performed. Success response returns a list of article rating resources filtered by username and article identifier.
                      * @method ratings.findByUsername    
                      * @example 
                      baasicArticleService.ratings.findByUsername('<article-id>', '<username>')
@@ -788,7 +794,7 @@
                         return baasicApiHttp.get(articleRouteService.ratings.findByUsername.expand(baasicApiService.findParams(params)));
                     },
                     /**
-                     * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new rating for an article.
+                     * Returns a promise that is resolved once the create article rating action has been performed; this action creates a new rating for an article.
                      * @method  ratings.create      
                      * @example 
                      baasicArticleService.ratings.create({
@@ -807,9 +813,10 @@
                         return baasicApiHttp.post(articleRouteService.ratings.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the update article rating action has been performed, this action updates a rating of an article.
+                     * Returns a promise that is resolved once the update article rating action has been performed; this action updates a rating of an article.
                      * @method ratings.update       
                      * @example 
+                     // article is a resource previously fetched using get action.
                      article.rating = 4;
                      baasicArticleService.update(article)
                      .success(function (data) {
@@ -824,13 +831,14 @@
                         return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the remove article rating action has been performed. This action removes a rating from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                     * Returns a promise that is resolved once the remove article rating action has been performed. This action will remove a rating from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                      ```
                      var params = baasicApiService.removeParams(articleRating);
                      var uri = params['model'].links('delete').href;
                      ```
                      * @method ratings.remove       
-                     * @example 		 
+                     * @example 		
+                     // articleRating is a resource previously fetched using get action.
                      baasicArticleService.remove(articleRating)
                      .success(function (data) {
                      // perform success action here
@@ -844,14 +852,15 @@
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                     * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed the article rating resources are permanently removed from the system for a specified article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                     * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed, the article rating resources will be permanently removed from the system for a specified article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                      ```
-                     var params = baasicApiService.removeParams(articleRating);
+                     var params = baasicApiService.removeParams(article);
                      var uri = params['model'].links('delete-ratings-by-article').href;
                      ```
                      * @method ratings.removeAll
-                     * @example 		 
-                     baasicArticleService.remove(articleRating)
+                     * @example 	
+                     // article is a resource previously fetched using get action.
+                     baasicArticleService.removeAll(article)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -900,7 +909,7 @@
                         return baasicApiHttp.get(articleRouteService.tags.get.expand(baasicApiService.getParams(id, params)));
                     },
                     /**
-                     * Returns a promise that is resolved once the create article tag action has been performed, this action creates a new tag for an article.
+                     * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag for an article.
                      * @method  tags.create      
                      * @example 
                      baasicArticleService.tags.create({
@@ -922,13 +931,14 @@
                         return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the remove article tag action has been performed. This action removes a tag from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                     * Returns a promise that is resolved once the remove article tag action has been performed. This action will remove a tag from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                      ```
                      var params = baasicApiService.removeParams(articleTag);
                      var uri = params['model'].links('delete').href;
                      ```
                      * @method tags.remove       
-                     * @example 		 
+                     * @example 
+                     // articleTag is a resource previously fetched using get action.
                      baasicArticleService.tags.remove(articleTag)
                      .success(function (data) {
                      // perform success action here
@@ -942,14 +952,15 @@
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                     * Returns a promise that is resolved once the removeAll article tag action has been performed. This action removes all tags from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't use 'baasicArticleRouteService' route template, here is an example of how a route can be obtained from HAL enabled objects:
+                     * Returns a promise that is resolved once the removeAll article tag action has been performed. This action will remove all tags from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
                      ```
-                     var params = baasicApiService.removeParams(articleTag);
+                     var params = baasicApiService.removeParams(article);
                      var uri = params['model'].links('delete-tags-by-article').href;
                      ```
                      * @method tags.removeAll
-                     * @example 			 
-                     baasicArticleService.tags.removeAll(articleTag)
+                     * @example 		
+                     // article is a resource previously fetched using get action.
+                     baasicArticleService.tags.removeAll(article)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1050,14 +1061,14 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - All end-point objects are transformed by the associated route service.
      */
 
     /* globals module */
     /**
      * @module baasicArticleSettingsRouteService
-     * @description Baasic Article Settings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Settings Route Service to obtain a needed routes while some routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Settings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Settings Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -1084,14 +1095,14 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
      - All end-point objects are transformed by the associated route service.
      */
     /* globals module */
     /**
      * @module baasicArticleSettingsService
-     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on settings resources directly. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on article settings directly. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -1104,7 +1115,7 @@
                  **/
                 routeService: articleSettingsRouteService,
                 /**
-                 * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings resource.
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings.
                  * @method        
                  * @example 
                  baasicArticleSettingsService.get()
@@ -1119,14 +1130,14 @@
                     return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(options)));
                 },
                 /**
-                 * Returns a promise that is resolved once the update article settings action has been performed, this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleSettingsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects::
+                 * Returns a promise that is resolved once the update article settings action has been performed; this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleSettingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects::
                  ```
                  var params = baasicApiService.removeParams(articleSettings);
                  var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
-                 // Existing resource is a resource previously fetched using get action.
+                 // articleSettings is a resource previously fetched using get action.
                  articleSettings.allowArchive = true;
                  baasicArticleSettingsService.update(articleSettings)
                  .success(function (data) {
@@ -1149,14 +1160,14 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - All end-point objects are transformed by the associated route service.
      */
 
     /* globals module */
     /**
      * @module baasicArticleTagsRouteService
-     * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain a needed routes while some routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
 
     (function (angular, module, undefined) {
@@ -1166,7 +1177,7 @@
                 /**
                  * Parses find article tags route which can be expanded with additional options. Supported items are: 
                  * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page size, i.e. to retrieve certain resource subset from the storage.
+                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
                  * - `sort` - A string used to set the role property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
@@ -1202,7 +1213,7 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
      - All end-point objects are transformed by the associated route service.
      */
@@ -1259,7 +1270,7 @@
                     return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
                 },
                 /**
-                 * Returns a promise that is resolved once the create article tag action has been performed, this action creates a new tag.
+                 * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag.
                  * @method        
                  * @example 
                  baasicArticleTagsService.create({
@@ -1278,14 +1289,14 @@
                     return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the update article tag action has been performed, this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleTagsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article tag action has been performed; this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(articleTag);
                  var uri = params['model'].links('put').href;
                  ```
                  * @method        
                  * @example 
-                 // Existing resource is a resource previously fetched using get action.
+                 // articleTag is a resource previously fetched using get action.
                  articleTag.tag = '<new-tag>';
                  baasicArticleTagsService.update(articleTag)
                  .success(function (data) {
@@ -1300,14 +1311,14 @@
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                 },
                 /**
-                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed the article tag resource is permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't use `baasicArticleTagsRouteService` route template, here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the remove article tag action has been performed. If the action is successfully completed, the article tag resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(articleTag);
                  var uri = params['model'].links('delete').href;
                  ```
                  * @method        
                  * @example 
-                 // Existing resource is a resource previously fetched using get action.
+                 // articleTag is a resource previously fetched using get action.
                  baasicArticleTagsService.remove(articleTag)
                  .success(function (data) {
                  // perform success action here
@@ -1329,7 +1340,7 @@
      * @author Mono
      * @overview 
      ***Notes:**
-     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about Baasic REST API end-points.
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
      - All end-point objects are transformed by the associated route service.
      */
 
