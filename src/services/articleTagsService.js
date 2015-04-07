@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleTagsService
- * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions are not bound to particular article items but are meant to be used on tag resources directly. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+ * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
 */
 
 (function (angular, module, undefined) {
@@ -40,7 +40,7 @@ baasicArticleTagsService.find({
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                  * @method        
                  * @example 
-baasicArticleTagsService.get('<article-id>')
+baasicArticleTagsService.get('<articleTag-id>')
 .success(function (data) {
   // perform success action here
 })
@@ -50,26 +50,7 @@ baasicArticleTagsService.get('<article-id>')
                 **/ 				
                 get: function (id, options) {
                     return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
-                },
-                 /**
-                 * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag.
-                 * @method        
-                 * @example 
-baasicArticleTagsService.create({
-  slug : '<slug>',
-  sortOrder : 5,
-  tag : '<tag>'
-})
-.success(function (data) {
-  // perform success action here
-})
-.error(function (response, status, headers, config) {
-  // perform error handling here
-});
-                **/ 					
-                create: function (data) {
-                    return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
-                },
+                },                
                  /**
                  * Returns a promise that is resolved once the update article tag action has been performed; this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```

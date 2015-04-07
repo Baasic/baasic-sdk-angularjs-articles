@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRatingsService
- * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on rating resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+ * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -61,7 +61,7 @@ baasicArticleRatingsService.find('<username>', {
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article rating resource.
                  * @method        
                  * @example 
-baasicArticleRatingsService.get('<article-id>')
+baasicArticleRatingsService.get('<articleRating-id>')
 .success(function (data) {
   // perform success action here
 })
@@ -71,25 +71,6 @@ baasicArticleRatingsService.get('<article-id>')
                 **/ 				
                 get: function (id, options) {
                     return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(id, options)));
-                },
-                 /**
-                 * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new article rating.
-                 * @method        
-                 * @example 
-baasicArticleRatingsService.create({
-  articleId : '<article-id>',
-  rating : 5,
-  userId : '<user-id>'
-})
-.success(function (data) {
-  // perform success action here
-})
-.error(function (response, status, headers, config) {
-  // perform error handling here
-});
-                **/ 				
-                create: function (data) {
-                    return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
                  * Returns a promise that is resolved once the update article rating action has been performed; this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:

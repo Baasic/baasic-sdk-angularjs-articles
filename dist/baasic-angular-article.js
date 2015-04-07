@@ -56,18 +56,12 @@
                  **/
                 findByUser: uriTemplateService.parse('article-ratings/{?username,page,rpp,sort,embed,fields}'),
                 /**
-                 * Parses get article rating route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
+                 * Parses get article rating route which must be expanded with the Id of the previously created article rating resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
-                 * @example baasicArticleRatingsRouteService.get.expand({id: '<article-id>'});               
+                 * @example baasicArticleRatingsRouteService.get.expand({id: '<articleRating-id>'});               
                  **/
                 get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
-                /**
-                 * Parses create article rating route; this URI template does not expose any additional options.
-                 * @method        
-                 * @example baasicArticleRatingsRouteService.create.expand({});              
-                 **/
-                create: uriTemplateService.parse('article-ratings'),
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
@@ -90,7 +84,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsService
-     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions are not bound to particular article items but are meant to be used on rating resources directly. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -149,7 +143,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article rating resource.
                  * @method        
                  * @example 
-                 baasicArticleRatingsService.get('<article-id>')
+                 baasicArticleRatingsService.get('<articleRating-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -159,25 +153,6 @@
                  **/
                 get: function (id, options) {
                     return baasicApiHttp.get(articleRatingsRouteService.get.expand(baasicApiService.getParams(id, options)));
-                },
-                /**
-                 * Returns a promise that is resolved once the create article rating action has been performed, this action creates a new article rating.
-                 * @method        
-                 * @example 
-                 baasicArticleRatingsService.create({
-                 articleId : '<article-id>',
-                 rating : 5,
-                 userId : '<user-id>'
-                 })
-                 .success(function (data) {
-                 // perform success action here
-                 })
-                 .error(function (response, status, headers, config) {
-                 // perform error handling here
-                 });
-                 **/
-                create: function (data) {
-                    return baasicApiHttp.post(articleRatingsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
                  * Returns a promise that is resolved once the update article rating action has been performed; this action updates an article rating. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRatingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
@@ -306,9 +281,6 @@
                      * Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
                      * - `articleId` - Id of the article.
                      * - `username` - A value that uniquely identifies a user which has created an article rating.
-                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
-                     * - `rpp` - A value used to limit the size of result set per page.
-                     * - `sort` - A string used to set the role property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method ratings.findByUsername       
                      * @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: '<article-id>', username: '<username>'});
@@ -1102,7 +1074,7 @@
     /* globals module */
     /**
      * @module baasicArticleSettingsService
-     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on article settings directly. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -1186,18 +1158,12 @@
                  **/
                 find: uriTemplateService.parse('article-tags/{?searchQuery,page,rpp,sort,embed,fields}'),
                 /**
-                 * Parses get article tag route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
+                 * Parses get article tag route which must be expanded with the Id of the previously created article tag resource in the system. Additional expand supported items are:
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method      
-                 * @example baasicArticleTagsRouteService.find.expand({id: '<article-id>'});               
+                 * @example baasicArticleTagsRouteService.find.expand({id: '<articleTag-id>'});               
                  **/
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
-                /**
-                 * Parses create article tag route; this URI template doesn't expose any additional properties.
-                 * @method      
-                 * @example baasicArticleTagsRouteService.create.expand({});              
-                 **/
-                create: uriTemplateService.parse('article-tags'),
                 /**
                  * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                  * @method
@@ -1220,7 +1186,7 @@
     /* globals module */
     /**
      * @module baasicArticleTagsService
-     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions are not bound to particular article items but are meant to be used on tag resources directly. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
      */
 
     (function (angular, module, undefined) {
@@ -1258,7 +1224,7 @@
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                  * @method        
                  * @example 
-                 baasicArticleTagsService.get('<article-id>')
+                 baasicArticleTagsService.get('<articleTag-id>')
                  .success(function (data) {
                  // perform success action here
                  })
@@ -1268,25 +1234,6 @@
                  **/
                 get: function (id, options) {
                     return baasicApiHttp.get(articleTagsRouteService.get.expand(baasicApiService.getParams(id, options)));
-                },
-                /**
-                 * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag.
-                 * @method        
-                 * @example 
-                 baasicArticleTagsService.create({
-                 slug : '<slug>',
-                 sortOrder : 5,
-                 tag : '<tag>'
-                 })
-                 .success(function (data) {
-                 // perform success action here
-                 })
-                 .error(function (response, status, headers, config) {
-                 // perform error handling here
-                 });
-                 **/
-                create: function (data) {
-                    return baasicApiHttp.post(articleTagsRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
                  * Returns a promise that is resolved once the update article tag action has been performed; this action updates a tag. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleTagsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:

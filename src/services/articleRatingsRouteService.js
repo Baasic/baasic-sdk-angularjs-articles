@@ -31,18 +31,12 @@
                 **/ 				
                 findByUser: uriTemplateService.parse('article-ratings/{?username,page,rpp,sort,embed,fields}'),
                 /**
-                * Parses get article rating route which must be expanded with the Id of the previously created resource in the system. Additional expand supported items are:
+                * Parses get article rating route which must be expanded with the Id of the previously created article rating resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
                 * @method        
-                * @example baasicArticleRatingsRouteService.get.expand({id: '<article-id>'});               
+                * @example baasicArticleRatingsRouteService.get.expand({id: '<articleRating-id>'});               
                 **/   				
-                get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),
-                /**
-                * Parses create article rating route; this URI template does not expose any additional options.
-                * @method        
-                * @example baasicArticleRatingsRouteService.create.expand({});              
-                **/  					
-                create: uriTemplateService.parse('article-ratings'),
+                get: uriTemplateService.parse('article-ratings/{id}/{?embed,fields}'),               
                 /**
                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
                 * @method

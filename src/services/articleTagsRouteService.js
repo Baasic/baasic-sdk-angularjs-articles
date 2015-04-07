@@ -21,18 +21,12 @@
 				**/ 				
                 find: uriTemplateService.parse('article-tags/{?searchQuery,page,rpp,sort,embed,fields}'),
 				/**
-                * Parses get article tag route which must be expanded with the Id of the previously created article resource in the system. Additional expand supported items are:
+                * Parses get article tag route which must be expanded with the Id of the previously created article tag resource in the system. Additional expand supported items are:
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
 				* @method      
-				* @example baasicArticleTagsRouteService.find.expand({id: '<article-id>'});               
+				* @example baasicArticleTagsRouteService.find.expand({id: '<articleTag-id>'});               
 				**/ 					
                 get: uriTemplateService.parse('article-tags/{id}/{?embed,fields}'),
-				/**
-				* Parses create article tag route; this URI template doesn't expose any additional properties.
-				* @method      
-				* @example baasicArticleTagsRouteService.create.expand({});              
-				**/  					
-                create: uriTemplateService.parse('article-tags'),
 				/**
 				* Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
 				* @method

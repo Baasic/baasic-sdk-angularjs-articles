@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleSettingsService
- * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. `baasicArticleSettingsService` functions are not bound to particular article items but are meant to be used on article settings directly. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+ * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
