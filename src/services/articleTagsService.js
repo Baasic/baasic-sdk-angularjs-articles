@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleTagsService
- * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+ * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
 */
 
 (function (angular, module, undefined) {
@@ -9,12 +9,6 @@
     module.service('baasicArticleTagsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleTagsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
             return {
-                /**
-                * Provides direct access to `baasicArticleTagsRouteService`.
-                * @method        
-                * @example baasicArticleTagsService.routeService.get.expand(expandObject);
-                **/  				
-                routeService: articleTagsRouteService,
                  /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                  * @method        
@@ -22,7 +16,7 @@
 baasicArticleTagsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : '<tag>',
+  orderBy : '<field>',
   orderDirection : '<asc|desc>',
   search : '<search-phrase>'
 })
@@ -93,7 +87,13 @@ baasicArticleTagsService.remove(articleTag)
                 remove: function (data) {
                     var params = baasicApiService.removeParams(data);
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
-                }
+                },
+                /**
+                * Provides direct access to `baasicArticleTagsRouteService`.
+                * @method        
+                * @example baasicArticleTagsService.routeService.get.expand(expandObject);
+                **/  				
+                routeService: articleTagsRouteService
             };
         }]);
 }(angular, module));

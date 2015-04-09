@@ -11,10 +11,10 @@
             return {
 				/**
 				* Parses find article tags route which can be expanded with additional options. Supported items are: 
-				* - `searchQuery` - A string referencing resource properties using the phrase or query search.
-				* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+				* - `searchQuery` - A string value used to identify article tags using the phrase search; multiple tag keywords must be comma separated.
+				* - `page` - A value used to set the page number, i.e. to retrieve certain article tag subset from the storage.
 				* - `rpp` - A value used to limit the size of result set per page.
-				* - `sort` - A string used to set the role property to sort the result collection by.
+				* - `sort` - A string used to set the article tag property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
 				* @method      
 				* @example baasicArticleTagsRouteService.find.expand({searchQuery: '<search-phrase>'});               

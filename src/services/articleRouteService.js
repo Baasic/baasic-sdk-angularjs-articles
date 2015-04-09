@@ -10,13 +10,13 @@
             return {
                 /**
                 * Parses find article route which can be expanded with additional options. Supported items are: 
-                * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                * - `searchQuery` - A string referencing article properties using the phrase or BQL (Baasic Query Language) search.
+                * - `page` - A value used to set the page number, i.e. to retrieve certain article subset from the storage.
                 * - `rpp` - A value used to limit the size of result set per page.
-                * - `sort` - A string used to set the role property to sort the result collection by.
+                * - `sort` - A string used to set the article property to sort the result collection by.
 				* - `embed` - Comma separated list of resources to be contained within the current representation.
-                * - `startDate` - A value used to specify the article creation date starting from which article resource collection should be returned.
-                * - `endDate` - A value used to specify the article creation date until (and including) which article resource collection should be returned.
+                * - `startDate` - A value used to specify the article creation, publish or archive date date starting from which article resource collection should be returned.
+                * - `endDate` - A value used to specify the article creation, publish or archive date until (and including) which article resource collection should be returned.
                 * - `statuses` - Comma separated list of article statuses that specify where search should be done (Allowed statuses: Published, Draft and Archived).
                 * -  `tags` - A value used to restrict the search to article resources with these tags. Multiple tags should be comma separated.        				
                 * @method        
@@ -58,9 +58,9 @@
 					/**
 					* Parses find article rating route which can be expanded with additional options. Supported items are: 
 					* - `articleId` - Id of the article.
-					* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+					* - `page` - A value used to set the page number, i.e. to retrieve certain article rating subset from the storage.
 					* - `rpp` - A value used to limit the size of result set per page.
-					* - `sort` - A string used to set the role property to sort the result collection by.
+					* - `sort` - A string used to set the article rating property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method ratings.find       
 					* @example baasicArticleRouteService.ratings.find.expand({articleId`: '<article-id>'});               
@@ -72,7 +72,11 @@
 					* - `username` - A value that uniquely identifies a user which has created an article rating.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method ratings.findByUsername       
-					* @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: '<article-id>', username: '<username>'});
+					* @example 
+baasicArticleRouteService.ratings.findByUsername.expand({
+    articleId: '<article-id>', 
+    username: '<username>'
+});
 					**/ 					
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
 					/**
@@ -92,13 +96,17 @@
 					/**
 					* Parses find article tags route which can be expanded with additional options. Supported items are: 
 					* - `id` - Id of the article.
-					* - `searchQuery` - A string referencing resource properties using the phrase or query search.
-					* - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+					* - `searchQuery` - A string value used to identify article tag resources using the phrase search.
+					* - `page` - A value used to set the page number, i.e. to retrieve certain article tag subset from the storage.
 					* - `rpp` - A value used to limit the size of result set per page.
-					* - `sort` - A string used to set the role property to sort the result collection by.
+					* - `sort` - A string used to set the article tag property to sort the result collection by.
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method tags.find       
-					* @example baasicArticleRouteService.tags.find.expand({id: '<article-id>', searchQuery: '<search-phrase>'});
+					* @example 
+baasicArticleRouteService.tags.find.expand({
+    id: '<article-id>', 
+    searchQuery: '<search-phrase>'
+});
 					**/ 					
                     find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
 					/**
@@ -113,7 +121,11 @@
 					/**
 					* Parses create article tag route; this URI template should be expanded with the tag and Id of the article.
 					* @method tags.create       
-					* @example baasicArticleRouteService.tags.create.expand({id: '<article-id>', tag: '<tag>'});
+					* @example 
+baasicArticleRouteService.tags.create.expand({
+    id: '<article-id>', 
+    tag: '<tag>'
+});
 					**/  					
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
@@ -142,7 +154,12 @@
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
 					* - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
 					* @method permissions.deleteByUser       
-					* @example baasicArticleRouteService.permissions.deleteByUser.expand({id: '<article-id>', accessAction: '<access-action>', user: '<username>'});
+					* @example 
+baasicArticleRouteService.permissions.deleteByUser.expand({
+    id: '<article-id>', 
+    accessAction: '<access-action>', 
+    user: '<username>'
+});
 					**/ 					
                     deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
 					/**
@@ -151,7 +168,12 @@
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
 					* - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
 					* @method permissions.deleteByRole       
-					* @example baasicArticleRouteService.permissions.deleteByRole.expand({id: '<article-id>', accessAction: '<access-action>', role: '<role-name>'});
+					* @example 
+baasicArticleRouteService.permissions.deleteByRole.expand({
+    id: '<article-id>', 
+    accessAction: '<access-action>', 
+    role: '<role-name>'
+});
 					**/ 					
                     deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }

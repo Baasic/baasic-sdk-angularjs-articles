@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleService
- * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
+ * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -93,13 +93,7 @@
 
             return {
                 /**
-                * Provides direct access to `baasicArticleRouteService`.
-                * @method        
-                * @example baasicArticleService.routeService.get.expand(expandObject);
-                **/  			
-                routeService: articleRouteService,
-                /**
-                * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, , archive: 4 }`
+                * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
                 * @method        
                 * @example baasicArticleService.statuses.archive;
                 **/ 				
@@ -123,7 +117,7 @@
 baasicArticleService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : '<publishDate>',
+  orderBy : '<field>',
   orderDirection : '<asc|desc>',
   search : '<search-phrase>'
 })
@@ -333,7 +327,7 @@ baasicArticleService.publish('<article-id>')
                     return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(id, options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the purge articles action has been performed. This action will delete all article resources from the system.
+                 * Returns a promise that is resolved once the purge articles action has been performed. Please note that all article resources will be deleted from the system once the action is successfully completed and therefore it can only be executed by user assigned to account owner role. 
                  * @method        
                  * @example 	 
 baasicArticleService.purge({})
@@ -347,6 +341,12 @@ baasicArticleService.purge({})
                 purge: function (options) {
                     return baasicApiHttp.delete(articleRouteService.purge.expand(options));
                 },
+                /**
+                * Provides direct access to `baasicArticleRouteService`.
+                * @method        
+                * @example baasicArticleService.routeService.get.expand(expandObject);
+                **/  			
+                routeService: articleRouteService,
                 ratings: {
                     /**
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article.
@@ -604,7 +604,7 @@ baasicArticleService.permissions.update(options)
                         return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes all ACL assigned to the specified user and article resource.
+                    * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes ACL policy assigned to the specified user and article resource.
                     * @method permissions.update      
                     * @example 
 baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
@@ -623,7 +623,7 @@ baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>',
                         return baasicApiHttp.delete(articleRouteService.permissions.deleteByUser.expand(params));
                     },
                     /**
-                    * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes all ACL assigned to the specified role and article resource.
+                    * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes ACL policy assigned to the specified role and article resource.
                     * @method permissions.update      
                     * @example 
 baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')

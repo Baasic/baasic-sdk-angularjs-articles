@@ -17,7 +17,7 @@ This section will describe how to add the Baasic AngularJS Articles library to y
 Please add the _Baasic Articles_ include after the _Baasic Angular Core_ include:
 
 ```html
-<script src='/js/baasic-angular-1.0.0.min.js'></script>
+<script src='/js/baasic-angular-core-1.0.0.min.js'></script>
 <script src='/js/baasic-angular-article-1.0.0.min.js'></script>
 ```
 ### Initialization

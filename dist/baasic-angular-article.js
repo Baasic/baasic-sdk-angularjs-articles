@@ -35,10 +35,10 @@
             return {
                 /**
                  * Parses find article rating route which can be expanded with additional options. Supported items are: 
-                 * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                 * - `searchQuery` - A string referencing article rating properties using the phrase or BQL (Baasic Query Language) search.
+                 * - `page` - A value used to set the page number, i.e. to retrieve certain article rating subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
-                 * - `sort` - A string used to set the role property to sort the result collection by.
+                 * - `sort` - A string used to set the article rating property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
                  * @example baasicArticleRatingsRouteService.find.expand({searchQuery: '<search-phrase>'});               
@@ -47,9 +47,9 @@
                 /**
                  * Parses findByUser article rating route which can be expanded with additional options. Supported items are: 
                  * - `username` - A value that uniquely identifies a user which has created an article rating.
-                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                 * - `page` - A value used to set the page number, i.e. to retrieve certain article rating subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
-                 * - `sort` - A string used to set the role property to sort the result collection by.
+                 * - `sort` - A string used to set the article rating property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method        
                  * @example baasicArticleRatingsRouteService.find.expand({username: '<username>'});               
@@ -84,18 +84,12 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsService
-     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
-                /**
-                 * Provides direct access to `baasicArticleRatingsRouteService`.
-                 * @method        
-                 * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
-                 **/
-                routeService: articleRatingsRouteService,
                 /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources matching the given criteria.
                  * @method        
@@ -103,7 +97,7 @@
                  baasicArticleRatingsService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : '<article-title>',
+                 orderBy : '<field>',
                  orderDirection : '<asc|desc>',
                  search : '<search-phrase>'
                  })
@@ -124,7 +118,7 @@
                  baasicArticleRatingsService.find('<username>', {
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : '<article-title>',
+                 orderBy : '<field>',
                  orderDirection : '<asc|desc>'
                  })
                  .success(function (collection) {
@@ -196,10 +190,17 @@
                 remove: function (data) {
                     var params = baasicApiService.removeParams(data);
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
-                }
+                },
+                /**
+                 * Provides direct access to `baasicArticleRatingsRouteService`.
+                 * @method        
+                 * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
+                 **/
+                routeService: articleRatingsRouteService
             };
         }]);
     }(angular, module));
+
     /**
      * @copyright (c) 2015 Mono
      * @license MIT
@@ -221,13 +222,13 @@
             return {
                 /**
                  * Parses find article route which can be expanded with additional options. Supported items are: 
-                 * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                 * - `searchQuery` - A string referencing article properties using the phrase or BQL (Baasic Query Language) search.
+                 * - `page` - A value used to set the page number, i.e. to retrieve certain article subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
-                 * - `sort` - A string used to set the role property to sort the result collection by.
+                 * - `sort` - A string used to set the article property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
-                 * - `startDate` - A value used to specify the article creation date starting from which article resource collection should be returned.
-                 * - `endDate` - A value used to specify the article creation date until (and including) which article resource collection should be returned.
+                 * - `startDate` - A value used to specify the article creation, publish or archive date date starting from which article resource collection should be returned.
+                 * - `endDate` - A value used to specify the article creation, publish or archive date until (and including) which article resource collection should be returned.
                  * - `statuses` - Comma separated list of article statuses that specify where search should be done (Allowed statuses: Published, Draft and Archived).
                  * -  `tags` - A value used to restrict the search to article resources with these tags. Multiple tags should be comma separated.        				
                  * @method        
@@ -269,9 +270,9 @@
                     /**
                      * Parses find article rating route which can be expanded with additional options. Supported items are: 
                      * - `articleId` - Id of the article.
-                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                     * - `page` - A value used to set the page number, i.e. to retrieve certain article rating subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
-                     * - `sort` - A string used to set the role property to sort the result collection by.
+                     * - `sort` - A string used to set the article rating property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method ratings.find       
                      * @example baasicArticleRouteService.ratings.find.expand({articleId`: '<article-id>'});               
@@ -283,7 +284,11 @@
                      * - `username` - A value that uniquely identifies a user which has created an article rating.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method ratings.findByUsername       
-                     * @example baasicArticleRouteService.ratings.findByUsername.expand({articleId: '<article-id>', username: '<username>'});
+                     * @example 
+                     baasicArticleRouteService.ratings.findByUsername.expand({
+                     articleId: '<article-id>', 
+                     username: '<username>'
+                     });
                      **/
                     findByUsername: uriTemplateService.parse('articles/{articleId}/users/{username}/ratings/{?embed,fields}'),
                     /**
@@ -303,13 +308,17 @@
                     /**
                      * Parses find article tags route which can be expanded with additional options. Supported items are: 
                      * - `id` - Id of the article.
-                     * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                     * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                     * - `searchQuery` - A string value used to identify article tag resources using the phrase search.
+                     * - `page` - A value used to set the page number, i.e. to retrieve certain article tag subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
-                     * - `sort` - A string used to set the role property to sort the result collection by.
+                     * - `sort` - A string used to set the article tag property to sort the result collection by.
                      * - `embed` - Comma separated list of resources to be contained within the current representation.
                      * @method tags.find       
-                     * @example baasicArticleRouteService.tags.find.expand({id: '<article-id>', searchQuery: '<search-phrase>'});
+                     * @example 
+                     baasicArticleRouteService.tags.find.expand({
+                     id: '<article-id>', 
+                     searchQuery: '<search-phrase>'
+                     });
                      **/
                     find: uriTemplateService.parse('articles/{id}/tags/{?searchQuery,page,rpp,sort,embed,fields}'),
                     /**
@@ -324,7 +333,11 @@
                     /**
                      * Parses create article tag route; this URI template should be expanded with the tag and Id of the article.
                      * @method tags.create       
-                     * @example baasicArticleRouteService.tags.create.expand({id: '<article-id>', tag: '<tag>'});
+                     * @example 
+                     baasicArticleRouteService.tags.create.expand({
+                     id: '<article-id>', 
+                     tag: '<tag>'
+                     });
                      **/
                     create: uriTemplateService.parse('articles/{id}/tags/{tag}/'),
                     /**
@@ -353,7 +366,12 @@
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
                      * - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
                      * @method permissions.deleteByUser       
-                     * @example baasicArticleRouteService.permissions.deleteByUser.expand({id: '<article-id>', accessAction: '<access-action>', user: '<username>'});
+                     * @example 
+                     baasicArticleRouteService.permissions.deleteByUser.expand({
+                     id: '<article-id>', 
+                     accessAction: '<access-action>', 
+                     user: '<username>'
+                     });
                      **/
                     deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
                     /**
@@ -362,7 +380,12 @@
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
                      * - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
                      * @method permissions.deleteByRole       
-                     * @example baasicArticleRouteService.permissions.deleteByRole.expand({id: '<article-id>', accessAction: '<access-action>', role: '<role-name>'});
+                     * @example 
+                     baasicArticleRouteService.permissions.deleteByRole.expand({
+                     id: '<article-id>', 
+                     accessAction: '<access-action>', 
+                     role: '<role-name>'
+                     });
                      **/
                     deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
                 }
@@ -382,7 +405,7 @@
     /* globals module */
     /**
      * @module baasicArticleService
-     * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
+     * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -474,13 +497,7 @@
 
             return {
                 /**
-                 * Provides direct access to `baasicArticleRouteService`.
-                 * @method        
-                 * @example baasicArticleService.routeService.get.expand(expandObject);
-                 **/
-                routeService: articleRouteService,
-                /**
-                 * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, , archive: 4 }`
+                 * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
                  * @method        
                  * @example baasicArticleService.statuses.archive;
                  **/
@@ -504,7 +521,7 @@
                  baasicArticleService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : '<publishDate>',
+                 orderBy : '<field>',
                  orderDirection : '<asc|desc>',
                  search : '<search-phrase>'
                  })
@@ -715,7 +732,7 @@
                     return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(id, options)));
                 },
                 /**
-                 * Returns a promise that is resolved once the purge articles action has been performed. This action will delete all article resources from the system.
+                 * Returns a promise that is resolved once the purge articles action has been performed. Please note that all article resources will be deleted from the system once the action is successfully completed and therefore it can only be executed by user assigned to account owner role. 
                  * @method        
                  * @example 	 
                  baasicArticleService.purge({})
@@ -729,6 +746,12 @@
                 purge: function (options) {
                     return baasicApiHttp.delete(articleRouteService.purge.expand(options));
                 },
+                /**
+                 * Provides direct access to `baasicArticleRouteService`.
+                 * @method        
+                 * @example baasicArticleService.routeService.get.expand(expandObject);
+                 **/
+                routeService: articleRouteService,
                 ratings: {
                     /**
                      * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article.
@@ -986,7 +1009,7 @@
                         return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes all ACL assigned to the specified user and article resource.
+                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes ACL policy assigned to the specified user and article resource.
                      * @method permissions.update      
                      * @example 
                      baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
@@ -1005,7 +1028,7 @@
                         return baasicApiHttp.delete(articleRouteService.permissions.deleteByUser.expand(params));
                     },
                     /**
-                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes all ACL assigned to the specified role and article resource.
+                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes ACL policy assigned to the specified role and article resource.
                      * @method permissions.update      
                      * @example 
                      baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')
@@ -1074,18 +1097,12 @@
     /* globals module */
     /**
      * @module baasicArticleSettingsService
-     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
         module.service('baasicArticleSettingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleSettingsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
             return {
-                /**
-                 * Provides direct access to `baasicArticleSettingsRouteService`.
-                 * @method        
-                 * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
-                 **/
-                routeService: articleSettingsRouteService,
                 /**
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings.
                  * @method        
@@ -1122,7 +1139,13 @@
                 update: function (data) {
                     var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
-                }
+                },
+                /**
+                 * Provides direct access to `baasicArticleSettingsRouteService`.
+                 * @method        
+                 * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
+                 **/
+                routeService: articleSettingsRouteService
             };
         }]);
     }(angular, module));
@@ -1148,10 +1171,10 @@
             return {
                 /**
                  * Parses find article tags route which can be expanded with additional options. Supported items are: 
-                 * - `searchQuery` - A string referencing resource properties using the phrase or query search.
-                 * - `page` - A value used to set the page offset, i.e. to retrieve certain resource subset from the storage.
+                 * - `searchQuery` - A string value used to identify article tags using the phrase search; multiple tag keywords must be comma separated.
+                 * - `page` - A value used to set the page number, i.e. to retrieve certain article tag subset from the storage.
                  * - `rpp` - A value used to limit the size of result set per page.
-                 * - `sort` - A string used to set the role property to sort the result collection by.
+                 * - `sort` - A string used to set the article tag property to sort the result collection by.
                  * - `embed` - Comma separated list of resources to be contained within the current representation.
                  * @method      
                  * @example baasicArticleTagsRouteService.find.expand({searchQuery: '<search-phrase>'});               
@@ -1186,7 +1209,7 @@
     /* globals module */
     /**
      * @module baasicArticleTagsService
-     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources which means that inbuilt functionality resolves internally relations between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
      */
 
     (function (angular, module, undefined) {
@@ -1194,19 +1217,13 @@
         module.service('baasicArticleTagsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleTagsRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, articleTagsRouteService) {
             return {
                 /**
-                 * Provides direct access to `baasicArticleTagsRouteService`.
-                 * @method        
-                 * @example baasicArticleTagsService.routeService.get.expand(expandObject);
-                 **/
-                routeService: articleTagsRouteService,
-                /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article tag resources matching the given criteria.
                  * @method        
                  * @example 
                  baasicArticleTagsService.find({
                  pageNumber : 1,
                  pageSize : 10,
-                 orderBy : '<tag>',
+                 orderBy : '<field>',
                  orderDirection : '<asc|desc>',
                  search : '<search-phrase>'
                  })
@@ -1277,7 +1294,13 @@
                 remove: function (data) {
                     var params = baasicApiService.removeParams(data);
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
-                }
+                },
+                /**
+                 * Provides direct access to `baasicArticleTagsRouteService`.
+                 * @method        
+                 * @example baasicArticleTagsService.routeService.get.expand(expandObject);
+                 **/
+                routeService: articleTagsRouteService
             };
         }]);
     }(angular, module));

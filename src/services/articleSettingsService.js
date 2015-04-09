@@ -1,19 +1,13 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleSettingsService
- * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+ * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
     module.service('baasicArticleSettingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleSettingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleSettingsRouteService) {
             return {
-                /**
-                * Provides direct access to `baasicArticleSettingsRouteService`.
-                * @method        
-                * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
-                **/  			
-                routeService: articleSettingsRouteService,
                  /**
                  * Returns a promise that is resolved once the get action has been performed. Success response returns the article settings.
                  * @method        
@@ -50,7 +44,13 @@ baasicArticleSettingsService.update(articleSettings)
                 update: function (data) {
                     var params = baasicApiService.updateParams(data);
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
-                }
+                },
+                /**
+                * Provides direct access to `baasicArticleSettingsRouteService`.
+                * @method        
+                * @example baasicArticleSettingsService.routeService.get.expand(expandObject);
+                **/  			
+                routeService: articleSettingsRouteService
             };
         }]);
 }(angular, module));

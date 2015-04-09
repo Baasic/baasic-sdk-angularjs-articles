@@ -1,19 +1,13 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRatingsService
- * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating; therefore, no additional operations are required. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+ * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources, whereas the `baasicArticleService` functions allow management between article and article rating. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
     module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
-                /**
-                * Provides direct access to `baasicArticleRatingsRouteService`.
-                * @method        
-                * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
-                **/  
-                routeService: articleRatingsRouteService,
                  /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources matching the given criteria.
                  * @method        
@@ -21,7 +15,7 @@
 baasicArticleRatingsService.find({
   pageNumber : 1,
   pageSize : 10,
-  orderBy : '<article-title>',
+  orderBy : '<field>',
   orderDirection : '<asc|desc>',
   search : '<search-phrase>'
 })
@@ -42,7 +36,7 @@ baasicArticleRatingsService.find({
 baasicArticleRatingsService.find('<username>', {
   pageNumber : 1,
   pageSize : 10,
-  orderBy : '<article-title>',
+  orderBy : '<field>',
   orderDirection : '<asc|desc>'
 })
 .success(function (collection) {
@@ -114,10 +108,17 @@ baasicArticleRatingsService.remove(articleRating)
                 remove: function (data) {
                     var params = baasicApiService.removeParams(data);
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
-                }
+                },
+                /**
+                * Provides direct access to `baasicArticleRatingsRouteService`.
+                * @method        
+                * @example baasicArticleRatingsService.routeService.get.expand(expandObject);
+                **/  
+                routeService: articleRatingsRouteService
             };
         }]);
 }(angular, module));
+
 /**
  * @copyright (c) 2015 Mono
  * @license MIT
