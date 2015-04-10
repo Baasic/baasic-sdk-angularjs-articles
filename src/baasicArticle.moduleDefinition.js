@@ -1,28 +1,24 @@
 ﻿/* exported module */
 /** 
- * @overview The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism.
- * @copyright (c) 2015 Mono-Software
+ * @description The angular.module is a global place for creating, registering or retrieving modules. All modules should be registered in an application using this mechanism.  An angular module is a container for the different parts of your app - services, directives etc. In order to use `baasic.article` module functionality it must be added as a dependency to your app.
+ * @copyright (c) 2015 Mono
  * @license MIT
- * @author Mono-Software
-*/
-
-/**
- * An angular module is a container for the different parts of your app - services, directives etc. In order to use baasic.article module functionality it must be added as a dependency to your app.
+ * @author Mono
  * @module baasic.article
  * @example
 (function (Main) {
-  "use strict";
+  'use strict';
   var dependencies = [
-    "baasic.api",
-    "baasic.membership",
-    "baasic.security",
-    "baasic.appSettings",
-    "baasic.article",
-    "baasic.dynamicResource",
-    "baasic.keyValue",
-    "baasic.valueSet"
+    'baasic.api',
+    'baasic.membership',
+    'baasic.security',
+    'baasic.appSettings',
+    'baasic.article',
+    'baasic.dynamicResource',
+    'baasic.keyValue',
+    'baasic.valueSet'
   ];
-  Main.module = angular.module("myApp.Main", dependencies);
+  Main.module = angular.module('myApp.Main', dependencies);
 }
   (MyApp.Modules.Main = {})); 
 */
