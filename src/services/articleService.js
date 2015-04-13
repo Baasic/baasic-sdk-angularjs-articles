@@ -185,7 +185,7 @@ baasicArticleService.create({
 					return baasicApiHttp.post(articleRouteService.create.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                  /**
-                 * Returns a promise that is resolved once the update article action has been performed; this action updates an article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the update article action has been performed; this action updates an article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('put').href;
@@ -228,7 +228,7 @@ baasicArticleService.saveDraft(article)
                     return this.update(data);
                 },
                  /**
-                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed, the article resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the remove article action has been performed. If the action is successfully completed, the article resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('delete').href;
@@ -249,7 +249,7 @@ baasicArticleService.remove(article)
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('archive').href;
@@ -270,7 +270,7 @@ baasicArticleService.archive(article)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('restore').href;
@@ -291,7 +291,7 @@ baasicArticleService.restore(article)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('restore').href);
                 },
                  /**
-                 * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('unpublish').href;
@@ -421,7 +421,7 @@ baasicArticleService.update(article)
                         return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
                     },
                     /**
-                    * Returns a promise that is resolved once the remove article rating action has been performed. This action will remove a rating from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                    * Returns a promise that is resolved once the remove article rating action has been performed. This action will remove a rating from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleRating);
 var uri = params['model'].links('delete').href;
@@ -442,7 +442,7 @@ baasicArticleService.remove(articleRating)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed, the article rating resources will be permanently removed from the system for a specified article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                    * Returns a promise that is resolved once the removeAll article rating action has been performed. If the action is successfully completed, the article rating resources will be permanently removed from the system for a specified article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('delete-ratings-by-article').href;
@@ -521,7 +521,7 @@ baasicArticleService.tags.create({
                         return baasicApiHttp.post(articleRouteService.tags.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                     },
                      /**
-                     * Returns a promise that is resolved once the remove article tag action has been performed. This action will remove a tag from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                     * Returns a promise that is resolved once the remove article tag action has been performed. This action will remove a tag from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleTag);
 var uri = params['model'].links('delete').href;
@@ -542,7 +542,7 @@ baasicArticleService.tags.remove(articleTag)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                     },
                     /**
-                    * Returns a promise that is resolved once the removeAll article tag action has been performed. This action will remove all tags from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply 'baasicArticleRouteService' route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                    * Returns a promise that is resolved once the removeAll article tag action has been performed. This action will remove all tags from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(article);
 var uri = params['model'].links('delete-tags-by-article').href;
