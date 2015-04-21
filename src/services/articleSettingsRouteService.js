@@ -11,7 +11,7 @@
 				/**
 				* Parses get article settings route; this URI template doesn't expose any additional properties.				
 				* @method
-				* @example baasicArticleSettingsRouteService.permissions.get.expand({id: '<article-id>'});               
+				* @example baasicArticleSettingsRouteService.get.expand({id: '<article-id>'});               
 				**/ 				
                 get: uriTemplateService.parse('article-settings/{?embed,fields}'),
                 /**

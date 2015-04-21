@@ -135,47 +135,47 @@ baasicArticleRouteService.tags.create.expand({
                     **/										
                     parse: uriTemplateService.parse
                 },
-                permissions: {
+                acl: {
 					/**
-					* Parses get article permissions route; this URI template should be expanded with the Id of the article.					
-					* @method permissions.get       
-					* @example baasicArticleRouteService.permissions.get.expand({id: '<article-id>'});
+					* Parses get article acl route; this URI template should be expanded with the Id of the article.					
+					* @method acl.get       
+					* @example baasicArticleRouteService.acl.get.expand({id: '<article-id>'});
 					**/ 				
-                    get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    get: uriTemplateService.parse('articles/{id}/acl/{?fields}'),
 					/**
-					* Parses update article permissions route; this URI template should be expanded with the Id of the article.					
-					* @method permissions.update       
-					* @example baasicArticleRouteService.permissions.update.expand({id: '<article-id>'});
+					* Parses update article acl route; this URI template should be expanded with the Id of the article.					
+					* @method acl.update       
+					* @example baasicArticleRouteService.acl.update.expand({id: '<article-id>'});
 					**/ 					
-                    update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    update: uriTemplateService.parse('articles/{id}/acl/{?fields}'),
 					/**
-					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
+					* Parses deleteByUser article acl route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
 					* - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
-					* @method permissions.deleteByUser       
+					* @method acl.deleteByUser       
 					* @example 
-baasicArticleRouteService.permissions.deleteByUser.expand({
+baasicArticleRouteService.acl.deleteByUser.expand({
     id: '<article-id>', 
     accessAction: '<access-action>', 
     user: '<username>'
 });
 					**/ 					
-                    deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
+                    deleteByUser: uriTemplateService.parse('articles/{id}/acl/actions/{accessAction}/users/{user}/'),
 					/**
-					* Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
+					* Parses deleteByUser article acl route which can be expanded with additional options. Supported items are:
 					* - `id` - Id of the article.
 					* - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
 					* - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
-					* @method permissions.deleteByRole       
+					* @method acl.deleteByRole       
 					* @example 
-baasicArticleRouteService.permissions.deleteByRole.expand({
+baasicArticleRouteService.acl.deleteByRole.expand({
     id: '<article-id>', 
     accessAction: '<access-action>', 
     role: '<role-name>'
 });
 					**/ 					
-                    deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
+                    deleteByRole: uriTemplateService.parse('articles/{id}/acl/actions/{accessAction}/roles/{role}/')
                 }
             };
         }]);

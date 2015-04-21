@@ -563,12 +563,12 @@ baasicArticleService.tags.removeAll(article)
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-tags-by-article').href);
                     }
                 },
-                permissions: {
+                acl: {
                     /**
-                    * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article permissions.
-                    * @method permissions.get       
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article acls.
+                    * @method acl.get       
                     * @example 
-baasicArticleService.permissions.get({id: '<article-id>'})
+baasicArticleService.acl.get({id: '<article-id>'})
 .success(function (data) {
   // perform success action here
 })
@@ -578,20 +578,20 @@ baasicArticleService.permissions.get({id: '<article-id>'})
                     **/ 					
                     get: function (options) {
                         var params = angular.copy(options);
-                        return baasicApiHttp.get(articleRouteService.permissions.get.expand(params));
+                        return baasicApiHttp.get(articleRouteService.acl.get.expand(params));
                     },
                     /**
-                    * Returns a promise that is resolved once the update permissions action has been performed, this action updates an article permission.
-                    * @method permissions.update      
+                    * Returns a promise that is resolved once the update acl action has been performed, this action updates an article acl.
+                    * @method acl.update      
                     * @example 
 var options = {id : '<article-id>'};
-var permissionObj =  {
+var aclObj =  {
  actionId: '<action-id'>,
  roleId: '<roleId>',
  userId: '<userId>'
 };
-options[baasicConstants.modelPropertyName] = permissionObj;
-baasicArticleService.permissions.update(options)
+options[baasicConstants.modelPropertyName] = aclObj;
+baasicArticleService.acl.update(options)
 .success(function (data) {
   // perform success action here
 })
@@ -601,13 +601,13 @@ baasicArticleService.permissions.update(options)
 				    **/							
                     update: function (options) {
                         var params = angular.copy(options);
-                        return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
+                        return baasicApiHttp.put(articleRouteService.acl.get.expand(params), params[baasicConstants.modelPropertyName]);
                     },
                     /**
                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes ACL policy assigned to the specified user and article resource.
-                    * @method permissions.update      
+                    * @method acl.update      
                     * @example 
-baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
+baasicArticleService.acl.removeByUser('<article-id>', '<access-action>', '<username>')
 .success(function (data) {
   // perform success action here
 })
@@ -620,13 +620,13 @@ baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>',
                         params.articleId = articleId;
                         params.user = user;
                         params.accessAction = action;
-                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByUser.expand(params));
+                        return baasicApiHttp.delete(articleRouteService.acl.deleteByUser.expand(params));
                     },
                     /**
                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes ACL policy assigned to the specified role and article resource.
-                    * @method permissions.update      
+                    * @method acl.update      
                     * @example 
-baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')
+baasicArticleService.acl.removeByRole('<article-id>', '<access-action>', '<role-name>')
 .success(function (data) {
   // perform success action here
 })
@@ -639,7 +639,7 @@ baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>',
                         params.articleId = articleId;
                         params.role = role;
                         params.accessAction = action;
-                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByRole.expand(params));
+                        return baasicApiHttp.delete(articleRouteService.acl.deleteByRole.expand(params));
                     }
                 }
             };

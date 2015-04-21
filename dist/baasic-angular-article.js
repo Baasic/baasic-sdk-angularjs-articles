@@ -84,7 +84,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsService
-     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources which means that inbuilt functionality resolves internally relations between article and article rating. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources, whereas the `baasicArticleService` functions allow management between article and article rating. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -347,47 +347,47 @@
                      **/
                     parse: uriTemplateService.parse
                 },
-                permissions: {
+                acl: {
                     /**
-                     * Parses get article permissions route; this URI template should be expanded with the Id of the article.					
-                     * @method permissions.get       
-                     * @example baasicArticleRouteService.permissions.get.expand({id: '<article-id>'});
+                     * Parses get article acl route; this URI template should be expanded with the Id of the article.					
+                     * @method acl.get       
+                     * @example baasicArticleRouteService.acl.get.expand({id: '<article-id>'});
                      **/
-                    get: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    get: uriTemplateService.parse('articles/{id}/acl/{?fields}'),
                     /**
-                     * Parses update article permissions route; this URI template should be expanded with the Id of the article.					
-                     * @method permissions.update       
-                     * @example baasicArticleRouteService.permissions.update.expand({id: '<article-id>'});
+                     * Parses update article acl route; this URI template should be expanded with the Id of the article.					
+                     * @method acl.update       
+                     * @example baasicArticleRouteService.acl.update.expand({id: '<article-id>'});
                      **/
-                    update: uriTemplateService.parse('articles/{id}/permissions/{?fields}'),
+                    update: uriTemplateService.parse('articles/{id}/acl/{?fields}'),
                     /**
-                     * Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
+                     * Parses deleteByUser article acl route which can be expanded with additional options. Supported items are:
                      * - `id` - Id of the article.
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified user and article resource.
                      * - `user` - A value which uniquely identifies user for which ACL policy needs to be removed.					
-                     * @method permissions.deleteByUser       
+                     * @method acl.deleteByUser       
                      * @example 
-                     baasicArticleRouteService.permissions.deleteByUser.expand({
+                     baasicArticleRouteService.acl.deleteByUser.expand({
                      id: '<article-id>', 
                      accessAction: '<access-action>', 
                      user: '<username>'
                      });
                      **/
-                    deleteByUser: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/users/{user}/'),
+                    deleteByUser: uriTemplateService.parse('articles/{id}/acl/actions/{accessAction}/users/{user}/'),
                     /**
-                     * Parses deleteByUser article permissions route which can be expanded with additional options. Supported items are:
+                     * Parses deleteByUser article acl route which can be expanded with additional options. Supported items are:
                      * - `id` - Id of the article.
                      * - `accessAction` - Action abbreviation which identifies ACL policy assigned to the specified role and article resource.
                      * - `role` - A value which uniquely identifies role for which ACL policy needs to be removed.					
-                     * @method permissions.deleteByRole       
+                     * @method acl.deleteByRole       
                      * @example 
-                     baasicArticleRouteService.permissions.deleteByRole.expand({
+                     baasicArticleRouteService.acl.deleteByRole.expand({
                      id: '<article-id>', 
                      accessAction: '<access-action>', 
                      role: '<role-name>'
                      });
                      **/
-                    deleteByRole: uriTemplateService.parse('articles/{id}/permissions/actions/{accessAction}/roles/{role}/')
+                    deleteByRole: uriTemplateService.parse('articles/{id}/acl/actions/{accessAction}/roles/{role}/')
                 }
             };
         }]);
@@ -968,12 +968,12 @@
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-tags-by-article').href);
                     }
                 },
-                permissions: {
+                acl: {
                     /**
-                     * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article permissions.
-                     * @method permissions.get       
+                     * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article acls.
+                     * @method acl.get       
                      * @example 
-                     baasicArticleService.permissions.get({id: '<article-id>'})
+                     baasicArticleService.acl.get({id: '<article-id>'})
                      .success(function (data) {
                      // perform success action here
                      })
@@ -983,20 +983,20 @@
                      **/
                     get: function (options) {
                         var params = angular.copy(options);
-                        return baasicApiHttp.get(articleRouteService.permissions.get.expand(params));
+                        return baasicApiHttp.get(articleRouteService.acl.get.expand(params));
                     },
                     /**
-                     * Returns a promise that is resolved once the update permissions action has been performed, this action updates an article permission.
-                     * @method permissions.update      
+                     * Returns a promise that is resolved once the update acl action has been performed, this action updates an article acl.
+                     * @method acl.update      
                      * @example 
                      var options = {id : '<article-id>'};
-                     var permissionObj =  {
+                     var aclObj =  {
                      actionId: '<action-id'>,
                      roleId: '<roleId>',
                      userId: '<userId>'
                      };
-                     options[baasicConstants.modelPropertyName] = permissionObj;
-                     baasicArticleService.permissions.update(options)
+                     options[baasicConstants.modelPropertyName] = aclObj;
+                     baasicArticleService.acl.update(options)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1006,13 +1006,13 @@
                      **/
                     update: function (options) {
                         var params = angular.copy(options);
-                        return baasicApiHttp.put(articleRouteService.permissions.get.expand(params), params[baasicConstants.modelPropertyName]);
+                        return baasicApiHttp.put(articleRouteService.acl.get.expand(params), params[baasicConstants.modelPropertyName]);
                     },
                     /**
                      * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes ACL policy assigned to the specified user and article resource.
-                     * @method permissions.update      
+                     * @method acl.update      
                      * @example 
-                     baasicArticleService.permissions.removeByUser('<article-id>', '<access-action>', '<username>')
+                     baasicArticleService.acl.removeByUser('<article-id>', '<access-action>', '<username>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1025,13 +1025,13 @@
                         params.articleId = articleId;
                         params.user = user;
                         params.accessAction = action;
-                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByUser.expand(params));
+                        return baasicApiHttp.delete(articleRouteService.acl.deleteByUser.expand(params));
                     },
                     /**
                      * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes ACL policy assigned to the specified role and article resource.
-                     * @method permissions.update      
+                     * @method acl.update      
                      * @example 
-                     baasicArticleService.permissions.removeByRole('<article-id>', '<access-action>', '<role-name>')
+                     baasicArticleService.acl.removeByRole('<article-id>', '<access-action>', '<role-name>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1044,7 +1044,7 @@
                         params.articleId = articleId;
                         params.role = role;
                         params.accessAction = action;
-                        return baasicApiHttp.delete(articleRouteService.permissions.deleteByRole.expand(params));
+                        return baasicApiHttp.delete(articleRouteService.acl.deleteByRole.expand(params));
                     }
                 }
             };
@@ -1072,7 +1072,7 @@
                 /**
                  * Parses get article settings route; this URI template doesn't expose any additional properties.				
                  * @method
-                 * @example baasicArticleSettingsRouteService.permissions.get.expand({id: '<article-id>'});               
+                 * @example baasicArticleSettingsRouteService.get.expand({id: '<article-id>'});               
                  **/
                 get: uriTemplateService.parse('article-settings/{?embed,fields}'),
                 /**
@@ -1209,7 +1209,7 @@
     /* globals module */
     /**
      * @module baasicArticleTagsService
-     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources which means that inbuilt functionality resolves internally relations between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
      */
 
     (function (angular, module, undefined) {
