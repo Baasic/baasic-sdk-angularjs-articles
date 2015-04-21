@@ -565,7 +565,7 @@ baasicArticleService.tags.removeAll(article)
                 },
                 acl: {
                     /**
-                    * Returns a promise that is resolved once the get action has been performed. Success response returns a list of article acls.
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns a list of ACL policies established for the specified article resource.
                     * @method acl.get       
                     * @example 
 baasicArticleService.acl.get({id: '<article-id>'})
@@ -581,7 +581,7 @@ baasicArticleService.acl.get({id: '<article-id>'})
                         return baasicApiHttp.get(articleRouteService.acl.get.expand(params));
                     },
                     /**
-                    * Returns a promise that is resolved once the update acl action has been performed, this action updates an article acl.
+                    * Returns a promise that is resolved once the update acl action has been performed, this action creates new ACL policy for the specified article resource.
                     * @method acl.update      
                     * @example 
 var options = {id : '<article-id>'};
@@ -605,7 +605,7 @@ baasicArticleService.acl.update(options)
                     },
                     /**
                     * Returns a promise that is resolved once the removeByUser action has been performed. This action deletes ACL policy assigned to the specified user and article resource.
-                    * @method acl.update      
+                    * @method acl.deleteByUser      
                     * @example 
 baasicArticleService.acl.removeByUser('<article-id>', '<access-action>', '<username>')
 .success(function (data) {
@@ -624,7 +624,7 @@ baasicArticleService.acl.removeByUser('<article-id>', '<access-action>', '<usern
                     },
                     /**
                     * Returns a promise that is resolved once the removeByRole action has been performed. This action deletes ACL policy assigned to the specified role and article resource.
-                    * @method acl.update      
+                    * @method acl.deleteByRole      
                     * @example 
 baasicArticleService.acl.removeByRole('<article-id>', '<access-action>', '<role-name>')
 .success(function (data) {
