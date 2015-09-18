@@ -141,7 +141,7 @@ baasicArticleRouteService.tags.find.expand({
 					* - `embed` - Comma separated list of resources to be contained within the current representation.
 					* @method tags.get       
 					* @example 
-baasicArticleRouteService.tags.find.expand({
+baasicArticleRouteService.tags.get.expand({
 	id: '<article-id>', 
 	tag: '<tag>'
 });
@@ -169,6 +169,115 @@ baasicArticleRouteService.tags.parse(
                     **/										
                     parse: uriTemplateService.parse
                 },
+				comments: {
+                    /**
+                    * Parses find article comments route which can be expanded with additional options. Supported items are:
+                    * - `articleId` - Id of the article.
+                    * - `searchQuery` - A string value used to identify article comment resources using the phrase search.
+                    * - `page` - A value used to set the page number, i.e. to retrieve certain article comment subset from the storage.
+                    * - `rpp` - A value used to limit the size of result set per page.
+                    * - `sort` - A string used to set the article comment property to sort the result collection by.
+                    * - `embed` - Comma separated list of resources to be contained within the current representation.
+                    * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Approved, Spam, Reported, Flagged and UnApproved).
+                    * @method comments.find
+                    * @example
+baasicArticleRouteService.comment.find.expand({
+  articleId: '<article-id>',
+  searchQuery: '<search-phrase>'
+});
+                    **/                    
+                    find: uriTemplateService.parse('articles/{articleId}/comments/{?searchQuery,statuses,page,rpp,sort,embed,fields}'),
+                    /**
+                    * Parses get article comments route which can be expanded with additional options. Supported items are:
+                    * - `articleId` - Id of the article.
+                    * - `id` - Id which uniquely identifies article comment resource that needs to be retrieved.
+                    * - `embed` - Comma separated list of resources to be contained within the current representation.
+                    * @method comments.get
+                    * @example
+baasicArticleRouteService.comments.get.expand({
+  articleId: '<article-id>',
+  id: '<comment-id>'
+});
+                    **/                                                        
+                    get: uriTemplateService.parse('articles/{articleId}/comments/{id}/{?embed,fields}'),
+					/**
+					* Parses create article comments route; this URI template should be expanded with the Id of the article.
+					* @method comments.create       
+					* @example 
+baasicArticleRouteService.comments.create.expand({
+    id: '<article-id>'
+});
+					**/                     
+                    create: uriTemplateService.parse('articles/{articleId}/comments/'),
+                    /**
+                    * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                    * @method comments.parse
+                    * @example 
+baasicArticleRouteService.comments.parse(
+  '<route>/{?embed,fields,options}').expand({
+  embed: '<embedded-resource>'
+});
+                    **/	                       	
+                    parse: uriTemplateService.parse,
+                    replies: {
+                        /**
+                        * Parses find article comment replies route which can be expanded with additional options. Supported items are:
+                        * - `articleId` - Id of the article.
+                        * - `commentId` - Id of the parent comment.
+                        * - `searchQuery` - A string value used to identify article comment reply resources using the phrase search.
+                        * - `page` - A value used to set the page number, i.e. to retrieve certain article comment reply subset from the storage.
+                        * - `rpp` - A value used to limit the size of result set per page.
+                        * - `sort` - A string used to set the article comment reply property to sort the result collection by.
+                        * - `embed` - Comma separated list of resources to be contained within the current representation.
+                        * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Approved, Spam, Reported, Flagged and UnApproved).
+                        * @method comments.replies.find
+                        * @example
+baasicArticleRouteService.comment.replies.find.expand({
+  articleId: '<article-id>',
+  commentId: '<comment-id>',
+  searchQuery: '<search-phrase>'
+});
+                        **/                          
+                        find: uriTemplateService.parse('articles/{articleId}/comments/{commentId}/replies/{?searchQuery,statuses,page,rpp,sort,embed,fields}'),
+                        /**
+                        * Parses get article comment reply route which can be expanded with additional options. Supported items are:
+                        * - `articleId` - Id of the article.
+                        * - `commentId` - Id of the parent comment.
+                        * - `id` - Id which uniquely identifies article comment reply resource that needs to be retrieved.
+                        * - `embed` - Comma separated list of resources to be contained within the current representation.
+                        * @method comments.replies.get
+                        * @example
+baasicArticleRouteService.comments.replies.get.expand({
+  articleId: '<article-id>',
+  commentId: '<comment-id>',
+  id: '<comment-reply-id>'
+});
+                        **/                          
+                        get: uriTemplateService.parse('articles/{articleId}/comments/{commentId}/replies/{id}/{?embed,fields}'),
+                        /**
+                        * Parses create article comment reply route; this URI template should be expanded with the:
+                        * - `articleId` - Id of the article.
+                        * - `commentId` - Id of the parent comment.                        
+                        * @method comments.replies.create       
+                        * @example 
+baasicArticleRouteService.comments.replies.create.expand({
+  articleId: '<article-id>',
+  commentId: '<comment-id>'  
+});
+					   **/                          
+                        create: uriTemplateService.parse('articles/{articleId}/comments/{commentId}/replies'),                        
+                        /**
+                        * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                        * @method comments.replies.parse
+                        * @example 
+baasicArticleRouteService.comments.replies.parse(
+  '<route>/{?embed,fields,options}').expand({
+  embed : '<embedded-resource>'
+});
+                        **/		
+                        parse: uriTemplateService.parse,                        
+                    }                                   								
+				},
                 acl: {
 					/**
 					* Parses get article acl route; this URI template should be expanded with the Id of the article.					

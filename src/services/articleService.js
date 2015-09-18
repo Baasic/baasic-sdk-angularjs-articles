@@ -66,6 +66,14 @@
                 draft: 1,
                 archive: 4
             };
+            
+            var commentStatuses = {
+                approved: 1,
+                spam: 2,
+                reported: 4,
+                flagged: 8,
+                unapproved: 16 
+            };
 
             function toSlug(str) {
                 if (angular.isUndefined(str) || str === null || str === '') {
@@ -187,7 +195,7 @@ baasicArticleService.create({
                  /**
                  * Returns a promise that is resolved once the update article action has been performed; this action updates an article resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
-var params = baasicApiService.removeParams(article);
+var params = baasicApiService.updateParams(article);
 var uri = params['model'].links('put').href;
 ```
                  * @method        
@@ -251,7 +259,7 @@ baasicArticleService.remove(article)
                  /**
                  * Returns a promise that is resolved once the archive article action has been performed. This action sets the status of an article from "published" to "archive". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
-var params = baasicApiService.removeParams(article);
+var params = baasicApiService.updateParams(article);
 var uri = params['model'].links('archive').href;
 ```
                  * @method        
@@ -272,7 +280,7 @@ baasicArticleService.archive(article)
                  /**
                  * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
-var params = baasicApiService.removeParams(article);
+var params = baasicApiService.updateParams(article);
 var uri = params['model'].links('restore').href;
 ```
                  * @method        
@@ -293,7 +301,7 @@ baasicArticleService.restore(article)
                  /**
                  * Returns a promise that is resolved once the unpublish article action has been performed. This action sets the status of an article from "published" to "draft". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
-var params = baasicApiService.removeParams(article);
+var params = baasicApiService.updateParams(article);
 var uri = params['model'].links('unpublish').href;
 ```
                  * @method        
@@ -485,7 +493,7 @@ baasicArticleService.tags.find('<article-id>')
                     * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article tag resource.
                     * @method tags.get       
                     * @example 
-baasicArticleRatingsService.get('<article-id>', '<tag>')
+baasicArticleService.tags.get('<article-id>', '<tag>')
 .success(function (data) {
   // perform success action here
 })
@@ -500,7 +508,7 @@ baasicArticleRatingsService.get('<article-id>', '<tag>')
                     },
                     /**
                     * Returns a promise that is resolved once the create article tag action has been performed; this action creates a new tag for an article.
-                    * @method  tags.create      
+                    * @method tags.create      
                     * @example 
 baasicArticleService.tags.create({
   articleId : '<article-id>',
@@ -562,6 +570,440 @@ baasicArticleService.tags.removeAll(article)
                         var params = baasicApiService.removeParams(data);
                         return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-tags-by-article').href);
                     }
+                },
+                comments: {
+                    /**
+                    * Contains a refrerence to valid list of article comment statuses. It returns an object containing all article comment statuses.
+                    * @method comments.statuses      
+                    * @example baasicArticleService.comments.statuses.approved;
+                    **/                     
+                    statuses: commentStatuses,
+                    /**
+                    * Returns a promise that is resolved once the approve article comment action has been performed. This action sets the status of an article comment to "approved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleComment);
+var uri = params['model'].links('comment-approve').href;
+```
+                     * @method comments.approve       
+                     * @example 	
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.approve(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/		                    
+                    approve: function(data) {
+                        var params = baasicApiService.updateParams(data);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, params[baasicConstants.modelPropertyName]);                        
+                    },
+                    /**
+                    * Returns a promise that is resolved once the create article comment action has been performed; this action creates a new comment for an article.
+                    * @method  comments.create      
+                    * @example 
+baasicArticleService.comments.create({
+  articleId : '<article-id>',
+  comment : <comment>,
+  userId : '<user-id>'
+})
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                    **/ 
+                    create: function (data) {
+                        return baasicApiHttp.post(articleRouteService.comments.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                    },                                        
+                    /**
+                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article comment resources matching the given criteria.
+                    * @method comments.find
+                    * @example 
+baasicArticleService.comments.find('<article-id>', {
+pageNumber : 1,
+pageSize : 10,
+orderBy : '<field>',
+orderDirection : '<asc|desc>',
+search : '<search-phrase>'
+})
+.success(function (collection) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});    
+                    **/  				
+                    find: function (articleId, options) {
+                        var params = baasicApiService.findParams(options);
+                        params.articleId = articleId;
+                        return baasicApiHttp.get(articleRouteService.find.expand(params));
+                    },                    
+                    /**
+                    * Returns a promise that is resolved once the flag article comment action has been performed. This action sets the status of an article comment to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleComment);
+var uri = params['model'].links('comment-flag').href;
+```
+                     * @method comments.flag       
+                     * @example 	
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.flag(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/		                    
+                    flag: function(data) {
+                        var params = baasicApiService.updateParams(data);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-flag').href, params[baasicConstants.modelPropertyName]);                        
+                    },  
+                    /**
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article comment resource.
+                    * @method comments.get       
+                    * @example 
+baasicArticleService.comments.get('<article-id>', '<comment-id>')
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                    **/ 					
+                    get: function (articleId, commentId, options) {
+                        var params = angular.copy(options);
+                        params.articleId = articleId;
+                        params.id = commentId;
+                        return baasicApiHttp.get(articleRouteService.comments.get.expand(baasicApiService.getParams(params)));
+                    },                                       
+                    /**
+                    * Returns a promise that is resolved once the remove article comment action has been performed. If the action is successfully completed, the article comment resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.removeParams(articleComment);
+var uri = params['model'].links('delete').href;
+```
+                    * @method comments.remove   
+                    * @example 
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.remove(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/					
+                    remove: function (data) {
+                        var params = baasicApiService.removeParams(data);
+                        return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
+                    },
+                    /**
+                    * Returns a promise that is resolved once the removeAll article comment action has been performed. This action will remove all comments and comment replies from an article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.removeParams(articleComment);
+var uri = params['model'].links('delete-comments-by-article').href;
+```
+                    * @method comments.removeAll
+                    * @example 		
+// articleComment is a resource previously fetched using get action.					
+baasicArticleService.comments.removeAll(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/					
+                    removeAll: function (data) {
+                        var params = baasicApiService.removeParams(data);
+                        return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-comments-by-article').href);
+                    },
+                    /**
+                    * Returns a promise that is resolved once the report article comment action has been performed. This action sets the status of an article comment to "reported". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleComment);
+var uri = params['model'].links('comment-report').href;
+```
+                     * @method comments.reported       
+                     * @example 	
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.report(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/		 
+                    report: function(data) {
+                        var params = baasicApiService.updateParams(data);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, params[baasicConstants.modelPropertyName]);                        
+                    },                         
+                    /**
+                    * Returns a promise that is resolved once the mark as spam article comment action has been performed. This action sets the status of an article comment to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleComment);
+var uri = params['model'].links('comment-spam').href;
+```
+                     * @method comments.spam       
+                     * @example 	
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.spam(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/		 
+                    spam: function(data) {
+                        var params = baasicApiService.updateParams(data);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-spam').href, params[baasicConstants.modelPropertyName]);                        
+                    },
+                    /**
+                    * Returns a promise that is resolved once the update article comment action has been performed; this action updates an article comment resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleComment);
+var uri = params['model'].links('put').href;
+```
+                     * @method comments.update
+                     * @example 	
+// articleComment is a resource previously fetched using get action.				 
+baasicArticleService.comments.update(articleComment)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				    **/		                    
+                    update: function(data) {
+                        var params = baasicApiService.updateParams(data);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);                        
+                    },                                                                                 
+                    replies: {
+                        /**
+                        * Contains a refrerence to valid list of article comment statuses. It returns an object containing all article comment statuses.
+                        * @method comments.replies.statuses    
+                        * @example baasicArticleService.comments.replies.statuses.approved;
+                        **/                     
+                        statuses: commentStatuses,
+                        /**
+                        * Returns a promise that is resolved once the approve article comment reply action has been performed. This action sets the status of an article comment reply to "approved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleCommentReply);
+var uri = params['model'].links('comment-approve').href;
+```
+                        * @method comments.replies.approve       
+                        * @example 	
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.approve(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				        **/		                    
+                        approve: function(data) {
+                            var params = baasicApiService.updateParams(data);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, params[baasicConstants.modelPropertyName]);                        
+                        },
+                        /**
+                        * Returns a promise that is resolved once the create article comment reply action has been performed; this action creates a new comment reply for an article.
+                        * @method  comments.replies.create      
+                        * @example 
+baasicArticleService.comments.replies.create('<article-id>', {
+  commentId : '<comment-id>',
+  comment : <comment>,
+  userId : '<user-id>'
+})
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                        **/ 
+                        create: function (articleId, data) {
+                            var params = angular.copy(data);
+                            params.articleId = articleId;                    
+                            return baasicApiHttp.post(articleRouteService.comments.create.expand(params), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                        },                                            
+                        /**
+                        * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article comment reply resources matching the given criteria.
+                        * @method comments.replies.find
+                        * @example 
+baasicArticleService.comments.replies.find('<article-id>, <comment-id>', {
+  pageNumber : 1,
+  pageSize : 10,
+  orderBy : '<field>',
+  orderDirection : '<asc|desc>',
+  search : '<search-phrase>'
+})
+.success(function (collection) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});    
+                        **/  				
+                        find: function (articleId, commentId, options) {
+                            var params = baasicApiService.findParams(options);
+                            params.articleId = articleId;
+                            params.commentId = commentId;
+                            return baasicApiHttp.get(articleRouteService.find.expand(params));
+                        },                     
+                        /**
+                        * Returns a promise that is resolved once the flag article comment reply action has been performed. This action sets the status of an article comment reply to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleCommentReply);
+var uri = params['model'].links('comment-flag').href;
+```
+                        * @method comments.replies.flag       
+                        * @example 	
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.flag(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				        **/	
+                        flag: function(data) {
+                            var params = baasicApiService.updateParams(data);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-flag').href, params[baasicConstants.modelPropertyName]);                        
+                        }, 
+                        /**
+                        * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article comment reply resource.
+                        * @method comments.replies.get       
+                        * @example 
+baasicArticleService.comments.replies.get('<article-id>', '<comment-id>', '<comment-reply-id>')
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                        **/ 					
+                        get: function (articleId, commentId, replyId, options) {
+                            var params = angular.copy(options);
+                            params.articleId = articleId;
+                            params.commentId = commentId;
+                            params.id = replyId;
+                            return baasicApiHttp.get(articleRouteService.comments.replies.get.expand(baasicApiService.getParams(params)));
+                        },                                                                      
+                        /**
+                        * Returns a promise that is resolved once the remove article comment reply action has been performed. If the action is successfully completed, the article comment reply resource will be permanently removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.removeParams(articleCommentReply);
+var uri = params['model'].links('delete').href;
+```
+                        * @method comments.replies.remove  
+                        * @example 
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.remove(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				**/					
+                        remove: function (data) {
+                            var params = baasicApiService.removeParams(data);
+                            return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
+                        },
+                        /**
+                        * Returns a promise that is resolved once the removeAll article comment reply action has been performed. This action will remove all comment replies from an article comment if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.removeParams(articleCommentReply);
+var uri = params['model'].links('delete-comments-by-article').href;
+```
+                        * @method comments.replies.removeAll
+                        * @example 		
+// articleCommentReply is a resource previously fetched using get action.					
+baasicArticleService.comments.replies.removeAll(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+                        **/					
+                        removeAll: function (data) {
+                            var params = baasicApiService.removeParams(data);
+                            return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete-comments-by-article').href);
+                        },
+                        /**
+                        * Returns a promise that is resolved once the report article comment reply action has been performed. This action sets the status of an article comment reply to "reported". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleCommentReply);
+var uri = params['model'].links('comment-report').href;
+```
+                        * @method comments.replies.report       
+                        * @example 	
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.report(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				        **/		                    
+                        report: function(data) {
+                            var params = baasicApiService.updateParams(data);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, params[baasicConstants.modelPropertyName]);                        
+                        },                        
+                        /**
+                        * Returns a promise that is resolved once the mark as spam article comment reply action has been performed. This action sets the status of an article comment reply to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleCommentReply);
+var uri = params['model'].links('comment-spam').href;
+```
+                        * @method comments.replies.spam       
+                        * @example 	
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.spam(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				        **/		                    
+                        spam: function(data) {
+                            var params = baasicApiService.updateParams(data);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-spam').href, params[baasicConstants.modelPropertyName]);                        
+                        },
+                        /**
+                        * Returns a promise that is resolved once the update article comment reply action has been performed; this action updates an article comment reply resource. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+```
+var params = baasicApiService.updateParams(articleCommentReply);
+var uri = params['model'].links('put').href;
+```
+                        * @method comments.replies.update       
+                        * @example 	
+// articleCommentReply is a resource previously fetched using get action.				 
+baasicArticleService.comments.replies.update(articleCommentReply)
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});		
+				        **/		                    
+                        update: function(data) {
+                            var params = baasicApiService.updateParams(data);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);                        
+                        }                                                                                                         
+                    }  
                 },
                 acl: {
                     /**
