@@ -639,7 +639,7 @@ search : '<search-phrase>'
                     find: function (articleId, options) {
                         var params = baasicApiService.findParams(options);
                         params.articleId = articleId;
-                        return baasicApiHttp.get(articleRouteService.find.expand(params));
+                        return baasicApiHttp.get(articleRouteService.comments.find.expand(params));
                     },                    
                     /**
                     * Returns a promise that is resolved once the flag article comment action has been performed. This action sets the status of an article comment to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
@@ -832,7 +832,7 @@ baasicArticleService.comments.replies.create('<article-id>', {
                         create: function (articleId, data) {
                             var params = angular.copy(data);
                             params.articleId = articleId;                    
-                            return baasicApiHttp.post(articleRouteService.comments.create.expand(params), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                            return baasicApiHttp.post(articleRouteService.comments.replies.create.expand(params), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                         },                                            
                         /**
                         * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article comment reply resources matching the given criteria.
@@ -856,7 +856,7 @@ baasicArticleService.comments.replies.find('<article-id>, <comment-id>', {
                             var params = baasicApiService.findParams(options);
                             params.articleId = articleId;
                             params.commentId = commentId;
-                            return baasicApiHttp.get(articleRouteService.find.expand(params));
+                            return baasicApiHttp.get(articleRouteService.comments.replies.find.expand(params));
                         },                     
                         /**
                         * Returns a promise that is resolved once the flag article comment reply action has been performed. This action sets the status of an article comment reply to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
