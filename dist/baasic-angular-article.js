@@ -145,7 +145,7 @@
                  });
                  **/
                 create: function (data) {
-                    return baasicApiHttp.post(articleCommentRepliesRouteService.comments.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                    return baasicApiHttp.post(articleCommentRepliesRouteService.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                 },
                 /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article comment reply resources matching the given criteria.
