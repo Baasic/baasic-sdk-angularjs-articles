@@ -33,7 +33,7 @@ baasicArticleCommentsRouteService.get.expand({
 id: '<comment-id>'
 });
                 **/                                                        
-                get: uriTemplateService.parse('article-comments/{commentId}/{?embed,fields}'),
+                get: uriTemplateService.parse('article-comments/{id}/{?embed,fields}'),
                 /**
                 * Parses create route; this URI template doesnt support any additional options.
                 * @method comments.create       
