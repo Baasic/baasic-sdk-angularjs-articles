@@ -68,7 +68,109 @@ baasicArticleRouteService.parse(
 );
                 **/				
                 parse: uriTemplateService.parse,
+                subscriptions: {
+                   section: {
+                       /**
+                       * Parses get article section subscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.section.subscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.section.subscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                                            
+                       subscribe: uriTemplateService.parse('subscriptions/article/users/{userName}'),
+                       /**
+                       * Parses get article section isSubscribed route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.section.isSubscribed
+                       * @example 
+baasicArticleRouteService.subscriptions.section.isSubscribed.expand(
+    {username: '<userName>'}
+);   
+                       **/                         
+                       isSubscribed: uriTemplateService.parse('subscriptions/article/users/{userName}'),
+                       /**
+                       * Parses get article section unSubscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.unSubscribe.unSubscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.section.unSubscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                        
+                       unSubscribe: uriTemplateService.parse('subscriptions/article/users/{userName}')
+                   },
+                   article: {
+                       /**
+                       * Parses get article subscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.article.subscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.article.subscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                        
+                       subscribe: uriTemplateService.parse('subscriptions/article/{id}/users/{userName}'),
+                       /**
+                       * Parses get article isSubscribed route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.article.isSubscribed
+                       * @example 
+baasicArticleRouteService.subscriptions.article.isSubscribed.expand(
+    {username: '<userName>'}
+);   
+                       **/                           
+                       isSubscribed: uriTemplateService.parse('subscriptions/article/{id}/users/{userName}'),
+                       /**
+                       * Parses get article unSubscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.article.unSubscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.article.unSubscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                         
+                       unSubscribe: uriTemplateService.parse('subscriptions/article/{id}/users/{userName}')                       
+                   },
+                   tags: {
+                       /**
+                       * Parses get article tags subscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.tags.subscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.tags.subscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                        
+                       subscribe: uriTemplateService.parse('subscriptions/articletag/{id}/users/{userName}'),
+                       /**
+                       * Parses get article tags isSubscribed route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.tags.isSubscribed
+                       * @example 
+baasicArticleRouteService.subscriptions.tags.isSubscribed.expand(
+    {username: '<userName>'}
+);   
+                       **/                         
+                       isSubscribed: uriTemplateService.parse('subscriptions/articletag/{id}/users/{userName}'),
+                       /**
+                       * Parses get article tags unSubscribe route which must be expanded with the username or email of the subscriber.
+                       * @method subscriptions.tags.unSubscribe
+                       * @example 
+baasicArticleRouteService.subscriptions.tags.unSubscribe.expand(
+    {username: '<userName>'}
+);   
+                       **/                          
+                       unSubscribe: uriTemplateService.parse('subscriptions/articletag/{id}/users/{userName}')                       
+                   }
+                },
                 ratings: {
+                    /**
+                    * Parses get article rating route which must be expanded with the Id of the previously created article rating resource in the system and the ArticleId. Additional expand supported items are:
+                    * - `embed` - Comma separated list of resources to be contained within the current representation.
+                    * @method        
+                    * @example 
+    baasicArticleRouteService.ratings.get.expand(
+        {
+            articleId: '<article-id>'
+            id: '<articleRating-id>'
+        }
+    );               
+                    **/   				
+                    get: uriTemplateService.parse('articles/{articleId}/ratings/{id}/{?embed,fields}'),                        
 					/**
 					* Parses find article rating route which can be expanded with additional options. Supported items are: 
 					* - `articleId` - Id of the article.
@@ -79,7 +181,7 @@ baasicArticleRouteService.parse(
 					* @method ratings.find       
 					* @example 
 baasicArticleRouteService.ratings.find.expand(
-	{articleId`: '<article-id>'}
+	{articleId: '<article-id>'}
 );               
 					**/ 				
                     find: uriTemplateService.parse('articles/{articleId}/ratings{?page,rpp,sort,embed,fields}'),

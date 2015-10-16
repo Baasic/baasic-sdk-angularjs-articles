@@ -265,7 +265,7 @@ var uri = params['model'].links('archive').href;
                  * @method        
                  * @example 	
 // article is a resource previously fetched using get action.				 
-baasicArticleService.archive(article)
+baasicArticleService.archive(article, articleOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -273,9 +273,10 @@ baasicArticleService.archive(article)
   // perform error handling here
 });		
 				**/						
-                archive: function (data) {
+                archive: function (data, options) {
                     var params = baasicApiService.updateParams(data);
-                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href);
+                    var articleOptions = baasicApiService.updateParams(options);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('archive').href, articleOptions[baasicConstants.modelPropertyName]);
                 },
                  /**
                  * Returns a promise that is resolved once the restore article action has been performed. This action sets the status of an article from "archive" to "published". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
@@ -323,7 +324,7 @@ baasicArticleService.unpublish(article)
                  * Returns a promise that is resolved once the publish article action has been performed. This action sets the status of an article from "draft" to "published".
                  * @method        
                  * @example 	 
-baasicArticleService.publish('<article-id>')
+baasicArticleService.publish(article, articleOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -331,8 +332,9 @@ baasicArticleService.publish('<article-id>')
   // perform error handling here
 });		
 				**/					
-                publish: function (id, options) {
-                    return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(id, options)));
+                publish: function (article, articleOptions) {
+                    var params = baasicApiService.updateParams(articleOptions);
+                    return baasicApiHttp.put(articleRouteService.publish.expand(baasicApiService.getParams(article)), params[baasicConstants.modelPropertyName]);
                 },
                  /**
                  * Returns a promise that is resolved once the purge articles action has been performed. Please note that all article resources will be deleted from the system once the action is successfully completed and therefore it can only be executed by user assigned to account owner role. 
@@ -355,7 +357,174 @@ baasicArticleService.purge({})
                 * @example baasicArticleService.routeService.get.expand(expandObject);
                 **/  			
                 routeService: articleRouteService,
+                subscriptions: {
+                    section: {
+                        /**
+                        * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the article module.
+                        * @method subscriptions.section.subscribe
+                        * @example 
+baasicArticleService.subscriptions.section.subscribe(user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                         
+                        subscribe: function(data) {
+                            return baasicApiHttp.post(articleRouteService.subscriptions.section.subscribe.expand(data), {});
+                        },
+                        /**
+                        * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the article module.
+                        * @method subscriptions.section.isSubscribed
+                        * @example 
+baasicArticleService.subscriptions.section.isSubscribed(user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                           
+                        isSubscribed: function(data) {
+                           return baasicApiHttp.get(articleRouteService.subscriptions.section.isSubscribed.expand(data));
+                        },
+                        /**
+                        * Returns a promise that is resolved once the unSubscribe action has been performed. This action checks unsubscribes a user from the article module.
+                        * @method subscriptions.section.unSubscribe
+                        * @example 
+baasicArticleService.subscriptions.section.unSubscribe(user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                                 
+                        unSubscribe: function(data) {
+                            return baasicApiHttp.delete(articleRouteService.subscriptions.section.unSubscribe.expand(data));                            
+                        }
+                    },
+                    article: {
+                        /**
+                        * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the specified article.
+                        * @method subscriptions.article.subscribe
+                        * @example 
+baasicArticleService.subscriptions.article.subscribe(article, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                          
+                        subscribe: function(article, user) {
+                            var params = angular.extend(article, user);
+                            return baasicApiHttp.post(articleRouteService.subscriptions.article.subscribe.expand(params), {});
+                        },
+                        /**
+                        * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article.
+                        * @method subscriptions.article.isSubscribed
+                        * @example 
+baasicArticleService.subscriptions.article.isSubscribed(article, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                          
+                        isSubscribed: function(article, user) {
+                           var params = angular.extend(article, user);
+                           return baasicApiHttp.get(articleRouteService.subscriptions.article.isSubscribed.expand(params));
+                        },
+                        /**
+                        * Returns a promise that is resolved once the unSubscribe action has been performed. This action checks unsubscribes a user from the specified article.
+                        * @method subscriptions.article.unSubscribe
+                        * @example 
+baasicArticleService.subscriptions.article.unSubscribe(article, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                            
+                        unSubscribe: function(article, user) {
+                            var params = angular.extend(article, user);
+                            return baasicApiHttp.delete(articleRouteService.subscriptions.article.unSubscribe.expand(params));                            
+                        }                       
+                    },
+                    tags: {
+                        /**
+                        * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the specified article tag.
+                        * @method subscriptions.tags.subscribe
+                        * @example 
+baasicArticleService.subscriptions.tags.subscribe(tag, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                         
+                        subscribe: function(tag, user) {
+                            var params = angular.extend(tag, user);
+                            return baasicApiHttp.post(articleRouteService.subscriptions.tags.subscribe.expand(params), {});
+                        },
+                        /**
+                        * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article tag.
+                        * @method subscriptions.tags.isSubscribed
+                        * @example 
+baasicArticleService.subscriptions.tags.isSubscribed(tag, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                          
+                        isSubscribed: function(tag, user) {
+                           var params = angular.extend(tag, user);
+                           return baasicApiHttp.get(articleRouteService.subscriptions.tags.isSubscribed.expand(params));
+                        },
+                        /**
+                        * Returns a promise that is resolved once the unSubscribe action has been performed. This action checks unsubscribes a user from the specified article tag.
+                        * @method subscriptions.tags.unSubscribe
+                        * @example 
+baasicArticleService.subscriptions.tags.unSubscribe(tag, user)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/                         
+                        unSubscribe: function(tag, user) {
+                            var params = angular.extend(tag, user);
+                            return baasicApiHttp.delete(articleRouteService.subscriptions.tags.unSubscribe.expand(params));                            
+                        }                      
+                    }
+                },
                 ratings: {
+                    /**
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article rating resource.
+                    * @method ratings.get       
+                    * @example 
+baasicArticleService.ratings.get('<article-id>', '<rating-id>')
+.success(function (data) {
+  // perform success action here
+})
+.error(function (response, status, headers, config) {
+  // perform error handling here
+});
+                    **/ 					
+                    get: function (articleId, ratingId, options) {
+                        var params = angular.extend({}, options);
+                        params.articleId = articleId;
+                        params.id = ratingId;
+                        return baasicApiHttp.get(articleRouteService.ratings.get.expand(baasicApiService.getParams(params)));
+                    },                      
                     /**
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources for a specified article.
                     * @method ratings.find    
@@ -587,7 +756,7 @@ var uri = params['model'].links('comment-approve').href;
                      * @method comments.approve       
                      * @example 	
 // articleComment is a resource previously fetched using get action.				 
-baasicArticleService.comments.approve(articleComment)
+baasicArticleService.comments.approve(articleComment, commentOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -595,9 +764,10 @@ baasicArticleService.comments.approve(articleComment)
   // perform error handling here
 });		
 				    **/		                    
-                    approve: function(data) {
+                    approve: function(data, options) {
                         var params = baasicApiService.updateParams(data);
-                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, params[baasicConstants.modelPropertyName]);                        
+                        var commentOptions = baasicApiService.updateParams(options);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, commentOptions[baasicConstants.modelPropertyName]);                        
                     },
                     /**
                     * Returns a promise that is resolved once the create article comment action has been performed; this action creates a new comment for an article.
@@ -675,7 +845,7 @@ baasicArticleService.comments.get('<article-id>', '<comment-id>')
 });
                     **/ 					
                     get: function (articleId, commentId, options) {
-                        var params = angular.copy(options);
+                        var params = angular.extend({}, options);
                         params.articleId = articleId;
                         params.id = commentId;
                         return baasicApiHttp.get(articleRouteService.comments.get.expand(baasicApiService.getParams(params)));
@@ -731,7 +901,7 @@ var uri = params['model'].links('comment-report').href;
                      * @method comments.reported       
                      * @example 	
 // articleComment is a resource previously fetched using get action.				 
-baasicArticleService.comments.report(articleComment)
+baasicArticleService.comments.report(articleComment, commentOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -739,9 +909,10 @@ baasicArticleService.comments.report(articleComment)
   // perform error handling here
 });		
 				    **/		 
-                    report: function(data) {
+                    report: function(data, options) {
                         var params = baasicApiService.updateParams(data);
-                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, params[baasicConstants.modelPropertyName]);                        
+                        var commentOptions = baasicApiService.updateParams(options);
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, commentOptions[baasicConstants.modelPropertyName]);                        
                     },                         
                     /**
                     * Returns a promise that is resolved once the mark as spam article comment action has been performed. This action sets the status of an article comment to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
@@ -801,7 +972,7 @@ var uri = params['model'].links('comment-approve').href;
                         * @method comments.replies.approve       
                         * @example 	
 // articleCommentReply is a resource previously fetched using get action.				 
-baasicArticleService.comments.replies.approve(articleCommentReply)
+baasicArticleService.comments.replies.approve(articleCommentReply, commentOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -809,9 +980,10 @@ baasicArticleService.comments.replies.approve(articleCommentReply)
   // perform error handling here
 });		
 				        **/		                    
-                        approve: function(data) {
+                        approve: function(data, options) {
                             var params = baasicApiService.updateParams(data);
-                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, params[baasicConstants.modelPropertyName]);                        
+                            var commentOptions = baasicApiService.updateParams(options);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, commentOptions[baasicConstants.modelPropertyName]);                        
                         },
                         /**
                         * Returns a promise that is resolved once the create article comment reply action has been performed; this action creates a new comment reply for an article.
@@ -892,7 +1064,7 @@ baasicArticleService.comments.replies.get('<article-id>', '<comment-id>', '<comm
 });
                         **/ 					
                         get: function (articleId, commentId, replyId, options) {
-                            var params = angular.copy(options);
+                            var params = angular.extend({}, options);
                             params.articleId = articleId;
                             params.commentId = commentId;
                             params.id = replyId;
@@ -949,7 +1121,7 @@ var uri = params['model'].links('comment-report').href;
                         * @method comments.replies.report       
                         * @example 	
 // articleCommentReply is a resource previously fetched using get action.				 
-baasicArticleService.comments.replies.report(articleCommentReply)
+baasicArticleService.comments.replies.report(articleCommentReply, commentOptions)
 .success(function (data) {
   // perform success action here
 })
@@ -957,9 +1129,10 @@ baasicArticleService.comments.replies.report(articleCommentReply)
   // perform error handling here
 });		
 				        **/		                    
-                        report: function(data) {
+                        report: function(data, options) {
                             var params = baasicApiService.updateParams(data);
-                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, params[baasicConstants.modelPropertyName]);                        
+                            var commentOptions = baasicApiService.updateParams(options);
+                            return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, commentOptions[baasicConstants.modelPropertyName]);                        
                         },                        
                         /**
                         * Returns a promise that is resolved once the mark as spam article comment reply action has been performed. This action sets the status of an article comment reply to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:

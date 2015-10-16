@@ -31,7 +31,7 @@ var uri = params['model'].links('comment-approve').href;
                 * @method comments.replies.approve       
                 * @example 	
 // articleCommentReply is a resource previously fetched using get action.				 
-baasicArticleCommentRepliesService.approve(articleCommentReply)
+baasicArticleCommentRepliesService.approve(articleCommentReply, commentOptions)
 .success(function (data) {
 // perform success action here
 })
@@ -39,9 +39,10 @@ baasicArticleCommentRepliesService.approve(articleCommentReply)
 // perform error handling here
 });		
                 **/		                    
-                approve: function(data) {
+                approve: function(data, options) {
                     var params = baasicApiService.updateParams(data);
-                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, params[baasicConstants.modelPropertyName]);                        
+                    var commentOptions = baasicApiService.updateParams(options);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, commentOptions[baasicConstants.modelPropertyName]);                        
                 },
                 /**
                 * Returns a promise that is resolved once the create article comment reply action has been performed; this action creates a new comment reply for an article.
@@ -149,7 +150,7 @@ var uri = params['model'].links('comment-report').href;
                 * @method comments.replies.report       
                 * @example 	
 // articleCommentReply is a resource previously fetched using get action.				 
-baasicArticleCommentRepliesService.report(articleCommentReply)
+baasicArticleCommentRepliesService.report(articleCommentReply, commentOptions)
 .success(function (data) {
 // perform success action here
 })
@@ -157,9 +158,10 @@ baasicArticleCommentRepliesService.report(articleCommentReply)
 // perform error handling here
 });		
                 **/		                    
-                report: function(data) {
+                report: function(data, options) {
                     var params = baasicApiService.updateParams(data);
-                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, params[baasicConstants.modelPropertyName]);                        
+                    var commentOptions = baasicApiService.updateParams(options);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, commentOptions[baasicConstants.modelPropertyName]);                        
                 },                        
                 /**
                 * Returns a promise that is resolved once the mark as spam article comment reply action has been performed. This action sets the status of an article comment reply to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:

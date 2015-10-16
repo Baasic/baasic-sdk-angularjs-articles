@@ -9,6 +9,12 @@
         function (uriTemplateService) {
             return {
                 /**
+                * Parses create article rating route; this URI does not support any additional embed items.
+                * @method     
+                * @example baasicArticleRatingsRouteService.create.expand({});
+                **/  					
+                create: uriTemplateService.parse('article-ratings'),                
+                /**
                 * Parses find article rating route which can be expanded with additional options. Supported items are: 
                 * - `searchQuery` - A string referencing article rating properties using the phrase or BQL (Baasic Query Language) search.
                 * - `page` - A value used to set the page number, i.e. to retrieve certain article rating subset from the storage.

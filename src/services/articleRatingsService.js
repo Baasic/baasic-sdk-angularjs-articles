@@ -8,6 +8,25 @@
     module.service('baasicArticleRatingsService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleRatingsRouteService',
         function (baasicApiHttp, baasicApiService, baasicConstants, articleRatingsRouteService) {
             return {
+                  /**
+                  * Returns a promise that is resolved once the create article rating action has been performed; this action creates a new rating for an article.
+                  * @method     
+                  * @example 
+baasicArticleRatingsService.create({
+articleId : '<article-id>',
+rating : 5,
+userId : '<user-id>'
+})
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                  **/ 						
+                  create: function (data) {
+                      return baasicApiHttp.post(articleRatingsRouteService.create.expand(data), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                  },              
                  /**
                  * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article rating resources matching the given criteria.
                  * @method        
