@@ -74,6 +74,12 @@
                 flagged: 8,
                 unapproved: 16 
             };
+            
+            var subscriptionStatuses = {
+                section: 1,
+                article: 2,
+                tag: 4
+            };
 
             function toSlug(str) {
                 if (angular.isUndefined(str) || str === null || str === '') {
@@ -359,6 +365,12 @@ baasicArticleService.purge({})
                 routeService: articleRouteService,
                 subscriptions: {
                     /**
+                    * Contains a refrerence to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
+                    * @method subscriptions.statuses      
+                    * @example baasicArticleService.subscriptions.statuses.section;
+                    **/                     
+                    statuses: subscriptionStatuses,                    
+                    /**
                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article subscriber resources matching the given criteria.
                     * @method subscriptions.find
                     * @example 
@@ -379,7 +391,22 @@ search : '<search-phrase>'
                     find: function (options) {
                         var params = baasicApiService.findParams(options);                        
                         return baasicApiHttp.get(articleRouteService.subscriptions.find.expand(params));
-                    },                    
+                    },  
+                    /**
+                    * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article subscriber resource.
+                    * @method       
+                    * @example 
+baasicArticleService.subscriptions.get('<subscriber-id>')
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                    **/ 					
+                    get: function (id, options) {                        
+                        return baasicApiHttp.get(articleRouteService.subscriptions.get.expand(baasicApiService.getParams(id, options)));
+                    },                                         
                     articleModule: {
                         /**
                         * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the article module.

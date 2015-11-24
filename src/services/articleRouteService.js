@@ -70,8 +70,20 @@ baasicArticleRouteService.parse(
                 parse: uriTemplateService.parse,
                 subscriptions: {
                     /**
+                    * Parses get article subscriber route which can be expanded with additional options. Supported items are:
+                    * - `id` - Id which uniquely identifies article subscriber resource that needs to be retrieved.
+                    * - `embed` - Comma separated list of resources to be contained within the current representation.
+                    * @method subscriptions.get
+                    * @example
+baasicArticleRouteService.subscriptions.get.expand({
+  id: '<subscriber-id>'
+});
+                    **/                                                        
+                    get: uriTemplateService.parse('article-subscribers/{id}/{?embed,fields}'),                    
+                    /**
                     * Parses find article subscribers route which can be expanded with additional options. Supported items are:
                     * - `searchQuery` - A string value used to identify article subscriber resources using the phrase search.
+                    * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Section, Article and Tag).
                     * - `page` - A value used to set the page number, i.e. to retrieve certain article subscriber subset from the storage.
                     * - `rpp` - A value used to limit the size of result set per page.
                     * - `sort` - A string used to set the article subscriber property to sort the result collection by.
@@ -82,7 +94,7 @@ baasicArticleRouteService.subscriptions.find.expand({
   searchQuery: '<search-phrase>'
 });
                    **/                       
-                   find: uriTemplateService.parse('article-subscribers/{?searchQuery,page,rpp,sort,embed,fields}'),
+                   find: uriTemplateService.parse('article-subscribers/{?searchQuery,statuses,page,rpp,sort,embed,fields}'),
                    /**
                    * Parses module subscribe route which must be expanded with the username or email of the subscriber.
                    * @method subscriptions.moduleSubscribe
