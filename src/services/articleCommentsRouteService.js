@@ -15,7 +15,7 @@
                 * - `rpp` - A value used to limit the size of result set per page.
                 * - `sort` - A string used to set the article comment property to sort the result collection by.
                 * - `embed` - Comma separated list of resources to be contained within the current representation.
-                * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Approved, Spam, Reported, Flagged and UnApproved).
+                * - `statuses` - Comma separated list of article comment states that specify where search should be done (Allowed states: Approved, Spam, Reported, Flagged and UnApproved).
                 * @method
                 * @example
 baasicArticleCommentsRouteService.find.expand({

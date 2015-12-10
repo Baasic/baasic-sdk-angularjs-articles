@@ -17,13 +17,13 @@
                         
             return {
                 /**
-                * Contains a refrerence to valid list of article comment statuses. It returns an object containing all article comment statuses.
+                * Contains a refrerence to valid list of article comment reply states. It returns an object containing all article comment reply states.
                 * @method  
                 * @example baasicArticleCommentRepliesService.statuses.approved;
                 **/                     
                 statuses: commentStatuses,
                 /**
-                * Returns a promise that is resolved once the approve article comment reply action has been performed. This action sets the status of an article comment reply to "approved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the approve article comment reply action has been performed. This action sets the state of an article comment reply to "approved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-approve').href;
@@ -45,7 +45,7 @@ baasicArticleCommentRepliesService.approve(articleCommentReply, commentOptions)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-approve').href, commentOptions[baasicConstants.modelPropertyName]);                        
                 },
                 /**
-                * Returns a promise that is resolved once the unapprove article comment reply action has been performed. This action sets the status of an article comment reply to "unapproved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the unapprove article comment reply action has been performed. This action sets the state of an article comment reply to "unapproved". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-unapprove').href;
@@ -106,7 +106,7 @@ search : '<search-phrase>'
                     return baasicApiHttp.get(articleCommentRepliesRouteService.find.expand(baasicApiService.findParams(options)));
                 },                     
                 /**
-                * Returns a promise that is resolved once the flag article comment reply action has been performed. This action sets the status of an article comment reply to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the flag article comment reply action has been performed. This action sets the state of an article comment reply to "flagged". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-flag').href;
@@ -127,7 +127,7 @@ baasicArticleCommentRepliesService.flag(articleCommentReply)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-flag').href, params[baasicConstants.modelPropertyName]);                        
                 }, 
                 /**
-                * Returns a promise that is resolved once the unflag article comment reply action has been performed. This action removes the "flagged" comment status. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the unflag article comment reply action has been performed. This action removes the "flagged" comment reply state. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-unflag').href;
@@ -184,7 +184,7 @@ baasicArticleCommentRepliesService.remove(articleCommentReply)
                     return baasicApiHttp.delete(params[baasicConstants.modelPropertyName].links('delete').href);
                 },
                 /**
-                * Returns a promise that is resolved once the report article comment reply action has been performed. This action sets the status of an article comment reply to "reported". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the report article comment reply action has been performed. This action sets the state of an article comment reply to "reported". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-report').href;
@@ -206,7 +206,7 @@ baasicArticleCommentRepliesService.report(articleCommentReply, commentOptions)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-report').href, commentOptions[baasicConstants.modelPropertyName]);                        
                 },   
                 /**
-                * Returns a promise that is resolved once the unreport article comment reply action has been performed. This action removes the "reported" comment status. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the unreport article comment reply action has been performed. This action removes the "reported" comment reply state. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-unreport').href;
@@ -227,7 +227,7 @@ baasicArticleCommentRepliesService.unreport(articleCommentReply)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-unreport').href, params[baasicConstants.modelPropertyName]);                        
                 },                                        
                 /**
-                * Returns a promise that is resolved once the mark as spam article comment reply action has been performed. This action sets the status of an article comment reply to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the mark as spam article comment reply action has been performed. This action sets the state of an article comment reply to "spam". This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-spam').href;
@@ -248,7 +248,7 @@ baasicArticleCommentRepliesService.spam(articleCommentReply)
                     return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('comment-spam').href, params[baasicConstants.modelPropertyName]);                        
                 },
                 /**
-                * Returns a promise that is resolved once the unspam article comment reply action has been performed. This action removes the "spam" comment status. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                * Returns a promise that is resolved once the unspam article comment reply action has been performed. This action removes the "spam" comment reply state. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicarticleCommentRepliesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.updateParams(articleCommentReply);
 var uri = params['model'].links('comment-unspam').href;
