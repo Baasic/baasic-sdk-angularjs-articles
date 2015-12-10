@@ -1051,8 +1051,20 @@
                 parse: uriTemplateService.parse,
                 subscriptions: {
                     /**
+                     * Parses get article subscriber route which can be expanded with additional options. Supported items are:
+                     * - `id` - Id which uniquely identifies article subscriber resource that needs to be retrieved.
+                     * - `embed` - Comma separated list of resources to be contained within the current representation.
+                     * @method subscriptions.get
+                     * @example
+                     baasicArticleRouteService.subscriptions.get.expand({
+                     id: '<subscriber-id>'
+                     });
+                     **/
+                    get: uriTemplateService.parse('article-subscribers/{id}/{?embed,fields}'),
+                    /**
                      * Parses find article subscribers route which can be expanded with additional options. Supported items are:
                      * - `searchQuery` - A string value used to identify article subscriber resources using the phrase search.
+                     * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Section, Article and Tag).
                      * - `page` - A value used to set the page number, i.e. to retrieve certain article subscriber subset from the storage.
                      * - `rpp` - A value used to limit the size of result set per page.
                      * - `sort` - A string used to set the article subscriber property to sort the result collection by.
@@ -1063,7 +1075,7 @@
                      searchQuery: '<search-phrase>'
                      });
                      **/
-                    find: uriTemplateService.parse('article-subscribers/{?searchQuery,page,rpp,sort,embed,fields}'),
+                    find: uriTemplateService.parse('article-subscribers/{?searchQuery,statuses,page,rpp,sort,embed,fields}'),
                     /**
                      * Parses module subscribe route which must be expanded with the username or email of the subscriber.
                      * @method subscriptions.moduleSubscribe
@@ -1450,6 +1462,12 @@
                 unapproved: 16
             };
 
+            var subscriptionStatuses = {
+                section: 1,
+                article: 2,
+                tag: 4
+            };
+
             function toSlug(str) {
                 if (angular.isUndefined(str) || str === null || str === '') {
                     return str;
@@ -1729,6 +1747,12 @@
                 },
                 subscriptions: {
                     /**
+                     * Contains a refrerence to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
+                     * @method subscriptions.statuses      
+                     * @example baasicArticleService.subscriptions.statuses.section;
+                     **/
+                    statuses: subscriptionStatuses,
+                    /**
                      * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article subscriber resources matching the given criteria.
                      * @method subscriptions.find
                      * @example 
@@ -1749,6 +1773,21 @@
                     find: function (options) {
                         var params = baasicApiService.findParams(options);
                         return baasicApiHttp.get(articleRouteService.subscriptions.find.expand(params));
+                    },
+                    /**
+                     * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article subscriber resource.
+                     * @method       
+                     * @example 
+                     baasicArticleService.subscriptions.get('<subscriber-id>')
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    get: function (id, options) {
+                        return baasicApiHttp.get(articleRouteService.subscriptions.get.expand(baasicApiService.getParams(id, options)));
                     },
                     articleModule: {
                         /**
