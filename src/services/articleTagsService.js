@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleTagsService
- * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+ * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
 */
 
 (function (angular, module, undefined) {

@@ -24,7 +24,7 @@
     /* globals module */
     /**
      * @module baasicArticleCommentRepliesRouteService
-     * @description Baasic Article Comment Replies Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Comment Replies Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     * @description Baasic Article Comment Replies Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Comment Replies Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -87,7 +87,7 @@
     /* globals module */
     /**
      * @module baasicArticleCommentRepliesService
-     * @description Baasic Article Comment Replies Service provides an easy way to consume Baasic Article Comment Replies REST API end-points. `baasicArticleCommentRepliesService` functions enable performing standard CRUD operations directly on article comment reply resources, whereas the `baasicArticleService` functions allow management between article and article comment reply. In order to obtain a needed routes `baasicArticleCommentRepliesService` uses `baasicArticleCommentRepliesRouteService`.
+     * @description Baasic Article Comment Replies Service provides an easy way to consume Baasic Article Comment Replies REST API end-points. `baasicArticleCommentRepliesService` functions enable performing standard CRUD operations directly on article comment reply resources, whereas the `baasicArticleService` functions allow management between article and article comment reply. In order to obtain needed routes `baasicArticleCommentRepliesService` uses `baasicArticleCommentRepliesRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -102,7 +102,7 @@
 
             return {
                 /**
-                 * Contains a refrerence to valid list of article comment reply states. It returns an object containing all article comment reply states.
+                 * Contains a reference to valid list of article comment reply states. It returns an object containing all article comment reply states.
                  * @method  
                  * @example baasicArticleCommentRepliesService.statuses.approved;
                  **/
@@ -394,7 +394,7 @@
     /* globals module */
     /**
      * @module baasicArticleCommentsRouteService
-     * @description Baasic Article Comments Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Comments Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     * @description Baasic Article Comments Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Comments Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -457,7 +457,7 @@
     /* globals module */
     /**
      * @module baasicArticleCommentsService
-     * @description Baasic Article Comments Service provides an easy way to consume Baasic Article Comments REST API end-points. `baasicArticleCommentsService` functions enable performing standard CRUD operations directly on article comment resources, whereas the `baasicArticleService` functions allow management between article and article comments. In order to obtain a needed routes `baasicArticleCommentsService` uses `baasicArticleCommentsRouteService`.
+     * @description Baasic Article Comments Service provides an easy way to consume Baasic Article Comments REST API end-points. `baasicArticleCommentsService` functions enable performing standard CRUD operations directly on article comment resources, whereas the `baasicArticleService` functions allow management between article and article comments. In order to obtain needed routes `baasicArticleCommentsService` uses `baasicArticleCommentsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -471,7 +471,7 @@
             };
             return {
                 /**
-                 * Contains a refrerence to valid list of article comment states. It returns an object containing all article comment states.
+                 * Contains a reference to valid list of article comment states. It returns an object containing all article comment states.
                  * @method      
                  * @example baasicArticleCommentsService.statuses.approved;
                  **/
@@ -763,7 +763,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsRouteService
-     * @description Baasic Article Ratings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     * @description Baasic Article Ratings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -837,7 +837,7 @@
     /* globals module */
     /**
      * @module baasicArticleRatingsService
-     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources, whereas the `baasicArticleService` functions allow management between article and article rating. In order to obtain a needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
+     * @description Baasic Article Ratings Service provides an easy way to consume Baasic Article Ratings REST API end-points. `baasicArticleRatingsService` functions enable performing standard CRUD operations directly on article rating resources, whereas the `baasicArticleService` functions allow management between article and article rating. In order to obtain needed routes `baasicArticleRatingsService` uses `baasicArticleRatingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -983,7 +983,7 @@
     /* globals module */
     /**
      * @module baasicArticleRouteService
-     * @description Baasic Article Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     * @description Baasic Article Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -1388,7 +1388,7 @@
     /* globals module */
     /**
      * @module baasicArticleService
-     * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
+     * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain needed routes `baasicArticleService` uses `baasicArticleRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -1494,7 +1494,7 @@
 
             return {
                 /**
-                 * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
+                 * Contains a reference to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
                  * @method        
                  * @example baasicArticleService.statuses.archive;
                  **/
@@ -1502,7 +1502,7 @@
                 /**
                  * Parses article object and updates slug of an article.
                  * @method        
-                 * @example baasicArticleService.updateslug(article);
+                 * @example baasicArticleService.updateSlug(article);
                  **/
                 updateSlug: updateSlug,
                 /**
@@ -1571,9 +1571,9 @@
                  baasicArticleService.create({
                  publishDate : new Date(),
                  title : '<title>',
-                 content : '<content>'
+                 content : '<content>',
                  slug : '',
-                 status : baasicArticleService.statuses.draft;
+                 status : baasicArticleService.statuses.draft,
                  $tags : ['<tag1>', '<tag2>']
                  })
                  .success(function (data) {
@@ -1747,7 +1747,7 @@
                 },
                 subscriptions: {
                     /**
-                     * Contains a refrerence to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
+                     * Contains a reference to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
                      * @method subscriptions.statuses      
                      * @example baasicArticleService.subscriptions.statuses.section;
                      **/
@@ -2173,7 +2173,7 @@
                 },
                 comments: {
                     /**
-                     * Contains a refrerence to valid list of article comment states. It returns an object containing all article comment states.
+                     * Contains a reference to valid list of article comment states. It returns an object containing all article comment states.
                      * @method comments.statuses      
                      * @example baasicArticleService.comments.statuses.approved;
                      **/
@@ -2473,7 +2473,7 @@
                     },
                     replies: {
                         /**
-                         * Contains a refrerence to valid list of article comment reply states. It returns an object containing all article comment reply states.
+                         * Contains a reference to valid list of article comment reply states. It returns an object containing all article comment reply states.
                          * @method comments.replies.statuses    
                          * @example baasicArticleService.comments.replies.statuses.approved;
                          **/
@@ -2875,7 +2875,7 @@
     /* globals module */
     /**
      * @module baasicArticleSettingsRouteService
-     * @description Baasic Article Settings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Settings Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Settings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Settings Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -2914,7 +2914,7 @@
     /* globals module */
     /**
      * @module baasicArticleSettingsService
-     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+     * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
      */
     (function (angular, module, undefined) {
         'use strict';
@@ -2936,7 +2936,7 @@
                     return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(options)));
                 },
                 /**
-                 * Returns a promise that is resolved once the update article settings action has been performed; this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleSettingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects::
+                 * Returns a promise that is resolved once the update article settings action has been performed; this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleSettingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
                  ```
                  var params = baasicApiService.removeParams(articleSettings);
                  var uri = params['model'].links('put').href;
@@ -2976,7 +2976,7 @@
     /* globals module */
     /**
      * @module baasicArticleTagsRouteService
-     * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+     * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
      */
 
     (function (angular, module, undefined) {
@@ -3031,7 +3031,7 @@
     /* globals module */
     /**
      * @module baasicArticleTagsService
-     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain a needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
+     * @description Baasic Article Tags Service provides an easy way to consume Baasic Article Tags REST API end-points. `baasicArticleTagsService` functions enable performing standard CRUD operations directly on article tag resources, whereas the `baasicArticleService` functions allow management between article and article tag. In order to obtain needed routes `baasicArticleTagsService` uses `baasicArticleTagsRouteService`.
      */
 
     (function (angular, module, undefined) {

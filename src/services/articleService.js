@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleService
- * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain a needed routes `baasicArticleService` uses `baasicArticleRouteService`.
+ * @description Baasic Articles Service provides an easy way to consume Baasic Articles REST API end-points. In order to obtain needed routes `baasicArticleService` uses `baasicArticleRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -107,7 +107,7 @@
 
             return {
                 /**
-                * Contains a refrerence to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
+                * Contains a reference to valid list of article statuses. It returns an object containing all article statuses: `{ draft: 1, published: 2, archive: 4 }`
                 * @method        
                 * @example baasicArticleService.statuses.archive;
                 **/ 				
@@ -115,7 +115,7 @@
                 /**
                 * Parses article object and updates slug of an article.
                 * @method        
-                * @example baasicArticleService.updateslug(article);
+                * @example baasicArticleService.updateSlug(article);
                 **/ 				
                 updateSlug: updateSlug,
                 /**
@@ -183,9 +183,9 @@ baasicArticleService.get('<article-id>')
 baasicArticleService.create({
   publishDate : new Date(),
   title : '<title>',
-  content : '<content>'
+  content : '<content>',
   slug : '',
-  status : baasicArticleService.statuses.draft;
+  status : baasicArticleService.statuses.draft,
   $tags : ['<tag1>', '<tag2>']
 })
 .success(function (data) {
@@ -359,7 +359,7 @@ baasicArticleService.purge({})
                 },
                 subscriptions: {
                     /**
-                    * Contains a refrerence to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
+                    * Contains a reference to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
                     * @method subscriptions.statuses      
                     * @example baasicArticleService.subscriptions.statuses.section;
                     **/                     
@@ -785,7 +785,7 @@ baasicArticleService.tags.removeAll(article)
                 },
                 comments: {
                     /**
-                    * Contains a refrerence to valid list of article comment states. It returns an object containing all article comment states.
+                    * Contains a reference to valid list of article comment states. It returns an object containing all article comment states.
                     * @method comments.statuses      
                     * @example baasicArticleService.comments.statuses.approved;
                     **/                     
@@ -1085,7 +1085,7 @@ baasicArticleService.comments.update(articleComment)
                     },                                                                                 
                     replies: {
                         /**
-                        * Contains a refrerence to valid list of article comment reply states. It returns an object containing all article comment reply states.
+                        * Contains a reference to valid list of article comment reply states. It returns an object containing all article comment reply states.
                         * @method comments.replies.statuses    
                         * @example baasicArticleService.comments.replies.statuses.approved;
                         **/                     

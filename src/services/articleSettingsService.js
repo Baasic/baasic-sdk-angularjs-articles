@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleSettingsService
- * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain a needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
+ * @description Baasic Article Settings Service provides an easy way to consume Baasic Article Settings REST API end-points. In order to obtain needed routes `baasicArticleSettingsService` uses `baasicArticleSettingsRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -24,7 +24,7 @@ baasicArticleSettingsService.get()
                     return baasicApiHttp.get(articleSettingsRouteService.get.expand(baasicApiService.getParams(options)));
                 },
                  /**
-                 * Returns a promise that is resolved once the update article settings action has been performed; this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleSettingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects::
+                 * Returns a promise that is resolved once the update article settings action has been performed; this action updates article settings. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleSettingsRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
 ```
 var params = baasicApiService.removeParams(articleSettings);
 var uri = params['model'].links('put').href;

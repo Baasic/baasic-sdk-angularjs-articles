@@ -1,7 +1,7 @@
 /* globals module */
 /**
  * @module baasicArticleCommentRepliesService
- * @description Baasic Article Comment Replies Service provides an easy way to consume Baasic Article Comment Replies REST API end-points. `baasicArticleCommentRepliesService` functions enable performing standard CRUD operations directly on article comment reply resources, whereas the `baasicArticleService` functions allow management between article and article comment reply. In order to obtain a needed routes `baasicArticleCommentRepliesService` uses `baasicArticleCommentRepliesRouteService`.
+ * @description Baasic Article Comment Replies Service provides an easy way to consume Baasic Article Comment Replies REST API end-points. `baasicArticleCommentRepliesService` functions enable performing standard CRUD operations directly on article comment reply resources, whereas the `baasicArticleService` functions allow management between article and article comment reply. In order to obtain needed routes `baasicArticleCommentRepliesService` uses `baasicArticleCommentRepliesRouteService`.
 */
 (function (angular, module, undefined) {
     'use strict';
@@ -17,7 +17,7 @@
                         
             return {
                 /**
-                * Contains a refrerence to valid list of article comment reply states. It returns an object containing all article comment reply states.
+                * Contains a reference to valid list of article comment reply states. It returns an object containing all article comment reply states.
                 * @method  
                 * @example baasicArticleCommentRepliesService.statuses.approved;
                 **/                     
