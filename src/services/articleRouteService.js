@@ -346,6 +346,141 @@ baasicArticleRouteService.comments.replies.parse(
                         parse: uriTemplateService.parse,                        
                     }                                   								
 				},
+                files:{
+                        /**
+                        * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                        * @method files.parse
+                        * @example 
+baasicArticleRouteService.files.parse(
+  '<route>/{?embed,fields,options}').expand({
+  embed : '<embedded-resource>'
+});
+                        **/		
+                        parse: uriTemplateService.parse,                     
+                        /**
+                        * Parses find route which should be expanded with articleId additionally it can be expanded with additional options. Supported items are: 
+                        * - `searchQuery` - A string referencing file properties using the phrase search.
+                        * - `page` - A value used to set the page number, i.e. to retrieve certain file subset from the storage.
+                        * - `rpp` - A value used to limit the size of result set per page.
+                        * - `sort` - A string used to set the file property to sort the result collection by.
+                        * - `embed` - Comma separated list of resources to be contained within the current representation.
+                        * @method files.find
+                        * @example 
+baasicArticleRouteService.files.find.expand(
+    {
+        articleId: '<article-id>',
+        searchQuery: '<search-phrase>'
+    }
+);               
+                        **/                     
+                        find: uriTemplateService.parse('articles/{articleId}/files/{?searchQuery,page,rpp,sort,embed,fields}'),    
+                        /**
+                        * Parses get route; this route should be expanded with the Id of the file resource and parent articleId.
+                        * @method files.get     
+                        * @example 
+baasicArticleRouteService.get.expand(
+    {
+        articleId: '<article-id>',
+        id: '<file-id>'
+    }
+);               
+                        **/ 			
+                        get: uriTemplateService.parse('articles/{articleId}/files/{id}/{?embed,fields}'),             
+                        
+                        /**
+                        * Parses link route; this URI template should be expanded with the parent articleId.
+                        * @method files.link      
+                        * @example baasicArticleRouteService.link.expand({articleId: '<article-id>'});              
+                        **/  			                
+                        link: uriTemplateService.parse('articles/{articleId}/files/link'),
+                        
+                        streams: {
+                            /**
+                            * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                            * @method files.streams.parse
+                            * @example 
+baasicArticleRouteService.files.streams.parse(
+'<route>/{?embed,fields,options}').expand({
+embed : '<embedded-resource>'
+});
+                            **/		
+                            parse: uriTemplateService.parse,                              
+                            /**
+                            * Parses get route; this route should be expanded with id or path of desired file stream and parent articleId. Additional supported items are:
+                            * - `width` - width of desired derived image.
+                            * - `height` - height of desired derived image.
+                            * @method files.streams.get
+                            * @example 
+baasicArticleRouteService.streams.get.expand(
+    {
+        id: '<path>',
+        articleId: '<article-id>'
+    },
+);               
+                            **/ 			
+                            get: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}'),  
+                            
+                            /**
+                            * Parses create route; this route should be expanded with the path which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
+                            * @method files.streams.create
+                            * @example 
+baasicArticleRouteService.streams.create.expand(
+    {
+        path: '<path>',
+        articleId: '<article-id>'
+    }
+);               
+                            **/ 			
+                            create: uriTemplateService.parse('articles/{articleId}/file-streams/{path}'), 
+                            
+                            /**
+                            * Parses update route; this route should be expanded with the id or path of the previously saved resource and parent articleId. Additional supported items are:
+                            * - `width` - width of derived image to update.
+                            * - `height` - height of derived image to update.                    
+                            * @method files.streams.update    
+                            * @example 
+baasicArticleRouteService.streams.update.expand(
+    {
+        id: '<path>',
+        articleId: '<article-id>'
+    }
+);               
+                            **/ 			
+                            update: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}')                                                                                      
+                        },
+                        batch: {
+                            /**
+                            * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                            * @method files.batch.parse
+                            * @example 
+baasicArticleRouteService.files.streams.parse(
+'<route>/{?embed,fields,options}').expand({
+embed : '<embedded-resource>'
+});
+                            **/		
+                            parse: uriTemplateService.parse,                                
+                            /**
+                            * Parses unlink route; this URI template should be expanded with parent articleId.                                    
+                            * @method files.batch.unlink       
+                            * @example baasicArticleRouteService.files..batch.unlink.expand({articleId: '<article-id>'});              
+                            **/                      
+                            unlink: uriTemplateService.parse('articles/{articleId}/files/batch/unlink'),      
+                            
+                            /**
+                            * Parses update route; this URI template should be expanded with parent articleId.
+                            * @method files.batch.update       
+                            * @example baasicArticleRouteService.files.batch.update.expand({articleId: '<article-id>'});              
+                            **/                      
+                            update: uriTemplateService.parse('articles/{articleId}/files/batch'),          
+                            
+                            /**
+                            * Parses update route; this URI template should be expanded with parent articleId.
+                            * @method files.batch.link       
+                            * @example baasicArticleRouteService.files.batch.link.expand({articleId: '<article-id>'});              
+                            **/                       
+                            link: uriTemplateService.parse('articles/{articleId}/files/batch/link')                                                                             
+                        }                                                        
+                },
                 acl: {
 					/**
 					* Parses get article acl route; this URI template should be expanded with the Id of the article.					

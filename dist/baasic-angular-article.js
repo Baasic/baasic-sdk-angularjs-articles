@@ -762,6 +762,450 @@
 
     /* globals module */
     /**
+     * @module baasicArticleFilesRouteService
+     * @description Baasic Article Files Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Files Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     */
+    (function (angular, module, undefined) {
+        'use strict';
+        module.service('baasicArticleFilesRouteService', ['baasicUriTemplateService', function (uriTemplateService) {
+            return {
+                /**
+                 * Parses find route which can be expanded with additional options. Supported items are: 
+                 * - `searchQuery` - A string referencing file properties using the phrase search.
+                 * - `page` - A value used to set the page number, i.e. to retrieve certain file subset from the storage.
+                 * - `rpp` - A value used to limit the size of result set per page.
+                 * - `sort` - A string used to set the file property to sort the result collection by.
+                 * - `embed` - Comma separated list of resources to be contained within the current representation.
+                 * @method        
+                 * @example 
+                 baasicArticleFilesRouteService.find.expand(
+                 {searchQuery: '<search-phrase>'}
+                 );
+                 **/
+                find: uriTemplateService.parse('article-files/{?searchQuery,page,rpp,sort,embed,fields}'),
+
+                /**
+                 * Parses get route; this route should be expanded with the Id of the file resource.
+                 * @method        
+                 * @example 
+                 baasicArticleFilesRouteService.get.expand(
+                 {id: '<file-id>'}
+                 );
+                 **/
+                get: uriTemplateService.parse('article-files/{id}/{?embed,fields}'),
+
+                /**
+                 * Parses link route; this URI template does not expose any additional options.
+                 * @method        
+                 * @example baasicArticleFilesRouteService.link.expand({});              
+                 **/
+                link: uriTemplateService.parse('article-files/link'),
+
+                streams: {
+                    /**
+                     * Parses get route; this route should be expanded with id of desired file stream. Additional supported items are:
+                     * - `width` - width of desired derived image.
+                     * - `height` - height of desired derived image.
+                     * @method streams.get
+                     * @example 
+                     baasicArticleFilesRouteService.streams.get.expand(
+                     {id: '<path>'}
+                     );
+                     **/
+                    get: uriTemplateService.parse('article-file-streams/{id}/{?width,height}'),
+
+                    /**
+                     * Parses create route; this route should be expanded with the path which indicates where the stream will be saved.
+                     * @method streams.create
+                     * @example 
+                     baasicArticleFilesRouteService.streams.create.expand(
+                     {path: '<path>'}
+                     );
+                     **/
+                    create: uriTemplateService.parse('article-file-streams/{path}'),
+
+                    /**
+                     * Parses update route; this route should be expanded with the id of the previously saved resource. Additional supported items are:
+                     * - `width` - width of derived image to update.
+                     * - `height` - height of derived image to update.                    
+                     * @method streams.update    
+                     * @example 
+                     baasicArticleFilesRouteService.streams.update.expand(
+                     {id: '<path>'}
+                     );
+                     **/
+                    update: uriTemplateService.parse('article-file-streams/{id}/{?width,height}')
+
+                },
+
+                batch: {
+                    /**
+                     * Parses unlink route; this URI template does not expose any additional options.                                    
+                     * @method batch.unlink       
+                     * @example baasicArticleFilesRouteService.batch.unlink.expand({});              
+                     **/
+                    unlink: uriTemplateService.parse('article-files/batch/unlink'),
+
+                    /**
+                     * Parses update route; this URI template does not expose any additional options.
+                     * @method batch.update       
+                     * @example baasicArticleFilesRouteService.batch.update.expand({});              
+                     **/
+                    update: uriTemplateService.parse('article-files/batch'),
+
+                    /**
+                     * Parses update route; this URI template does not expose any additional options.
+                     * @method batch.link       
+                     * @example baasicArticleFilesRouteService.batch.link.expand({});              
+                     **/
+                    link: uriTemplateService.parse('article-files/batch/link')
+                },
+
+                /**
+                 * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                 * @method
+                 * @example 
+                 baasicArticleFilesRouteService.parse(
+                 '<route>/{?embed,fields,options}'
+                 ).expand(
+                 {embed: '<embedded-resource>'}
+                 );
+                 **/
+                parse: uriTemplateService.parse
+            };
+        }]);
+    }(angular, module));
+    /**
+     * @overview 
+     ***Notes:**
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
+     - [URI Template](https://github.com/Baasic/uritemplate-js) syntax enables expanding the Baasic route templates to Baasic REST URIs providing it with an object that contains URI parameters.
+     - All end-point objects are transformed by the associated route service.
+     */
+
+    /* globals module */
+    /**
+     * @module baasicArticleFilesService
+     * @description Baasic Files Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Files Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+     */
+    (function (angular, module, undefined) {
+        'use strict';
+        module.service('baasicArticleFilesService', ['baasicApiHttp', 'baasicApiService', 'baasicConstants', 'baasicArticleFilesRouteService', function (baasicApiHttp, baasicApiService, baasicConstants, filesRouteService) {
+            return {
+                /**
+                 * Returns a promise that is resolved once the find action has been performed. Success response returns a list of file resources matching the given criteria.
+                 * @method        
+                 * @example 
+                 baasicArticleFilesService.find({
+                 pageNumber : 1,
+                 pageSize : 10,
+                 orderBy : '<field>',
+                 orderDirection : '<asc|desc>',
+                 search : '<search-phrase>'
+                 })
+                 .success(function (collection) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
+                find: function (options) {
+                    return baasicApiHttp.get(filesRouteService.find.expand(baasicApiService.findParams(options)));
+                },
+
+                /**
+                 * Returns a promise that is resolved once the get action has been performed. Success response returns requested file resource.
+                 * @method        
+                 * @example 
+                 baasicArticleFilesService.get('<file-id>')
+                 .success(function (data) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
+                get: function (id, options) {
+                    return baasicApiHttp.get(filesRouteService.get.expand(baasicApiService.getParams(id, options)));
+                },
+
+                /**
+                 * Returns a promise that is resolved once the unlink action has been performed. This action will remove one or many file resources from the system if successfully completed. Specified file and all its accompanying derived resources will be removed from the system. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply baasicArticleFilesRouteService route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 ```
+                 var params = baasicApiService.removeParams(fileEntry);
+                 var uri = params['model'].links('unlink').href;
+                 ```
+                 * @method        
+                 * @example 
+                 // fileEntry is a file resource previously fetched using get action. The following action will remove the original file resource and all accompanying derived file resources.
+                 baasicArticleFilesRouteService.remove(fileEntry)
+                 .success(function (data) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
+                unlink: function (data, options) {
+                    if (!options) {
+                        options = {};
+                    }
+                    var params = baasicApiService.removeParams(data);
+                    var href = filesRouteService.parse(params[baasicConstants.modelPropertyName].links('unlink').href).expand(options);
+                    return baasicApiHttp.delete(href);
+                },
+
+                /**
+                 * Returns a promise that is resolved once the update file action has been performed; this action will update a file resource if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleFilesRouteService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                 ```
+                 var params = baasicApiService.updateParams(fileEntry);
+                 var uri = params['model'].links('put').href;
+                 ```
+                 * @method        
+                 * @example 
+                 // fileEntry is a file resource previously fetched using get action.
+                 fileEntry.description = '<description>';
+                 baasicArticleFilesService.update(fileEntry)
+                 .success(function (data) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
+                update: function (data) {
+                    var params = baasicApiService.updateParams(data);
+                    return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+                },
+
+                /**
+                 * Returns a promise that is resolved once the link action has been performed; this action links file resource from other modules into the Article Files module (For example: file resources from the Media Vault module can be linked directly into the Article Files module).
+                 * @method        
+                 * @example 
+                 baasicArticleFilesService.link(fileObject)
+                 .success(function (data) {
+                 // perform success action here
+                 })
+                 .error(function (response, status, headers, config) {
+                 // perform error handling here
+                 });
+                 **/
+                link: function (data) {
+                    return baasicApiHttp.post(filesRouteService.link.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                },
+
+                streams: {
+                    /**
+                     * Returns a promise that is resolved once the get action has been performed. Success response returns the file stream if successfully completed. If derived resource's format is passed, such as `width` and `height` for the image type of file resource, the operation will return a stream of the derived resource. Otherwise, stream of the original file resource will be retrieved.
+                     * @method streams.get        
+                     * @example 
+                     // Request the original file stream
+                     baasicArticleFilesService.stream.get({id: '<path>'})
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     // Request derived file stream
+                     baasicArticleFilesService.stream.get({id: '<path>', width: <width>, height: <height>})
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    get: function (data) {
+                        if (!angular.isObject(data)) {
+                            data = {
+                                id: data
+                            };
+                        }
+                        return baasicApiHttp.get(filesRouteService.streams.get.expand(data));
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the get action has been performed. Success response returns the file stream as a blob. If derived resource's format is passed, such as `width` and `height` for the image type of file resource, the operation will return a blob of the derived file resource. Otherwise, blob of the original file resource will be retrieved. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+                     * @method streams.getBlob        
+                     * @example 
+                     // Request the original blob
+                     baasicArticleFilesService.stream.getBlob('<path>')
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     // Request derived blob
+                     baasicArticleFilesService.stream.getBlob({id: '<path>', width: <width>, height: <height>})
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    getBlob: function (data) {
+                        if (!angular.isObject(data)) {
+                            data = {
+                                id: data
+                            };
+                        }
+                        return baasicApiHttp({
+                            url: filesRouteService.streams.get.expand(data),
+                            method: 'GET',
+                            responseType: 'blob'
+                        });
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the update file stream action has been performed; this action will replace the existing stream with a new one. Alternatively, if a derived stream is being updated it will either create a new derived stream or replace the existing one. In order to update a derived stream, format needs to be passed (For example: `width` and `height` for the image type of file stream data type).
+                     * @method streams.update
+                     * @example
+                     // Update original file stream
+                     baasicArticleFilesService.streams.update('<path>', <file-stream>)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     // Update derived file stream
+                     baasicArticleFilesService.streams.update({id: '<path>', width: <width>, height: <height>}, <file-stream>)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    update: function (data, stream) {
+                        if (!angular.isObject(data)) {
+                            data = {
+                                id: data
+                            };
+                        }
+                        var formData = new FormData();
+                        formData.append('file', stream);
+                        return baasicApiHttp({
+                            transformRequest: angular.identity,
+                            url: filesRouteService.streams.update.expand(data),
+                            method: 'PUT',
+                            data: formData,
+                            headers: {
+                                'Content-Type': undefined
+                            }
+                        });
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the create file stream action has been performed; this action will upload the specified blob. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+                     * @method streams.create
+                     * @example 
+                     baasicArticleFilesService.streams.create('<path>', <blob>)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    create: function (data, stream) {
+                        if (!angular.isObject(data)) {
+                            data = {
+                                path: data
+                            };
+                        }
+                        var formData = new FormData();
+                        formData.append('file', stream);
+                        return baasicApiHttp({
+                            transformRequest: angular.identity,
+                            url: filesRouteService.streams.create.expand(data),
+                            method: 'POST',
+                            data: formData,
+                            headers: {
+                                'Content-Type': undefined
+                            }
+                        });
+                    }
+                },
+
+                batch: {
+                    /**
+                     * Returns a promise that is resolved once the unlink action has been performed. This action will remove file resources from the system if successfully completed. If derived resource's format is passed, such as `width` and `height` for the image type of file resource, the operation will remove just derived resource. Otherwise, specified file and all its accompanying derived resources will be removed from the system.
+                     * @method batch.unlink       
+                     * @example
+                     // Remove original file resources
+                     baasicArticleFilesService.batch.unlink([{ id: '<file-id>' }])
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     // Remove derived file resources
+                     baasicArticleFilesService.batch.unlink([{ id: '<file-id>', fileFormat: { width: <width>, height: <height> } }])
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    unlink: function (data) {
+                        return baasicApiHttp({
+                            url: filesRouteService.batch.unlink.expand({}),
+                            method: 'DELETE',
+                            data: data
+                        });
+                    },
+                    /**
+                     * Returns a promise that is resolved once the update action has been performed; this action updates specified file resources.
+                     * @method batch.update       
+                     * @example 
+                     baasicArticleFilesService.batch.update(files)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    update: function (data) {
+                        return baasicApiHttp.put(filesRouteService.batch.update.expand(), baasicApiService.updateParams(data)[baasicConstants.modelPropertyName]);
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the link action has been performed; this action links file resources from other modules into the Files module (For example: file resources from the Media Vault module can be linked directly into the Files module).
+                     * @method batch.link       
+                     * @example 
+                     baasicArticleFilesService.batch.link(files)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    link: function (data) {
+                        return baasicApiHttp.post(filesRouteService.batch.link.expand(), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                    }
+                }
+            };
+        }]);
+    }(angular, module));
+
+    /**
+     * @overview 
+     ***Notes:**
+     - Refer to the [REST API documentation](https://github.com/Baasic/baasic-rest-api/wiki) for detailed information about available Baasic REST API end-points.
+     - All end-point objects are transformed by the associated route service.
+     */
+
+    /* globals module */
+    /**
      * @module baasicArticleRatingsRouteService
      * @description Baasic Article Ratings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
      */
@@ -1325,6 +1769,141 @@
                          });
                          **/
                         parse: uriTemplateService.parse,
+                    }
+                },
+                files: {
+                    /**
+                     * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                     * @method files.parse
+                     * @example 
+                     baasicArticleRouteService.files.parse(
+                     '<route>/{?embed,fields,options}').expand({
+                     embed : '<embedded-resource>'
+                     });
+                     **/
+                    parse: uriTemplateService.parse,
+                    /**
+                     * Parses find route which should be expanded with articleId additionally it can be expanded with additional options. Supported items are: 
+                     * - `searchQuery` - A string referencing file properties using the phrase search.
+                     * - `page` - A value used to set the page number, i.e. to retrieve certain file subset from the storage.
+                     * - `rpp` - A value used to limit the size of result set per page.
+                     * - `sort` - A string used to set the file property to sort the result collection by.
+                     * - `embed` - Comma separated list of resources to be contained within the current representation.
+                     * @method files.find
+                     * @example 
+                     baasicArticleRouteService.files.find.expand(
+                     {
+                     articleId: '<article-id>',
+                     searchQuery: '<search-phrase>'
+                     }
+                     );
+                     **/
+                    find: uriTemplateService.parse('articles/{articleId}/files/{?searchQuery,page,rpp,sort,embed,fields}'),
+                    /**
+                     * Parses get route; this route should be expanded with the Id of the file resource and parent articleId.
+                     * @method files.get     
+                     * @example 
+                     baasicArticleRouteService.get.expand(
+                     {
+                     articleId: '<article-id>',
+                     id: '<file-id>'
+                     }
+                     );
+                     **/
+                    get: uriTemplateService.parse('articles/{articleId}/files/{id}/{?embed,fields}'),
+
+                    /**
+                     * Parses link route; this URI template should be expanded with the parent articleId.
+                     * @method files.link      
+                     * @example baasicArticleRouteService.link.expand({articleId: '<article-id>'});              
+                     **/
+                    link: uriTemplateService.parse('articles/{articleId}/files/link'),
+
+                    streams: {
+                        /**
+                         * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                         * @method files.streams.parse
+                         * @example 
+                         baasicArticleRouteService.files.streams.parse(
+                         '<route>/{?embed,fields,options}').expand({
+                         embed : '<embedded-resource>'
+                         });
+                         **/
+                        parse: uriTemplateService.parse,
+                        /**
+                         * Parses get route; this route should be expanded with id or path of desired file stream and parent articleId. Additional supported items are:
+                         * - `width` - width of desired derived image.
+                         * - `height` - height of desired derived image.
+                         * @method files.streams.get
+                         * @example 
+                         baasicArticleRouteService.streams.get.expand(
+                         {
+                         id: '<path>',
+                         articleId: '<article-id>'
+                         },
+                         );
+                         **/
+                        get: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}'),
+
+                        /**
+                         * Parses create route; this route should be expanded with the path which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
+                         * @method files.streams.create
+                         * @example 
+                         baasicArticleRouteService.streams.create.expand(
+                         {
+                         path: '<path>',
+                         articleId: '<article-id>'
+                         }
+                         );
+                         **/
+                        create: uriTemplateService.parse('articles/{articleId}/file-streams/{path}'),
+
+                        /**
+                         * Parses update route; this route should be expanded with the id or path of the previously saved resource and parent articleId. Additional supported items are:
+                         * - `width` - width of derived image to update.
+                         * - `height` - height of derived image to update.                    
+                         * @method files.streams.update    
+                         * @example 
+                         baasicArticleRouteService.streams.update.expand(
+                         {
+                         id: '<path>',
+                         articleId: '<article-id>'
+                         }
+                         );
+                         **/
+                        update: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}')
+                    },
+                    batch: {
+                        /**
+                         * Parses and expands URI templates based on [RFC6570](http://tools.ietf.org/html/rfc6570) specifications. For more information please visit the project [GitHub](https://github.com/Baasic/uritemplate-js) page.
+                         * @method files.batch.parse
+                         * @example 
+                         baasicArticleRouteService.files.streams.parse(
+                         '<route>/{?embed,fields,options}').expand({
+                         embed : '<embedded-resource>'
+                         });
+                         **/
+                        parse: uriTemplateService.parse,
+                        /**
+                         * Parses unlink route; this URI template should be expanded with parent articleId.                                    
+                         * @method files.batch.unlink       
+                         * @example baasicArticleRouteService.files..batch.unlink.expand({articleId: '<article-id>'});              
+                         **/
+                        unlink: uriTemplateService.parse('articles/{articleId}/files/batch/unlink'),
+
+                        /**
+                         * Parses update route; this URI template should be expanded with parent articleId.
+                         * @method files.batch.update       
+                         * @example baasicArticleRouteService.files.batch.update.expand({articleId: '<article-id>'});              
+                         **/
+                        update: uriTemplateService.parse('articles/{articleId}/files/batch'),
+
+                        /**
+                         * Parses update route; this URI template should be expanded with parent articleId.
+                         * @method files.batch.link       
+                         * @example baasicArticleRouteService.files.batch.link.expand({articleId: '<article-id>'});              
+                         **/
+                        link: uriTemplateService.parse('articles/{articleId}/files/batch/link')
                     }
                 },
                 acl: {
@@ -2774,6 +3353,354 @@
                         update: function (data) {
                             var params = baasicApiService.updateParams(data);
                             return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+                        }
+                    }
+                },
+                files: {
+                    /**
+                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of file resources matching the given criteria.
+                     * @method files.find   
+                     * @example 
+                     baasicArticleService.files.find('<article-id>', {
+                     pageNumber : 1,
+                     pageSize : 10,
+                     orderBy : '<field>',
+                     orderDirection : '<asc|desc>',
+                     search : '<search-phrase>'
+                     })
+                     .success(function (collection) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    find: function (articleId, options) {
+                        var params = baasicApiService.findParams(options);
+                        params.articleId = articleId;
+                        return baasicApiHttp.get(articleRouteService.files.find.expand(params));
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the get action has been performed. Success response returns requested file resource.
+                     * @method files.get     
+                     * @example 
+                     baasicArticleService.files.get('<article-id>', '<file-id>')
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    get: function (articleId, id, options) {
+                        var params = angular.extend({}, options);
+                        params.articleId = articleId;
+                        params.id = id;
+                        return baasicApiHttp.get(articleRouteService.files.get.expand(baasicApiService.getParams(params)));
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the unlink action has been performed. This action will remove one or many file resources from the system if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply baasicArticleService route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                     ```
+                     var params = baasicApiService.removeParams(fileEntry);
+                     var uri = params['model'].links('unlink').href;
+                     ```
+                     * @method files.unlink     
+                     * @example 
+                     // fileEntry is a file resource previously fetched using get action. The following action will remove the original file resource and all accompanying derived file resources.
+                     baasicArticleService.files.unlink(fileEntry)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    unlink: function (articleId, data, options) {
+                        if (!options) {
+                            options = {};
+                        }
+                        var params = baasicApiService.removeParams(data);
+                        params.articleId = articleId;
+                        var href = articleRouteService.parse(params[baasicConstants.modelPropertyName].links('unlink').href).expand(options);
+                        return baasicApiHttp.delete(href);
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the unlink by article action has been performed. This action will remove all file resources from the system related to the requested article if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply baasicArticleService route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                     ```
+                     var params = baasicApiService.removeParams(fileEntry);
+                     var uri = params['model'].links('unlink-by-article').href;
+                     ```
+                     * @method files.unlinkByArticle     
+                     * @example 
+                     // fileEntry is a file resource previously fetched using get action.
+                     baasicArticleService.files.unlinkByArticle(fileEntry)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    unlinkByArticle: function (articleId, data, options) {
+                        if (!options) {
+                            options = {};
+                        }
+                        var params = baasicApiService.removeParams(data);
+                        params.articleId = articleId;
+                        var href = articleRouteService.parse(params[baasicConstants.modelPropertyName].links('unlink-by-article').href).expand(options);
+                        return baasicApiHttp.delete(href);
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the update file action has been performed; this action will update a file resource if successfully completed. This route uses HAL enabled objects to obtain routes and therefore it doesn't apply `baasicArticleService` route template. Here is an example of how a route can be obtained from HAL enabled objects:
+                     ```
+                     var params = baasicApiService.updateParams(fileEntry);
+                     var uri = params['model'].links('put').href;
+                     ```
+                     * @method files.update      
+                     * @example 
+                     // fileEntry is a file resource previously fetched using get action.
+                     fileEntry.description = '<description>';
+                     baasicArticleService.files.update(fileEntry)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    update: function (articleId, data) {
+                        var params = baasicApiService.updateParams(data);
+                        params.articleId = articleId;
+                        return baasicApiHttp.put(params[baasicConstants.modelPropertyName].links('put').href, params[baasicConstants.modelPropertyName]);
+                    },
+
+                    /**
+                     * Returns a promise that is resolved once the link action has been performed; this action links file resource from other modules into the Article Files module (For example: file resources from the Media Vault module can be linked directly into the Article Files module).
+                     * @method files.link   
+                     * @example 
+                     baasicArticleService.files.link(fileObject)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    link: function (articleId, data) {
+                        var params = angular.copy(data);
+                        params.articleId = articleId;
+                        return baasicApiHttp.post(articleRouteService.files.link.expand(params), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
+                    },
+
+                    streams: {
+                        /**
+                         * Returns a promise that is resolved once the get action has been performed. Success response returns the file stream if successfully completed. If derived resource's format is passed, such as `width` and `height` for the image type of file resource, the operation will return a stream of the derived resource. Otherwise, stream of the original file resource will be retrieved.
+                         * @method files.streams.get        
+                         * @example 
+                         // Request the original file stream
+                         baasicArticleService.files.streams.get({id: '<path>'})
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         // Request derived file stream
+                         baasicArticleService.files.streams.get({id: '<path>', width: <width>, height: <height>})
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        get: function (articleId, data) {
+                            if (!angular.isObject(data)) {
+                                data = {
+                                    id: data
+                                };
+                            }
+                            var params = angular.copy(data);
+                            params.articleId = articleId;
+                            return baasicApiHttp.get(articleRouteService.files.streams.get.expand(params));
+                        },
+
+                        /**
+                         * Returns a promise that is resolved once the get action has been performed. Success response returns the file stream as a blob. If derived resource's format is passed, such as `width` and `height` for the image type of file resource, the operation will return a blob of the derived file resource. Otherwise, blob of the original file resource will be retrieved. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+                         * @method files.streams.getBlob        
+                         * @example 
+                         // Request the original blob
+                         baasicArticleService.files.streams.getBlob('<article-id>', '<path>')
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         // Request derived blob
+                         baasicArticleService.files.streams.getBlob('<article-id>', {id: '<path>', width: <width>, height: <height>})
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        getBlob: function (articleId, data) {
+                            if (!angular.isObject(data)) {
+                                data = {
+                                    id: data
+                                };
+                            }
+                            var params = angular.copy(data);
+                            params.articleId = articleId;
+                            return baasicApiHttp({
+                                url: articleRouteService.files.streams.get.expand(params),
+                                method: 'GET',
+                                responseType: 'blob'
+                            });
+                        },
+
+                        /**
+                         * Returns a promise that is resolved once the update file stream action has been performed; this action will replace the existing stream with a new one. Alternatively, if a derived stream is being updated it will either create a new derived stream or replace the existing one. In order to update a derived stream, format needs to be passed (For example: `width` and `height` for the image type of file stream data type).
+                         * @method files.streams.update
+                         * @example
+                         // Update original file stream
+                         baasicArticleService.files.streams.update('<article-id>', '<path>', <file-stream>)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         // Update derived file stream
+                         baasicArticleService.files.streams.update('<article-id>', {id: '<path>', width: <width>, height: <height>}, <file-stream>)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        update: function (articleId, data, stream) {
+                            if (!angular.isObject(data)) {
+                                data = {
+                                    id: data
+                                };
+                            }
+                            var params = angular.copy(data);
+                            params.articleId = articleId;
+                            var formData = new FormData();
+                            formData.append('file', stream);
+                            return baasicApiHttp({
+                                transformRequest: angular.identity,
+                                url: articleRouteService.files.streams.update.expand(params),
+                                method: 'PUT',
+                                data: formData,
+                                headers: {
+                                    'Content-Type': undefined
+                                }
+                            });
+                        },
+
+                        /**
+                         * Returns a promise that is resolved once the create file stream action has been performed; this action will upload the specified blob. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
+                         * @method files.streams.create
+                         * @example 
+                         baasicArticleService.files.streams.create('<article-id>', '<path>', <blob>)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        create: function (articleId, data, stream) {
+                            if (!angular.isObject(data)) {
+                                data = {
+                                    path: data
+                                };
+                            }
+                            var params = angular.copy(data);
+                            params.articleId = articleId;
+                            var formData = new FormData();
+                            formData.append('file', stream);
+                            return baasicApiHttp({
+                                transformRequest: angular.identity,
+                                url: articleRouteService.files.streams.create.expand(params),
+                                method: 'POST',
+                                data: formData,
+                                headers: {
+                                    'Content-Type': undefined
+                                }
+                            });
+                        }
+                    },
+
+                    batch: {
+                        /**
+                         * Returns a promise that is resolved once the unlink action has been performed. This action will remove file resources from the system if successfully completed. Specified file and all its accompanying derived resources will be removed from the system.
+                         * @method files.batch.unlink       
+                         * @example
+                         // Remove original file resources
+                         baasicArticleService.files.batch.unlink('<article-id>', [{ id: '<file-id>' }])
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        unlink: function (articleId, data) {
+                            var params = {
+                                articleId: articleId
+                            };
+                            return baasicApiHttp({
+                                url: articleRouteService.files.batch.unlink.expand(params),
+                                method: 'DELETE',
+                                data: data
+                            });
+                        },
+
+                        /**
+                         * Returns a promise that is resolved once the update action has been performed; this action updates specified file resources.
+                         * @method files.batch.update       
+                         * @example 
+                         baasicArticleService.batch.update('<article-id>', files)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        update: function (articleId, data) {
+                            var params = {
+                                articleId: articleId
+                            };
+                            return baasicApiHttp.put(articleRouteService.files.batch.update.expand(params), baasicApiService.updateParams(data)[baasicConstants.modelPropertyName]);
+                        },
+                        /**
+                         * Returns a promise that is resolved once the link action has been performed; this action links file resources from other modules into the Article Files module (For example: file resources from the Media Vault module can be linked directly into the Article Files module).
+                         * @method files.batch.link       
+                         * @example 
+                         baasicArticleService.batch.link(files)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        link: function (articleId, data) {
+                            var params = {
+                                articleId: articleId
+                            };
+                            return baasicApiHttp.post(articleRouteService.files.batch.link.expand(params), baasicApiService.createParams(data)[baasicConstants.modelPropertyName]);
                         }
                     }
                 },
