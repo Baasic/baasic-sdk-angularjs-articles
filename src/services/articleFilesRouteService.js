@@ -48,20 +48,20 @@ baasicArticleFilesRouteService.get.expand(
                     * @method streams.get
                     * @example 
 baasicArticleFilesRouteService.streams.get.expand(
-    {id: '<path>'}
+    {id: '<filename>'}
 );               
                     **/
                     get: uriTemplateService.parse('article-file-streams/{id}/{?width,height}'),
 
                     /**
-                    * Parses create route; this route should be expanded with the path which indicates where the stream will be saved.
+                    * Parses create route; this route should be expanded with the filename which indicates where the stream will be saved.
                     * @method streams.create
                     * @example 
 baasicArticleFilesRouteService.streams.create.expand(
-    {path: '<path>'}
+    {filename: '<filename>'}
 );               
                     **/
-                    create: uriTemplateService.parse('article-file-streams/{path}'),
+                    create: uriTemplateService.parse('article-file-streams/{filename}/?{articleId}'),
                     
                     /**
                     * Parses update route; this route should be expanded with the id of the previously saved resource. Additional supported items are:
@@ -70,7 +70,7 @@ baasicArticleFilesRouteService.streams.create.expand(
                     * @method streams.update    
                     * @example 
 baasicArticleFilesRouteService.streams.update.expand(
-    {id: '<path>'}
+    {id: '<filename>'}
 );               
                     **/
                     update: uriTemplateService.parse('article-file-streams/{id}/{?width,height}')

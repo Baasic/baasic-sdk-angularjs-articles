@@ -809,20 +809,20 @@
                      * @method streams.get
                      * @example 
                      baasicArticleFilesRouteService.streams.get.expand(
-                     {id: '<path>'}
+                     {id: '<filename>'}
                      );
                      **/
                     get: uriTemplateService.parse('article-file-streams/{id}/{?width,height}'),
 
                     /**
-                     * Parses create route; this route should be expanded with the path which indicates where the stream will be saved.
+                     * Parses create route; this route should be expanded with the filename which indicates where the stream will be saved.
                      * @method streams.create
                      * @example 
                      baasicArticleFilesRouteService.streams.create.expand(
-                     {path: '<path>'}
+                     {filename: '<filename>'}
                      );
                      **/
-                    create: uriTemplateService.parse('article-file-streams/{path}'),
+                    create: uriTemplateService.parse('article-file-streams/{filename}/?{articleId}'),
 
                     /**
                      * Parses update route; this route should be expanded with the id of the previously saved resource. Additional supported items are:
@@ -831,7 +831,7 @@
                      * @method streams.update    
                      * @example 
                      baasicArticleFilesRouteService.streams.update.expand(
-                     {id: '<path>'}
+                     {id: '<filename>'}
                      );
                      **/
                     update: uriTemplateService.parse('article-file-streams/{id}/{?width,height}')
@@ -1001,7 +1001,7 @@
                      * @method streams.get        
                      * @example 
                      // Request the original file stream
-                     baasicArticleFilesService.stream.get({id: '<path>'})
+                     baasicArticleFilesService.stream.get({id: '<file-id>'})
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1009,7 +1009,7 @@
                      // perform error handling here
                      });
                      // Request derived file stream
-                     baasicArticleFilesService.stream.get({id: '<path>', width: <width>, height: <height>})
+                     baasicArticleFilesService.stream.get({id: '<file-id>', width: <width>, height: <height>})
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1031,7 +1031,7 @@
                      * @method streams.getBlob        
                      * @example 
                      // Request the original blob
-                     baasicArticleFilesService.stream.getBlob('<path>')
+                     baasicArticleFilesService.stream.getBlob('<file-id>')
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1039,7 +1039,7 @@
                      // perform error handling here
                      });
                      // Request derived blob
-                     baasicArticleFilesService.stream.getBlob({id: '<path>', width: <width>, height: <height>})
+                     baasicArticleFilesService.stream.getBlob({id: '<file-id>', width: <width>, height: <height>})
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1065,7 +1065,7 @@
                      * @method streams.update
                      * @example
                      // Update original file stream
-                     baasicArticleFilesService.streams.update('<path>', <file-stream>)
+                     baasicArticleFilesService.streams.update('<file-id>', <file-stream>)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1073,7 +1073,7 @@
                      // perform error handling here
                      });
                      // Update derived file stream
-                     baasicArticleFilesService.streams.update({id: '<path>', width: <width>, height: <height>}, <file-stream>)
+                     baasicArticleFilesService.streams.update({id: '<file-id>', width: <width>, height: <height>}, <file-stream>)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1104,7 +1104,7 @@
                      * Returns a promise that is resolved once the create file stream action has been performed; this action will upload the specified blob. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
                      * @method streams.create
                      * @example 
-                     baasicArticleFilesService.streams.create('<path>', <blob>)
+                     baasicArticleFilesService.streams.create('<file-id>', <blob>)
                      .success(function (data) {
                      // perform success action here
                      })
@@ -1113,11 +1113,6 @@
                      });
                      **/
                     create: function (data, stream) {
-                        if (!angular.isObject(data)) {
-                            data = {
-                                path: data
-                            };
-                        }
                         var formData = new FormData();
                         formData.append('file', stream);
                         return baasicApiHttp({
@@ -1831,14 +1826,14 @@
                          **/
                         parse: uriTemplateService.parse,
                         /**
-                         * Parses get route; this route should be expanded with id or path of desired file stream and parent articleId. Additional supported items are:
+                         * Parses get route; this route should be expanded with id of desired file stream and parent articleId. Additional supported items are:
                          * - `width` - width of desired derived image.
                          * - `height` - height of desired derived image.
                          * @method files.streams.get
                          * @example 
                          baasicArticleRouteService.streams.get.expand(
                          {
-                         id: '<path>',
+                         id: '<filename>',
                          articleId: '<article-id>'
                          },
                          );
@@ -1846,27 +1841,27 @@
                         get: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}'),
 
                         /**
-                         * Parses create route; this route should be expanded with the path which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
+                         * Parses create route; this route should be expanded with the filename which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
                          * @method files.streams.create
                          * @example 
                          baasicArticleRouteService.streams.create.expand(
                          {
-                         path: '<path>',
+                         filename: '<filename>',
                          articleId: '<article-id>'
                          }
                          );
                          **/
-                        create: uriTemplateService.parse('articles/{articleId}/file-streams/{path}'),
+                        create: uriTemplateService.parse('articles/{articleId}/file-streams/{filename}'),
 
                         /**
-                         * Parses update route; this route should be expanded with the id or path of the previously saved resource and parent articleId. Additional supported items are:
+                         * Parses update route; this route should be expanded with the id of the previously saved resource and parent articleId. Additional supported items are:
                          * - `width` - width of derived image to update.
                          * - `height` - height of derived image to update.                    
                          * @method files.streams.update    
                          * @example 
                          baasicArticleRouteService.streams.update.expand(
                          {
-                         id: '<path>',
+                         id: '<filename>',
                          articleId: '<article-id>'
                          }
                          );
@@ -3502,7 +3497,7 @@
                          * @method files.streams.get        
                          * @example 
                          // Request the original file stream
-                         baasicArticleService.files.streams.get({id: '<path>'})
+                         baasicArticleService.files.streams.get({id: '<file-id>'})
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3510,7 +3505,7 @@
                          // perform error handling here
                          });
                          // Request derived file stream
-                         baasicArticleService.files.streams.get({id: '<path>', width: <width>, height: <height>})
+                         baasicArticleService.files.streams.get({id: '<file-id>', width: <width>, height: <height>})
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3534,7 +3529,7 @@
                          * @method files.streams.getBlob        
                          * @example 
                          // Request the original blob
-                         baasicArticleService.files.streams.getBlob('<article-id>', '<path>')
+                         baasicArticleService.files.streams.getBlob('<article-id>', '<file-id>')
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3542,7 +3537,7 @@
                          // perform error handling here
                          });
                          // Request derived blob
-                         baasicArticleService.files.streams.getBlob('<article-id>', {id: '<path>', width: <width>, height: <height>})
+                         baasicArticleService.files.streams.getBlob('<article-id>', {id: '<file-id>', width: <width>, height: <height>})
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3570,7 +3565,7 @@
                          * @method files.streams.update
                          * @example
                          // Update original file stream
-                         baasicArticleService.files.streams.update('<article-id>', '<path>', <file-stream>)
+                         baasicArticleService.files.streams.update('<article-id>', '<file-id>', <file-stream>)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3578,7 +3573,7 @@
                          // perform error handling here
                          });
                          // Update derived file stream
-                         baasicArticleService.files.streams.update('<article-id>', {id: '<path>', width: <width>, height: <height>}, <file-stream>)
+                         baasicArticleService.files.streams.update('<article-id>', {id: '<file-id>', width: <width>, height: <height>}, <file-stream>)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3611,7 +3606,7 @@
                          * Returns a promise that is resolved once the create file stream action has been performed; this action will upload the specified blob. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
                          * @method files.streams.create
                          * @example 
-                         baasicArticleService.files.streams.create('<article-id>', '<path>', <blob>)
+                         baasicArticleService.files.streams.create('<article-id>', '<filename>', <blob>)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -3622,7 +3617,7 @@
                         create: function (articleId, data, stream) {
                             if (!angular.isObject(data)) {
                                 data = {
-                                    path: data
+                                    filename: data
                                 };
                             }
                             var params = angular.copy(data);

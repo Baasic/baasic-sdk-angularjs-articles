@@ -406,14 +406,14 @@ embed : '<embedded-resource>'
                             **/		
                             parse: uriTemplateService.parse,                              
                             /**
-                            * Parses get route; this route should be expanded with id or path of desired file stream and parent articleId. Additional supported items are:
+                            * Parses get route; this route should be expanded with id of desired file stream and parent articleId. Additional supported items are:
                             * - `width` - width of desired derived image.
                             * - `height` - height of desired derived image.
                             * @method files.streams.get
                             * @example 
 baasicArticleRouteService.streams.get.expand(
     {
-        id: '<path>',
+        id: '<filename>',
         articleId: '<article-id>'
     },
 );               
@@ -421,27 +421,27 @@ baasicArticleRouteService.streams.get.expand(
                             get: uriTemplateService.parse('articles/{articleId}/file-streams/{id}/{?width,height}'),  
                             
                             /**
-                            * Parses create route; this route should be expanded with the path which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
+                            * Parses create route; this route should be expanded with the filename which indicates where the stream will be saved and additionally it should be expanded with parent articleId.
                             * @method files.streams.create
                             * @example 
 baasicArticleRouteService.streams.create.expand(
     {
-        path: '<path>',
+        filename: '<filename>',
         articleId: '<article-id>'
     }
 );               
                             **/ 			
-                            create: uriTemplateService.parse('articles/{articleId}/file-streams/{path}'), 
+                            create: uriTemplateService.parse('articles/{articleId}/file-streams/{filename}'), 
                             
                             /**
-                            * Parses update route; this route should be expanded with the id or path of the previously saved resource and parent articleId. Additional supported items are:
+                            * Parses update route; this route should be expanded with the id of the previously saved resource and parent articleId. Additional supported items are:
                             * - `width` - width of derived image to update.
                             * - `height` - height of derived image to update.                    
                             * @method files.streams.update    
                             * @example 
 baasicArticleRouteService.streams.update.expand(
     {
-        id: '<path>',
+        id: '<filename>',
         articleId: '<article-id>'
     }
 );               

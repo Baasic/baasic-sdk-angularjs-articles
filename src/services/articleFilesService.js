@@ -117,7 +117,7 @@ baasicArticleFilesService.link(fileObject)
                     * @method streams.get        
                     * @example 
 // Request the original file stream              
-baasicArticleFilesService.stream.get({id: '<path>'})
+baasicArticleFilesService.stream.get({id: '<file-id>'})
 .success(function (data) {
     // perform success action here
 })
@@ -125,7 +125,7 @@ baasicArticleFilesService.stream.get({id: '<path>'})
     // perform error handling here
 });                    
 // Request derived file stream                
-baasicArticleFilesService.stream.get({id: '<path>', width: <width>, height: <height>})
+baasicArticleFilesService.stream.get({id: '<file-id>', width: <width>, height: <height>})
 .success(function (data) {
     // perform success action here
 })
@@ -147,7 +147,7 @@ baasicArticleFilesService.stream.get({id: '<path>', width: <width>, height: <hei
                     * @method streams.getBlob        
                     * @example 
 // Request the original blob                
-baasicArticleFilesService.stream.getBlob('<path>')
+baasicArticleFilesService.stream.getBlob('<file-id>')
 .success(function (data) {
     // perform success action here
 })
@@ -155,7 +155,7 @@ baasicArticleFilesService.stream.getBlob('<path>')
     // perform error handling here
 });
 // Request derived blob                 
-baasicArticleFilesService.stream.getBlob({id: '<path>', width: <width>, height: <height>})
+baasicArticleFilesService.stream.getBlob({id: '<file-id>', width: <width>, height: <height>})
 .success(function (data) {
     // perform success action here
 })
@@ -181,7 +181,7 @@ baasicArticleFilesService.stream.getBlob({id: '<path>', width: <width>, height: 
                      * @method streams.update
                      * @example
 // Update original file stream 
-baasicArticleFilesService.streams.update('<path>', <file-stream>)
+baasicArticleFilesService.streams.update('<file-id>', <file-stream>)
 .success(function (data) {
   // perform success action here
 })
@@ -189,7 +189,7 @@ baasicArticleFilesService.streams.update('<path>', <file-stream>)
   // perform error handling here
 });
 // Update derived file stream 
-baasicArticleFilesService.streams.update({id: '<path>', width: <width>, height: <height>}, <file-stream>)
+baasicArticleFilesService.streams.update({id: '<file-id>', width: <width>, height: <height>}, <file-stream>)
 .success(function (data) {
   // perform success action here
 })
@@ -220,7 +220,7 @@ baasicArticleFilesService.streams.update({id: '<path>', width: <width>, height: 
                      * Returns a promise that is resolved once the create file stream action has been performed; this action will upload the specified blob. For more information on Blob objects please see [Blob Documentation](https://developer.mozilla.org/en-US/docs/Web/API/Blob).
                      * @method streams.create
                      * @example 
-baasicArticleFilesService.streams.create('<path>', <blob>)
+baasicArticleFilesService.streams.create('<file-id>', <blob>)
 .success(function (data) {
   // perform success action here
 })
@@ -229,11 +229,6 @@ baasicArticleFilesService.streams.create('<path>', <blob>)
 });
                     **/ 	                                         
                     create: function(data, stream) {
-                        if (!angular.isObject(data)){
-                            data = {
-                              path: data  
-                            };
-                        }
                         var formData = new FormData();
                         formData.append('file', stream);
                         return baasicApiHttp({
