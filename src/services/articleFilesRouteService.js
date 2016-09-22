@@ -61,7 +61,7 @@ baasicArticleFilesRouteService.streams.create.expand(
     {filename: '<filename>'}
 );               
                     **/
-                    create: uriTemplateService.parse('article-file-streams/{filename}/?{articleId}'),
+                    create: uriTemplateService.parse('article-file-streams/{filename}/{?articleId}'),
                     
                     /**
                     * Parses update route; this route should be expanded with the id of the previously saved resource. Additional supported items are:
