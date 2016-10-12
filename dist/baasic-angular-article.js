@@ -1489,59 +1489,102 @@
                  **/
                 parse: uriTemplateService.parse,
                 subscriptions: {
-                    /**
-                     * Parses get article subscriber route which can be expanded with additional options. Supported items are:
-                     * - `id` - Id which uniquely identifies article subscriber resource that needs to be retrieved.
-                     * - `embed` - Comma separated list of resources to be contained within the current representation.
-                     * @method subscriptions.get
-                     * @example
-                     baasicArticleRouteService.subscriptions.get.expand({
-                     id: '<subscriber-id>'
-                     });
-                     **/
-                    get: uriTemplateService.parse('article-subscribers/{id}/{?embed,fields}'),
-                    /**
-                     * Parses find article subscribers route which can be expanded with additional options. Supported items are:
-                     * - `searchQuery` - A string value used to identify article subscriber resources using the phrase search.
-                     * - `statuses` - Comma separated list of article comment statuses that specify where search should be done (Allowed statuses: Section, Article and Tag).
-                     * - `page` - A value used to set the page number, i.e. to retrieve certain article subscriber subset from the storage.
-                     * - `rpp` - A value used to limit the size of result set per page.
-                     * - `sort` - A string used to set the article subscriber property to sort the result collection by.
-                     * - `embed` - Comma separated list of resources to be contained within the current representation.
-                     * @method subscriptions.find
-                     * @example
-                     baasicArticleRouteService.subscriptions.find.expand({
-                     searchQuery: '<search-phrase>'
-                     });
-                     **/
-                    find: uriTemplateService.parse('article-subscribers/{?searchQuery,statuses,page,rpp,sort,embed,fields}'),
-                    /**
-                     * Parses module subscribe route which must be expanded with the username or email of the subscriber.
-                     * @method subscriptions.moduleSubscribe
-                     * @example 
-                     baasicArticleRouteService.subscriptions.articleModuleSubscribe.expand(
-                     {username: '<userName>'}
-                     );
-                     **/
-                    articleModule: uriTemplateService.parse('subscriptions/article/users/{userName}'),
-                    /**
-                     * Parses article subscribe route which must be expanded with the username or email of the subscriber.
-                     * @method subscriptions.articleSubscribe
-                     * @example 
-                     baasicArticleRouteService.subscriptions.articleSubscribe.expand(
-                     {username: '<userName>'}
-                     );
-                     **/
-                    article: uriTemplateService.parse('subscriptions/article/{id}/users/{userName}'),
-                    /**
-                     * Parses article tags subscribe route which must be expanded with the username or email of the subscriber.
-                     * @method subscriptions.tagSubscribe
-                     * @example 
-                     baasicArticleRouteService.subscriptions.tagSubscribe.expand(
-                     {username: '<userName>'}
-                     );
-                     **/
-                    tag: uriTemplateService.parse('subscriptions/articletag/{id}/users/{userName}')
+                    articleModule: {
+                        /**
+                         * Parses article module subscribe route which doesn't support any additional options.
+                         * @method subscriptions.articleModule.subscribe
+                         * @example baasicArticleRouteService.subscriptions.articleModule.subscribe.expand({});   
+                         **/
+                        subscribe: uriTemplateService.parse('articles/subscriptions'),
+                        /**
+                         * Parses article module isSubscribed route which must be expanded with subscriber Id
+                         * @method subscriptions.articleModule.isSubscribed
+                         * @example baasicArticleRouteService.subscriptions.articleModule.isSubscribed.expand({subscriberId: '<subscriber-id>'});   
+                         **/
+                        isSubscribed: uriTemplateService.parse('articles/subscriptions/{subscriberId}'),
+                        /**
+                         * Parses article module unSubscribe route which doesn't support any additional options.
+                         * @method subscriptions.articleModule.unSubscribe
+                         * @example baasicArticleRouteService.subscriptions.articleModule.unSubscribe.expand({});   
+                         **/
+                        unSubscribe: uriTemplateService.parse('articles/subscriptions'),
+                    },
+                    article: {
+                        /**
+                         * Parses article subscribe route which must be expanded with id of the article.
+                         * @method subscriptions.article.subscribe
+                         * @example 
+                         baasicArticleRouteService.subscriptions.article.subscribe.expand(
+                         {id: '<article-id>'}
+                         );
+                         **/
+                        subscribe: uriTemplateService.parse('articles/{id}/subscriptions'),
+                        /**
+                         * Parses article isSubscribed route which must be expanded with subscriber Id and the id of the article.
+                         * @method subscriptions.article.isSubscribed
+                         * @example 
+                         baasicArticleRouteService.subscriptions.article.isSubscribed.expand({
+                         id: '<article-id>', 
+                         subscriberId: '<subscriber-id>'
+                         });
+                         **/
+                        isSubscribed: uriTemplateService.parse('articles/{id}/subscriptions/{subscriberId}'),
+                        /**
+                         * Parses article unSubscribe route which must be expanded with the id of the article.
+                         * @method subscriptions.articleModule.unSubscribe
+                         * @example 
+                         baasicArticleRouteService.subscriptions.article.unSubscribe.expand(
+                         {id: '<article-id>'}
+                         );
+                         **/
+                        unSubscribe: uriTemplateService.parse('articles/{id}/subscriptions'),
+                    },
+                    commentReported: {
+                        /**
+                         * Parses commentReported subscribe route which doesn't support any additional options.
+                         * @method subscriptions.commentReported.subscribe
+                         * @example baasicArticleRouteService.subscriptions.commentReported.subscribe.expand({});
+                         **/
+                        subscribe: uriTemplateService.parse('articles/subscriptions/comment-reported'),
+                        /**
+                         * Parses commentReported isSubscribed route which must be expanded with subscriber Id.
+                         * @method subscriptions.commentReported.isSubscribed
+                         * @example 
+                         baasicArticleRouteService.subscriptions.article.isSubscribed.expand({
+                         subscriberId: '<subscriber-id>'
+                         });
+                         **/
+                        isSubscribed: uriTemplateService.parse('articles/subscriptions/comment-reported/{subscriberId}'),
+                        /**
+                         * Parses commentReported unSubscribe route which doesn't support any additional options.
+                         * @method subscriptions.commentReported.unSubscribe
+                         * @example baasicArticleRouteService.subscriptions.article.unSubscribe.expand({})
+                         **/
+                        unSubscribe: uriTemplateService.parse('articles/subscriptions/comment-reported'),
+                    },
+                    commentRequiresModeration: {
+                        /**
+                         * Parses commentRequiresModeration subscribe route which doesn't support any additional options.
+                         * @method subscriptions.commentRequiresModeration.subscribe
+                         * @example baasicArticleRouteService.subscriptions.commentRequiresModeration.subscribe.expand({});
+                         **/
+                        subscribe: uriTemplateService.parse('articles/subscriptions/comment-requires-moderation'),
+                        /**
+                         * Parses commentRequiresModeration isSubscribed route which must be expanded with subscriber Id.
+                         * @method subscriptions.commentRequiresModeration.isSubscribed
+                         * @example 
+                         baasicArticleRouteService.subscriptions.commentRequiresModeration.isSubscribed.expand({
+                         subscriberId: '<subscriber-id>'
+                         });
+                         **/
+                        isSubscribed: uriTemplateService.parse('articles/subscriptions/comment-requires-moderation/{subscriberId}'),
+                        /**
+                         * Parses commentRequiresModeration unSubscribe route which doesn't support any additional options.
+                         * @method subscriptions.commentRequiresModeration.unSubscribe
+                         * @example baasicArticleRouteService.subscriptions.commentRequiresModeration.unSubscribe.expand({})
+                         **/
+                        unSubscribe: uriTemplateService.parse('articles/subscriptions/comment-requires-moderation'),
+                    }
                 },
                 ratings: {
                     /**
@@ -2036,12 +2079,6 @@
                 unapproved: 16
             };
 
-            var subscriptionStatuses = {
-                section: 1,
-                article: 2,
-                tag: 4
-            };
-
             function toSlug(str) {
                 if (angular.isUndefined(str) || str === null || str === '') {
                     return str;
@@ -2320,55 +2357,12 @@
                     return baasicApiHttp.delete(articleRouteService.purge.expand(options));
                 },
                 subscriptions: {
-                    /**
-                     * Contains a reference to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
-                     * @method subscriptions.statuses      
-                     * @example baasicArticleService.subscriptions.statuses.section;
-                     **/
-                    statuses: subscriptionStatuses,
-                    /**
-                     * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article subscriber resources matching the given criteria.
-                     * @method subscriptions.find
-                     * @example 
-                     baasicArticleService.subscriptions.find({
-                     pageNumber : 1,
-                     pageSize : 10,
-                     orderBy : '<field>',
-                     orderDirection : '<asc|desc>',
-                     search : '<search-phrase>'
-                     })
-                     .success(function (collection) {
-                     // perform success action here
-                     })
-                     .error(function (response, status, headers, config) {
-                     // perform error handling here
-                     });
-                     **/
-                    find: function (options) {
-                        var params = baasicApiService.findParams(options);
-                        return baasicApiHttp.get(articleRouteService.subscriptions.find.expand(params));
-                    },
-                    /**
-                     * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article subscriber resource.
-                     * @method       
-                     * @example 
-                     baasicArticleService.subscriptions.get('<subscriber-id>')
-                     .success(function (data) {
-                     // perform success action here
-                     })
-                     .error(function (response, status, headers, config) {
-                     // perform error handling here
-                     });
-                     **/
-                    get: function (id, options) {
-                        return baasicApiHttp.get(articleRouteService.subscriptions.get.expand(baasicApiService.getParams(id, options)));
-                    },
                     articleModule: {
                         /**
                          * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the article module.
                          * @method subscriptions.articleModule.subscribe
                          * @example 
-                         baasicArticleService.subscriptions.articleModule.subscribe(user)
+                         baasicArticleService.subscriptions.articleModule.subscribe(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2377,13 +2371,13 @@
                          });
                          **/
                         subscribe: function (data) {
-                            return baasicApiHttp.post(articleRouteService.subscriptions.articleModule.expand(data), {});
+                            return baasicApiHttp.post(articleRouteService.subscriptions.articleModule.subscribe.expand(data), data);
                         },
                         /**
                          * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the article module.
                          * @method subscriptions.articleModule.isSubscribed
                          * @example 
-                         baasicArticleService.subscriptions.articleModule.isSubscribed(user)
+                         baasicArticleService.subscriptions.articleModule.isSubscribed(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2392,13 +2386,13 @@
                          });
                          **/
                         isSubscribed: function (data) {
-                            return baasicApiHttp.get(articleRouteService.subscriptions.articleModule.expand(data));
+                            return baasicApiHttp.get(articleRouteService.subscriptions.articleModule.isSubscribed.expand(data));
                         },
                         /**
                          * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the article module.
                          * @method subscriptions.articleModule.unSubscribe
                          * @example 
-                         baasicArticleService.subscriptions.articleModule.unSubscribe(user)
+                         baasicArticleService.subscriptions.articleModule.unSubscribe(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2407,7 +2401,11 @@
                          });
                          **/
                         unSubscribe: function (data) {
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.articleModule.expand(data));
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.articleModule.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
                         }
                     },
                     article: {
@@ -2423,9 +2421,9 @@
                          // perform error handling here
                          });
                          **/
-                        subscribe: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.post(articleRouteService.subscriptions.article.expand(params), {});
+                        subscribe: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp.post(articleRouteService.subscriptions.article.subscribe.expand(params), params);
                         },
                         /**
                          * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article.
@@ -2439,9 +2437,9 @@
                          // perform error handling here
                          });
                          **/
-                        isSubscribed: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.get(articleRouteService.subscriptions.article.expand(params));
+                        isSubscribed: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp.get(articleRouteService.subscriptions.article.isSubscribed.expand(params));
                         },
                         /**
                          * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the specified article.
@@ -2455,17 +2453,21 @@
                          // perform error handling here
                          });
                          **/
-                        unSubscribe: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.article.expand(params));
+                        unSubscribe: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.article.unSubscribe.expand(params),
+                                method: 'DELETE',
+                                data: params
+                            });
                         }
                     },
-                    tag: {
+                    commentReported: {
                         /**
-                         * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the specified article tag.
-                         * @method subscriptions.tag.subscribe
+                         * Returns a promise that is resolved once the subscribe action has been performed.
+                         * @method subscriptions.commentReported.subscribe
                          * @example 
-                         baasicArticleService.subscriptions.tag.subscribe(tag, user)
+                         baasicArticleService.subscriptions.commentReported.subscribe(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2473,15 +2475,14 @@
                          // perform error handling here
                          });
                          **/
-                        subscribe: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.post(articleRouteService.subscriptions.tag.expand(params), {});
+                        subscribe: function (data) {
+                            return baasicApiHttp.post(articleRouteService.subscriptions.commentReported.subscribe.expand(data), data);
                         },
                         /**
-                         * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article tag.
-                         * @method subscriptions.tag.isSubscribed
+                         * Returns a promise that is resolved once the isSubscribed action has been performed. 
+                         * @method subscriptions.commentReported.isSubscribed
                          * @example 
-                         baasicArticleService.subscriptions.tag.isSubscribed(tag, user)
+                         baasicArticleService.subscriptions.commentReported.isSubscribed(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2489,15 +2490,14 @@
                          // perform error handling here
                          });
                          **/
-                        isSubscribed: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.get(articleRouteService.subscriptions.tag.expand(params));
+                        isSubscribed: function (data) {
+                            return baasicApiHttp.get(articleRouteService.subscriptions.article.isSubscribed.expand(data));
                         },
                         /**
-                         * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the specified article tag.
-                         * @method subscriptions.tag.unSubscribe
+                         * Returns a promise that is commentReported once the unSubscribe action has been performed.
+                         * @method subscriptions.commentReported.unSubscribe
                          * @example 
-                         baasicArticleService.subscriptions.tag.unSubscribe(tag, user)
+                         baasicArticleService.subscriptions.commentReported.unSubscribe(data)
                          .success(function (data) {
                          // perform success action here
                          })
@@ -2505,9 +2505,63 @@
                          // perform error handling here
                          });
                          **/
-                        unSubscribe: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.tag.expand(params));
+                        unSubscribe: function (data) {
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.article.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
+                        }
+                    },
+                    commentRequiresModeration: {
+                        /**
+                         * Returns a promise that is resolved once the subscribe action has been performed.
+                         * @method subscriptions.commentRequiresModeration.subscribe
+                         * @example 
+                         baasicArticleService.subscriptions.commentRequiresModeration.subscribe(data)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        subscribe: function (data) {
+                            return baasicApiHttp.post(articleRouteService.subscriptions.commentRequiresModeration.subscribe.expand(data), data);
+                        },
+                        /**
+                         * Returns a promise that is resolved once the isSubscribed action has been performed. 
+                         * @method subscriptions.commentRequiresModeration.isSubscribed
+                         * @example 
+                         baasicArticleService.subscriptions.commentRequiresModeration.isSubscribed(data)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        isSubscribed: function (data) {
+                            return baasicApiHttp.get(articleRouteService.subscriptions.commentRequiresModeration.isSubscribed.expand(data));
+                        },
+                        /**
+                         * Returns a promise that is commentReported once the unSubscribe action has been performed.
+                         * @method subscriptions.commentRequiresModeration.unSubscribe
+                         * @example 
+                         baasicArticleService.subscriptions.commentRequiresModeration.unSubscribe(data)
+                         .success(function (data) {
+                         // perform success action here
+                         })
+                         .error(function (response, status, headers, config) {
+                         // perform error handling here
+                         });
+                         **/
+                        unSubscribe: function (data) {
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.commentRequiresModeration.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
                         }
                     }
                 },
@@ -3939,7 +3993,38 @@
                  {embed: '<embedded-resource>'}
                  );
                  **/
-                parse: uriTemplateService.parse
+                parse: uriTemplateService.parse,
+
+                subscriptions: {
+                    /**
+                     * Parses subscribe route which must be expanded with id of the tag.
+                     * @method subscriptions.subscribe
+                     * @example 
+                     baasicArticleTagsRouteService.subscriptions.subscribe.expand(
+                     {id: '<tag-id>'}
+                     );
+                     **/
+                    subscribe: uriTemplateService.parse('article-tags/{id}/subscriptions'),
+                    /**
+                     * Parses isSubscribed route which must be expanded with subscriber id and the id of the tag.
+                     * @method subscriptions.isSubscribed
+                     * @example 
+                     baasicArticleRouteService.subscriptions.isSubscribed.expand({
+                     id: '<tag-id>',
+                     subscriberId: '<subscriber-id>'
+                     });
+                     **/
+                    isSubscribed: uriTemplateService.parse('article-tags/{id}/subscriptions/{subscriberId}'),
+                    /**
+                     * Parses unSubscribe route which must be expanded with the id of the article.
+                     * @method subscriptions.unSubscribe
+                     * @example 
+                     baasicArticleRouteService.subscriptions.unSubscribe.expand(
+                     {id: '<tag-id>'}
+                     );
+                     **/
+                    unSubscribe: uriTemplateService.parse('article-tags/{id}/subscriptions')
+                }
             };
         }]);
     }(angular, module));
@@ -4044,7 +4129,62 @@
                  * @method        
                  * @example baasicArticleTagsService.routeService.get.expand(expandObject);
                  **/
-                routeService: articleTagsRouteService
+                routeService: articleTagsRouteService,
+
+                subscriptions: {
+                    /**
+                     * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the specified tag.
+                     * @method subscriptions.subscribe
+                     * @example 
+                     baasicArticleTagsService.subscriptions.subscribe(tag, user)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    subscribe: function (tag, data) {
+                        var params = angular.extend(tag, data);
+                        return baasicApiHttp.post(articleTagsRouteService.subscriptions.subscribe.expand(params), params);
+                    },
+                    /**
+                     * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified tag.
+                     * @method subscriptions.isSubscribed
+                     * @example 
+                     baasicArticleTagsService.subscriptions.isSubscribed(tag, user)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    isSubscribed: function (tag, data) {
+                        var params = angular.extend(tag, data);
+                        return baasicApiHttp.get(articleTagsRouteService.subscriptions.isSubscribed.expand(params));
+                    },
+                    /**
+                     * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the specified tag.
+                     * @method subscriptions.unSubscribe
+                     * @example 
+                     baasicArticleTagsService.subscriptions.unSubscribe(tag, user)
+                     .success(function (data) {
+                     // perform success action here
+                     })
+                     .error(function (response, status, headers, config) {
+                     // perform error handling here
+                     });
+                     **/
+                    unSubscribe: function (tag, data) {
+                        var params = angular.extend(tag, data);
+                        return baasicApiHttp({
+                            url: articleTagsRouteService.subscriptions.unSubscribe.expand(params),
+                            method: 'DELETE',
+                            data: params
+                        });
+                    }
+                }
             };
         }]);
     }(angular, module));

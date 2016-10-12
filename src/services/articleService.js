@@ -75,12 +75,6 @@
                 unapproved: 16
             };
 
-            var subscriptionStatuses = {
-                section: 1,
-                article: 2,
-                tag: 4
-            };
-
             function toSlug(str) {
                 if (angular.isUndefined(str) || str === null || str === '') {
                     return str;
@@ -358,55 +352,12 @@ baasicArticleService.purge({})
                     return baasicApiHttp.delete(articleRouteService.purge.expand(options));
                 },
                 subscriptions: {
-                    /**
-                    * Contains a reference to valid list of article subscription statuses. It returns an object containing all article subscription statuses.
-                    * @method subscriptions.statuses      
-                    * @example baasicArticleService.subscriptions.statuses.section;
-                    **/
-                    statuses: subscriptionStatuses,                    
-                    /**
-                    * Returns a promise that is resolved once the find action has been performed. Success response returns a list of article subscriber resources matching the given criteria.
-                    * @method subscriptions.find
-                    * @example 
-baasicArticleService.subscriptions.find({
-pageNumber : 1,
-pageSize : 10,
-orderBy : '<field>',
-orderDirection : '<asc|desc>',
-search : '<search-phrase>'
-})
-.success(function (collection) {
-// perform success action here
-})
-.error(function (response, status, headers, config) {
-// perform error handling here
-});    
-                    **/
-                    find: function (options) {
-                        var params = baasicApiService.findParams(options);
-                        return baasicApiHttp.get(articleRouteService.subscriptions.find.expand(params));
-                    },  
-                    /**
-                    * Returns a promise that is resolved once the get action has been performed. Success response returns the specified article subscriber resource.
-                    * @method       
-                    * @example 
-baasicArticleService.subscriptions.get('<subscriber-id>')
-.success(function (data) {
-// perform success action here
-})
-.error(function (response, status, headers, config) {
-// perform error handling here
-});
-                    **/
-                    get: function (id, options) {
-                        return baasicApiHttp.get(articleRouteService.subscriptions.get.expand(baasicApiService.getParams(id, options)));
-                    },
                     articleModule: {
                         /**
                         * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the article module.
                         * @method subscriptions.articleModule.subscribe
                         * @example 
-baasicArticleService.subscriptions.articleModule.subscribe(user)
+baasicArticleService.subscriptions.articleModule.subscribe(data)
 .success(function (data) {
 // perform success action here
 })
@@ -415,13 +366,13 @@ baasicArticleService.subscriptions.articleModule.subscribe(user)
 });
                         **/
                         subscribe: function (data) {
-                            return baasicApiHttp.post(articleRouteService.subscriptions.articleModule.expand(data), {});
+                            return baasicApiHttp.post(articleRouteService.subscriptions.articleModule.subscribe.expand(data), data);
                         },
                         /**
                         * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the article module.
                         * @method subscriptions.articleModule.isSubscribed
                         * @example 
-baasicArticleService.subscriptions.articleModule.isSubscribed(user)
+baasicArticleService.subscriptions.articleModule.isSubscribed(data)
 .success(function (data) {
 // perform success action here
 })
@@ -430,13 +381,13 @@ baasicArticleService.subscriptions.articleModule.isSubscribed(user)
 });
                         **/
                         isSubscribed: function (data) {
-                            return baasicApiHttp.get(articleRouteService.subscriptions.articleModule.expand(data));
+                            return baasicApiHttp.get(articleRouteService.subscriptions.articleModule.isSubscribed.expand(data));
                         },
                         /**
                         * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the article module.
                         * @method subscriptions.articleModule.unSubscribe
                         * @example 
-baasicArticleService.subscriptions.articleModule.unSubscribe(user)
+baasicArticleService.subscriptions.articleModule.unSubscribe(data)
 .success(function (data) {
 // perform success action here
 })
@@ -445,7 +396,11 @@ baasicArticleService.subscriptions.articleModule.unSubscribe(user)
 });
                         **/
                         unSubscribe: function (data) {
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.articleModule.expand(data));
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.articleModule.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
                         }
                     },
                     article: {
@@ -461,9 +416,9 @@ baasicArticleService.subscriptions.article.subscribe(article, user)
 // perform error handling here
 });
                         **/
-                        subscribe: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.post(articleRouteService.subscriptions.article.expand(params), {});
+                        subscribe: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp.post(articleRouteService.subscriptions.article.subscribe.expand(params), params);
                         },
                         /**
                         * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article.
@@ -477,9 +432,9 @@ baasicArticleService.subscriptions.article.isSubscribed(article, user)
 // perform error handling here
 });
                         **/
-                        isSubscribed: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.get(articleRouteService.subscriptions.article.expand(params));
+                        isSubscribed: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp.get(articleRouteService.subscriptions.article.isSubscribed.expand(params));
                         },
                         /**
                         * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the specified article.
@@ -493,17 +448,21 @@ baasicArticleService.subscriptions.article.unSubscribe(article, user)
 // perform error handling here
 });
                         **/
-                        unSubscribe: function (article, user) {
-                            var params = angular.extend(article, user);
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.article.expand(params));
+                        unSubscribe: function (article, data) {
+                            var params = angular.extend(article, data);
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.article.unSubscribe.expand(params),
+                                method: 'DELETE',
+                                data: params
+                            });
                         }
                     },
-                    tag: {
+                    commentReported: {
                         /**
-                        * Returns a promise that is resolved once the subscribe action has been performed. This action subscribes an user to the specified article tag.
-                        * @method subscriptions.tag.subscribe
+                        * Returns a promise that is resolved once the subscribe action has been performed.
+                        * @method subscriptions.commentReported.subscribe
                         * @example 
-baasicArticleService.subscriptions.tag.subscribe(tag, user)
+baasicArticleService.subscriptions.commentReported.subscribe(data)
 .success(function (data) {
 // perform success action here
 })
@@ -511,15 +470,14 @@ baasicArticleService.subscriptions.tag.subscribe(tag, user)
 // perform error handling here
 });
                         **/
-                        subscribe: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.post(articleRouteService.subscriptions.tag.expand(params), {});
+                        subscribe: function (data) {
+                            return baasicApiHttp.post(articleRouteService.subscriptions.commentReported.subscribe.expand(data), data);
                         },
                         /**
-                        * Returns a promise that is resolved once the isSubscribed action has been performed. This action checks if a user is subscribed to the specified article tag.
-                        * @method subscriptions.tag.isSubscribed
+                        * Returns a promise that is resolved once the isSubscribed action has been performed. 
+                        * @method subscriptions.commentReported.isSubscribed
                         * @example 
-baasicArticleService.subscriptions.tag.isSubscribed(tag, user)
+baasicArticleService.subscriptions.commentReported.isSubscribed(data)
 .success(function (data) {
 // perform success action here
 })
@@ -527,15 +485,14 @@ baasicArticleService.subscriptions.tag.isSubscribed(tag, user)
 // perform error handling here
 });
                         **/
-                        isSubscribed: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.get(articleRouteService.subscriptions.tag.expand(params));
+                        isSubscribed: function (data) {
+                            return baasicApiHttp.get(articleRouteService.subscriptions.article.isSubscribed.expand(data));
                         },
                         /**
-                        * Returns a promise that is resolved once the unSubscribe action has been performed. This action unsubscribes a user from the specified article tag.
-                        * @method subscriptions.tag.unSubscribe
+                        * Returns a promise that is commentReported once the unSubscribe action has been performed.
+                        * @method subscriptions.commentReported.unSubscribe
                         * @example 
-baasicArticleService.subscriptions.tag.unSubscribe(tag, user)
+baasicArticleService.subscriptions.commentReported.unSubscribe(data)
 .success(function (data) {
 // perform success action here
 })
@@ -543,9 +500,63 @@ baasicArticleService.subscriptions.tag.unSubscribe(tag, user)
 // perform error handling here
 });
                         **/
-                        unSubscribe: function (tag, user) {
-                            var params = angular.extend(tag, user);
-                            return baasicApiHttp.delete(articleRouteService.subscriptions.tag.expand(params));
+                        unSubscribe: function (data) {
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.article.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
+                        }
+                    },
+                    commentRequiresModeration: {
+                        /**
+                        * Returns a promise that is resolved once the subscribe action has been performed.
+                        * @method subscriptions.commentRequiresModeration.subscribe
+                        * @example 
+baasicArticleService.subscriptions.commentRequiresModeration.subscribe(data)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/
+                        subscribe: function (data) {
+                            return baasicApiHttp.post(articleRouteService.subscriptions.commentRequiresModeration.subscribe.expand(data), data);
+                        },
+                        /**
+                        * Returns a promise that is resolved once the isSubscribed action has been performed. 
+                        * @method subscriptions.commentRequiresModeration.isSubscribed
+                        * @example 
+baasicArticleService.subscriptions.commentRequiresModeration.isSubscribed(data)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/
+                        isSubscribed: function (data) {
+                            return baasicApiHttp.get(articleRouteService.subscriptions.commentRequiresModeration.isSubscribed.expand(data));
+                        },
+                        /**
+                        * Returns a promise that is commentReported once the unSubscribe action has been performed.
+                        * @method subscriptions.commentRequiresModeration.unSubscribe
+                        * @example 
+baasicArticleService.subscriptions.commentRequiresModeration.unSubscribe(data)
+.success(function (data) {
+// perform success action here
+})
+.error(function (response, status, headers, config) {
+// perform error handling here
+});
+                        **/
+                        unSubscribe: function (data) {
+                            return baasicApiHttp({
+                                url: articleRouteService.subscriptions.commentRequiresModeration.unSubscribe.expand(data),
+                                method: 'DELETE',
+                                data: data
+                            });
                         }
                     }
                 },
