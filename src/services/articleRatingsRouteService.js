@@ -1,13 +1,19 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleRatingsRouteService
- * @description Baasic Article Ratings Route Service  provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
+ * @description Baasic Article Ratings Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Ratings Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services use the same function names as their corresponding services.
 */
 (function (angular, module, undefined) {
     'use strict';
     module.service('baasicArticleRatingsRouteService', ['baasicUriTemplateService',
         function (uriTemplateService) {
             return {
+                /**
+                * Parses create article rating route; this URI does not support any additional embed items.
+                * @method     
+                * @example baasicArticleRatingsRouteService.create.expand({});
+                **/  					
+                create: uriTemplateService.parse('article-ratings'),                
                 /**
                 * Parses find article rating route which can be expanded with additional options. Supported items are: 
                 * - `searchQuery` - A string referencing article rating properties using the phrase or BQL (Baasic Query Language) search.

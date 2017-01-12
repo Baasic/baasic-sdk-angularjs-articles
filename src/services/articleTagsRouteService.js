@@ -1,7 +1,7 @@
 ﻿/* globals module */
 /**
  * @module baasicArticleTagsRouteService
- * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain a needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
+ * @description Baasic Article Tags Route Service provides Baasic route templates which can be expanded to Baasic REST URIs. Various services can use Baasic Article Tags Route Service to obtain needed routes while other routes will be obtained through HAL. By convention, all route services  use the same function names as their corresponding services.
 */
 
 (function (angular, module, undefined) {
@@ -43,7 +43,38 @@ baasicArticleTagsRouteService.parse(
 	{embed: '<embedded-resource>'}
 );
 				**/							
-                parse: uriTemplateService.parse
+                parse: uriTemplateService.parse,
+                
+                subscriptions: {
+                    /**
+                    * Parses subscribe route which must be expanded with id of the tag.
+                    * @method subscriptions.subscribe
+                    * @example 
+baasicArticleTagsRouteService.subscriptions.subscribe.expand(
+{id: '<tag-id>'}
+);   
+                    **/
+                    subscribe: uriTemplateService.parse('article-tags/{id}/subscriptions'),   
+                    /**
+                     * Parses isSubscribed route which must be expanded with subscriber id and the id of the tag.
+                     * @method subscriptions.isSubscribed
+                     * @example 
+baasicArticleRouteService.subscriptions.isSubscribed.expand({
+id: '<tag-id>', 
+subscriberId: '<subscriber-id>'
+});   
+                    **/
+                    isSubscribed: uriTemplateService.parse('article-tags/{id}/subscriptions/{subscriberId}'),                              
+                    /**
+                    * Parses unSubscribe route which must be expanded with the id of the article.
+                    * @method subscriptions.unSubscribe
+                    * @example 
+baasicArticleRouteService.subscriptions.unSubscribe.expand(
+{id: '<tag-id>'}
+);                             
+                    **/
+                    unSubscribe: uriTemplateService.parse('article-tags/{id}/subscriptions')                
+                }
             };
         }]);
 }(angular, module));
