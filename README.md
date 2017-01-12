@@ -1,6 +1,6 @@
 # Baasic Articles AngularJS SDK
 
-Baasic AngularJS Articles library provides access to [Baasic REST API](https://api.baasic.com/beta) article end-points.
+Baasic AngularJS Articles library provides access to [Baasic REST API](http://dev.baasic.com/api/reference/home) article end-points.
 
 ## Dependencies
 
