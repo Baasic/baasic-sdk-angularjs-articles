@@ -25,7 +25,7 @@ gulp.task('scripts', function() {
   return gulp.src(paths.scripts)
     .pipe(plugins.order(['*.moduleDefinition.js', '*.js']))
 	.pipe(plugins.concat('baasic-angular-article.js'))
-	.pipe(plugins.header('/*\n Baasic AngularJS Articles %%GULP_INJECT_VERSION%%\n (c) 2014-2016 Mono http://baasic.com\n License: MIT\n*/\n(function (angular, undefined) {\n'))   
+	.pipe(plugins.header('/*\n Baasic AngularJS Articles %%GULP_INJECT_VERSION%%\n (c) 2014-' + new Date().getFullYear() + ' Mono Ltd.  http://baasic.com\n License: MIT\n*/\n(function (angular, undefined) {\n'))   
 	.pipe(plugins.footer('\n})(angular);'))
     .pipe(injectVersion())
 	.pipe(plugins.beautify())
